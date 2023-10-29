@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="Agregado clases y enumerados">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="IntelliJ code">
       <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Burako.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Comodin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Dado.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Ficha.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Mazo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Pila.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/PilaDeMuerto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Pozo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Tablero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Jugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Jugador.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,6 +49,7 @@
     "project.structure.last.edited": "Global Libraries",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.toDoOptions",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -72,7 +64,7 @@
       <workItem from="1698449758075" duration="722000" />
       <workItem from="1698527471251" duration="1893000" />
       <workItem from="1698534338758" duration="3456000" />
-      <workItem from="1698588802303" duration="27290000" />
+      <workItem from="1698588802303" duration="28215000" />
     </task>
     <task id="LOCAL-00001" summary="Primer commit">
       <option name="closed" value="true" />
@@ -90,7 +82,79 @@
       <option name="project" value="LOCAL" />
       <updated>1698537932712</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Clase ficha, seteo de valores de fichas, constructor">
+      <option name="closed" value="true" />
+      <created>1698621137697</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698621137697</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Clase Ficha, seteo de valores de fichas, constructor">
+      <option name="closed" value="true" />
+      <created>1698621165386</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698621165386</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Clase Pila, agregar fichas a la pila">
+      <option name="closed" value="true" />
+      <created>1698621208853</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1698621208853</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Clase PilaDeMuerto">
+      <option name="closed" value="true" />
+      <created>1698621230406</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1698621230406</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Clase Dado, tirar dado">
+      <option name="closed" value="true" />
+      <created>1698621262659</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1698621262659</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Clase Comodin, seteo de valor">
+      <option name="closed" value="true" />
+      <created>1698621296795</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1698621296795</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Clase Pozo, agregar ficha al pozo, recoger pozo completo">
+      <option name="closed" value="true" />
+      <created>1698621333724</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1698621333724</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Clase Tablero, sin implementar">
+      <option name="closed" value="true" />
+      <created>1698621352912</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1698621352912</updated>
+    </task>
+    <task id="LOCAL-00011" summary="IntelliJ code">
+      <option name="closed" value="true" />
+      <created>1698621439470</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1698621439470</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -99,7 +163,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Primer commit" />
     <MESSAGE value="Agregado clases y enumerados" />
-    <option name="LAST_COMMIT_MESSAGE" value="Agregado clases y enumerados" />
+    <MESSAGE value="Clase Pila" />
+    <MESSAGE value="Clase ficha, seteo de valores de fichas, constructor" />
+    <MESSAGE value="Clase Ficha, seteo de valores de fichas, constructor" />
+    <MESSAGE value="Clase Pila, agregar fichas a la pila" />
+    <MESSAGE value="Clase PilaDeMuerto" />
+    <MESSAGE value="Clase Dado, tirar dado" />
+    <MESSAGE value="Clase Comodin, seteo de valor" />
+    <MESSAGE value="Clase Pozo, agregar ficha al pozo, recoger pozo completo" />
+    <MESSAGE value="Clase Tablero, sin implementar" />
+    <MESSAGE value="IntelliJ code" />
+    <option name="LAST_COMMIT_MESSAGE" value="IntelliJ code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
