@@ -1,14 +1,19 @@
 package ar.edu.unlu.poo.burako.juego;
 
+import java.util.ArrayList;
+
 public class Jugador {
 
     private String nombre;
 
     private Integer puntos;
 
+    private ArrayList<Ficha> atril;
+
     public Jugador(String nombre) {
         this.nombre = nombre;
         this.reset();
+        this.atril = new ArrayList<>();
     }
 
     public void reset() {
@@ -22,4 +27,13 @@ public class Jugador {
     public Integer getPuntos() {
         return puntos;
     }
+
+    public ArrayList<Ficha> getAtril() {
+        return atril;
+    }
+
+    public void setAtril(ArrayList<Ficha> atril) {
+        this.atril = atril;
+    }
+
 }
