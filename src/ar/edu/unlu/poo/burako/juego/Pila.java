@@ -14,4 +14,12 @@ public class Pila {
         pila.add(ficha);
     }
 
+    public Ficha sacarFicha() {
+        if (!pila.isEmpty()) {
+            return pila.remove(pila.size() - 1);
+        } else {
+            return null;
+        }
+    }
+
 }
