@@ -4,6 +4,18 @@ public class Ficha {
 
     protected ColorFicha color;
 
+    public ColorFicha getColor() {
+        return color;
+    }
+
+    public Integer getNumeroFicha() {
+        return numeroFicha;
+    }
+
+    public Integer getValorFicha() {
+        return valorFicha;
+    }
+
     protected Integer numeroFicha;
 
     protected Integer valorFicha;
