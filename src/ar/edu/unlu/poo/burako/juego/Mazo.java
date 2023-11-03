@@ -112,4 +112,15 @@ public class Mazo {
         return fichasAtrilAux;
     }
 
+    public Ficha recogerFichaMazo() {
+        if (!mazo.isEmpty()) {
+            Pila pilaUltima = mazo.get(mazo.size() - 1);
+            // TODO Contemplar que sucede cuando Pila este vacío
+            return pilaUltima.sacarFicha();
+        } else {
+            return null;
+        }
+
+    }
+
 }
