@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Burako {
 
+    private Mazo mazo;
+
     private List<Jugador> jugadores;
 
     private void agregarJugador() {
@@ -12,11 +14,17 @@ public class Burako {
         jugadores.add(jugador1);
         Jugador jugador2 = new Jugador("Test2");
         jugadores.add(jugador2);
-        Mazo mazo = new Mazo(jugador1, jugador2);
+        this.mazo = new Mazo(jugador1, jugador2);
     }
 
     public Burako() {
         jugadores = new ArrayList<Jugador>();
+    }
+
+    private void tomarMuerto(Jugador jugador) {
+        if (!mazo.getMuerto().isEmpty()) {
+            jugador.setAtril(mazo.sacarMuerto());
+        }
     }
 
 }
