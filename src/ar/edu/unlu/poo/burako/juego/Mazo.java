@@ -6,9 +6,18 @@ import static java.lang.Math.random;
 
 public class Mazo {
 
+
     private ArrayList<Pila> mazo; // pilas de 10 fichas c/u
 
-    private ArrayList<PilaDeMuerto> muertos; // 2 pilas de 11 fichas c/u
+    private ArrayList<PilaDeMuerto> muerto; // 2 pilas de 11 fichas c/u
+
+    public ArrayList<Ficha> sacarMuerto() {
+        return muerto.remove(0).getPilaDeMuerto();
+    }
+
+    public ArrayList<PilaDeMuerto> getMuerto() {
+        return muerto;
+    }
 
     /**
      * Constructor para 2 jugadores
@@ -19,7 +28,7 @@ public class Mazo {
     public Mazo(Jugador jugador1, Jugador jugador2) {
         ArrayList<Ficha> fichasSinRepartir = crearFichas();
         this.mazo = new ArrayList<>(5);
-        this.muertos = new ArrayList<>(2);
+        this.muerto = new ArrayList<>(2);
         jugador1.setAtril(repartirAtril(fichasSinRepartir));
         jugador2.setAtril(repartirAtril(fichasSinRepartir));
         repartirMuerto(fichasSinRepartir);
@@ -37,7 +46,7 @@ public class Mazo {
     public Mazo(Jugador jugador1, Jugador jugador2, Jugador jugador3, Jugador jugador4) {
         ArrayList<Ficha> fichasSinRepartir = crearFichas();
         this.mazo = new ArrayList<>(5);
-        this.muertos = new ArrayList<>(2);
+        this.muerto = new ArrayList<>(2);
         jugador1.setAtril(repartirAtril(fichasSinRepartir));
         jugador2.setAtril(repartirAtril(fichasSinRepartir));
         jugador3.setAtril(repartirAtril(fichasSinRepartir));
@@ -77,7 +86,7 @@ public class Mazo {
                 Ficha fichaAux = fichasSinRepartir.remove((int) (random() * fichasSinRepartir.size()));
                 pilaDeMuertoAux.agregarFicha(fichaAux);
             }
-            this.muertos.add(pilaDeMuertoAux);
+            this.muerto.add(pilaDeMuertoAux);
         }
     }
 
