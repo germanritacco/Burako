@@ -8,4 +8,7 @@ public class PilaDeMuerto extends Pila {
         pila = new ArrayList<>(11);
     }
 
+    public ArrayList<Ficha> getPilaDeMuerto(){
+        return pila;
+    }
 }
