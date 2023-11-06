@@ -44,6 +44,10 @@ public class Tablero {
             int numeroFichaActual = copiaJuego.get(i).getNumeroFicha();
             int numeroFichaSiguiente = copiaJuego.get(i + 1).getNumeroFicha();
             int diferencia = numeroFichaSiguiente - numeroFichaActual; // Si la diferencia es mayor a uno, es necesario utilizar un comodin
+            // Verifica que no haya 2 numero consecutivos iguales diferentes a 2
+            if (diferencia == 0 && numeroFichaActual != 2) {
+                return false;
+            }
             if (diferencia > 1) {
                 comodinesUsados = comodinesUsados + diferencia - 1; // Si es necesario utilizar un comodin, verifica si hay comodines para usar
                 if (comodinesUsados > cantidadComodines(copiaJuego)) {
@@ -144,5 +148,7 @@ public class Tablero {
         }
         return suma;
     }
+
+
 
 }

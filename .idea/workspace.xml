@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="intelliJ code">
+    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="getPilaDeMuerto">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Tablero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/juego/Tablero.java" afterDir="false" />
     </list>
@@ -86,7 +86,7 @@
       <workItem from="1698967919019" duration="7730000" />
       <workItem from="1699047851694" duration="2102000" />
       <workItem from="1699131278325" duration="8633000" />
-      <workItem from="1699199794733" duration="7301000" />
+      <workItem from="1699199794733" duration="12782000" />
     </task>
     <task id="LOCAL-00001" summary="Primer commit">
       <option name="closed" value="true" />
@@ -248,7 +248,39 @@
       <option name="project" value="LOCAL" />
       <updated>1698982192337</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Agregados metodos a Tablero">
+      <option name="closed" value="true" />
+      <created>1699226100386</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1699226100386</updated>
+    </task>
+    <task id="LOCAL-00022" summary="tomarMuerto">
+      <option name="closed" value="true" />
+      <created>1699230883582</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1699230883582</updated>
+    </task>
+    <task id="LOCAL-00023" summary="sacarMuerto, getMuerto">
+      <option name="closed" value="true" />
+      <created>1699230899628</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1699230899628</updated>
+    </task>
+    <task id="LOCAL-00024" summary="getPilaDeMuerto">
+      <option name="closed" value="true" />
+      <created>1699230912953</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1699230912953</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -287,6 +319,10 @@
     <MESSAGE value="Clase Pila: sacarFicha" />
     <MESSAGE value="Clase Tablero: setters &amp; getters, esEscalera a optimizar" />
     <MESSAGE value="intelliJ code" />
-    <option name="LAST_COMMIT_MESSAGE" value="intelliJ code" />
+    <MESSAGE value="Agregados metodos a Tablero" />
+    <MESSAGE value="tomarMuerto" />
+    <MESSAGE value="sacarMuerto, getMuerto" />
+    <MESSAGE value="getPilaDeMuerto" />
+    <option name="LAST_COMMIT_MESSAGE" value="getPilaDeMuerto" />
   </component>
 </project>
