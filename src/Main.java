@@ -1,17 +1,30 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import ar.edu.unlu.poo.burako.controlador.Controlador;
+import ar.edu.unlu.poo.burako.modelo.Burako;
+import ar.edu.unlu.poo.burako.vista.IVista;
+import ar.edu.unlu.poo.burako.vista.VistaConsola;
+import ar.edu.unlu.poo.burako.vista.VistaGrafica;
+
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Intro with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
-
-        // Press Mayús+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
-
-            // Press Mayús+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    Burako modelo = new Burako();
+                    IVista frameConsola = new VistaConsola();
+                    IVista frameConsola2 = new VistaConsola();
+                    IVista frameGrafica = new VistaGrafica();
+                    Controlador controlador = new Controlador(frameConsola, modelo);
+                    Controlador controlador2 = new Controlador(frameConsola2, modelo);
+                    Controlador controlador3 = new Controlador(frameGrafica, modelo);
+                    frameConsola.iniciar();
+                    frameConsola2.iniciar();
+                    frameGrafica.iniciar();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

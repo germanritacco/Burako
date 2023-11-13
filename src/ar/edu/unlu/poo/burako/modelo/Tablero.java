@@ -1,7 +1,6 @@
-package ar.edu.unlu.poo.burako.juego;
+package ar.edu.unlu.poo.burako.modelo;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class Tablero {
@@ -89,7 +88,6 @@ public class Tablero {
             contador++;
             i++;
         }
-
         if (i < juego.size()) {
             int numeroFicha = juego.get(i).getNumeroFicha();
             for (i = i + 1; i < juego.size() - 1; i++) {
@@ -148,7 +146,5 @@ public class Tablero {
         }
         return suma;
     }
-
-
 
 }

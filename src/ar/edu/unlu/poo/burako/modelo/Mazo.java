@@ -1,4 +1,4 @@
-package ar.edu.unlu.poo.burako.juego;
+package ar.edu.unlu.poo.burako.modelo;
 
 import java.util.ArrayList;
 
@@ -7,9 +7,9 @@ import static java.lang.Math.random;
 public class Mazo {
 
 
-    private ArrayList<Pila> mazo; // pilas de 10 fichas c/u
+    private final ArrayList<Pila> mazo; // pilas de 10 fichas c/u
 
-    private ArrayList<PilaDeMuerto> muerto; // 2 pilas de 11 fichas c/u
+    private final ArrayList<PilaDeMuerto> muerto; // 2 pilas de 11 fichas c/u
 
     public ArrayList<Ficha> sacarMuerto() {
         return muerto.remove(0).getPilaDeMuerto();
@@ -129,7 +129,6 @@ public class Mazo {
         } else {
             return null;
         }
-
     }
 
 }

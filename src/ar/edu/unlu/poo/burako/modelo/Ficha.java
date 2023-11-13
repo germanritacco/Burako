@@ -1,4 +1,4 @@
-package ar.edu.unlu.poo.burako.juego;
+package ar.edu.unlu.poo.burako.modelo;
 
 public class Ficha {
 
@@ -30,7 +30,7 @@ public class Ficha {
     }
 
     public Integer Valor(Integer ficha) {
-        Integer ValorFinal = 0;
+        int ValorFinal = 0;
         switch (ficha) {
             case 1 -> ValorFinal = 15;
             case 2 -> ValorFinal = 20;

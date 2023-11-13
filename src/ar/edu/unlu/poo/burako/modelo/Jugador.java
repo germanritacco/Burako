@@ -1,10 +1,10 @@
-package ar.edu.unlu.poo.burako.juego;
+package ar.edu.unlu.poo.burako.modelo;
 
 import java.util.ArrayList;
 
 public class Jugador {
 
-    private String nombre;
+    private final String nombre;
 
     private Integer puntos;
 

@@ -1,4 +1,4 @@
-package ar.edu.unlu.poo.burako.juego;
+package ar.edu.unlu.poo.burako.modelo;
 
 public class Comodin extends Ficha {
     public Comodin() {

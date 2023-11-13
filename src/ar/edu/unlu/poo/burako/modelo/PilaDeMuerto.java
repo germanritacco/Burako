@@ -1,4 +1,4 @@
-package ar.edu.unlu.poo.burako.juego;
+package ar.edu.unlu.poo.burako.modelo;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,8 @@ public class PilaDeMuerto extends Pila {
         pila = new ArrayList<>(11);
     }
 
-    public ArrayList<Ficha> getPilaDeMuerto(){
+    public ArrayList<Ficha> getPilaDeMuerto() {
         return pila;
     }
+
 }
