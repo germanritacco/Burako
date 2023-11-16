@@ -10,4 +10,6 @@ public interface IVista {
 
     void mostrarTexto(String txt);
 
+    public void mostrarMenuPrincipal();
+
 }

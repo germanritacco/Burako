@@ -1,9 +1,12 @@
 package ar.edu.unlu.poo.burako.modelo;
 
+import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
+
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Burako implements Observable {
+public class Burako implements IBurako {
 
     private Mazo mazo;
 
@@ -32,19 +35,41 @@ public class Burako implements Observable {
         }
     }
 
-    public String getTxt() {
+    @Override
+    public String getTxt() throws RemoteException {
         return txt;
     }
 
-    public void setTxt(String txt) {
+    @Override
+    public void setTxt(String txt) throws RemoteException {
         this.txt = txt;
         notificarObservadores();
     }
 
-    public void notificarObservadores() {
+    @Override
+    public void agregarObservador(IObservadorRemoto iObservadorRemoto) throws RemoteException {
+
+    }
+
+    @Override
+    public void removerObservador(IObservadorRemoto iObservadorRemoto) throws RemoteException {
+
+    }
+
+    @Override
+    public void notificarObservadores(Object o) throws RemoteException {
+
+    }
+
+    @Override
+    public void notificarObservadores() throws RemoteException {
+
+    }
+
+    /* public void notificarObservadores() {
         for (Observer observador : misObservadores)
             observador.notificarCambio(getTxt());
-    }
+    }*/
 
     public void addObserver(Observer observador) {
         misObservadores.add(observador);

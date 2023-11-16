@@ -32,4 +32,9 @@ public class VistaGrafica implements IVista {
 
     }
 
+    @Override
+    public void mostrarMenuPrincipal() {
+
+    }
+
 }

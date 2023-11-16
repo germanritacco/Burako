@@ -1,28 +1,47 @@
 package ar.edu.unlu.poo.burako.controlador;
 
-import ar.edu.unlu.poo.burako.modelo.Burako;
-import ar.edu.unlu.poo.burako.modelo.Observer;
+import ar.edu.unlu.poo.burako.modelo.IBurako;
 import ar.edu.unlu.poo.burako.vista.IVista;
+import ar.edu.unlu.rmimvc.cliente.IControladorRemoto;
+import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
 
-public class Controlador implements Observer {
+import java.rmi.RemoteException;
+
+public class Controlador implements IControladorRemoto {
 
     private final IVista vista;
 
-    private final Burako modelo;
+    private IBurako modelo;
 
-    public Controlador(IVista vista, Burako modelo) {
+    public Controlador(IVista vista) {
         this.vista = vista;
-        this.modelo = modelo;
         this.vista.setControlador(this);
-        this.modelo.addObserver(this);
     }
 
     public void escribirTexto() {
-        modelo.setTxt("Logre que funciona MVC & Observer!!! ");
+        try {
+            modelo.setTxt("Logre que funciona MVC & Observer!!! ");
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void notificarCambio(String txt) {
-        vista.mostrarTexto(txt);
+    public String mostrarTexto() {
+        try {
+            return modelo.getTxt();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public <T extends IObservableRemoto> void setModeloRemoto(T modeloRemoto) throws RemoteException {
+        this.modelo = (IBurako) modeloRemoto;
+    }
+
+    @Override
+    public void actualizar(IObservableRemoto iObservableRemoto, Object o) throws RemoteException {
+
     }
 
 }
