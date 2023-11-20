@@ -5,6 +5,7 @@ import ar.edu.unlu.poo.burako.modelo.IBurako;
 import ar.edu.unlu.rmimvc.RMIMVCException;
 import ar.edu.unlu.rmimvc.Util;
 import ar.edu.unlu.rmimvc.servidor.Servidor;
+
 import javax.swing.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -41,10 +42,8 @@ public class AppServidor {
         try {
             servidor.iniciar(modelo);
         } catch (RemoteException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (RMIMVCException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

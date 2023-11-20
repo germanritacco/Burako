@@ -4,26 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="RMI">
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Eventos.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoNuevoJugador.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoRepartirFichas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/LibreriaRMIMVC.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/LibreriaRMIMVC.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="Flujos">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/AppClienteConsola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/AppClienteConsola.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/AppServidor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/AppServidor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/controlador/Controlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/controlador/Controlador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Burako.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Burako.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Ficha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Ficha.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/IBurako.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/IBurako.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Jugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Jugador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Observable.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Observer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/IVista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/IVista.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/VistaGrafica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/VistaGrafica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoMenuPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoMenuPrincipal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +91,7 @@
       <recent name="ar.edu.unlu.poo.burako" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AppClienteConsola 2">
+  <component name="RunManager" selected="Application.AppClienteConsola 1">
     <configuration name="AppClienteConsola 1" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="ar.edu.unlu.poo.burako.AppClienteConsola" />
       <module name="Burako" />
@@ -154,9 +138,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AppClienteConsola 2" />
         <item itemvalue="Application.AppClienteConsola 1" />
         <item itemvalue="Application.AppServidor" />
+        <item itemvalue="Application.AppClienteConsola 2" />
       </list>
     </recent_temporary>
   </component>
@@ -196,7 +180,7 @@
       <workItem from="1700256716001" duration="11721000" />
       <workItem from="1700339607555" duration="17961000" />
       <workItem from="1700408587182" duration="10771000" />
-      <workItem from="1700444960374" duration="2422000" />
+      <workItem from="1700444960374" duration="3425000" />
     </task>
     <task id="LOCAL-00001" summary="Primer commit">
       <option name="closed" value="true" />
@@ -414,7 +398,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700102667029</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Flujos">
+      <option name="closed" value="true" />
+      <created>1700447730854</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1700447730855</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -432,7 +424,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Clase ficha, seteo de valores de fichas, constructor" />
     <MESSAGE value="Clase Ficha, seteo de valores de fichas, constructor" />
     <MESSAGE value="Clase Pila, agregar fichas a la pila" />
     <MESSAGE value="Clase PilaDeMuerto" />
@@ -457,6 +448,7 @@
     <MESSAGE value="esEscalera fix fichas iguales" />
     <MESSAGE value="MVC &amp; Observer aplicado a modo de test" />
     <MESSAGE value="RMI" />
-    <option name="LAST_COMMIT_MESSAGE" value="RMI" />
+    <MESSAGE value="Flujos" />
+    <option name="LAST_COMMIT_MESSAGE" value="Flujos" />
   </component>
 </project>
