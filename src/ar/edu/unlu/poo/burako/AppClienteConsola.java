@@ -13,6 +13,11 @@ import java.util.ArrayList;
 public class AppClienteConsola {
     public static void main(String[] args) {
         ArrayList<String> ips = Util.getIpDisponibles();
+        String ip = "127.0.0.1";
+        String port = "9999";
+        String ipServidor = "127.0.0.1";
+        String portServidor = "8888";
+        /*
         String ip = (String) JOptionPane.showInputDialog(
                 null,
                 "Seleccione la IP en la que escuchará peticiones el cliente", "IP del cliente",
@@ -44,14 +49,14 @@ public class AppClienteConsola {
                 null,
                 null,
                 8888
-        );
+        );*/
         IVista vista = new VistaConsola();
         Controlador controlador = new Controlador(vista);
         Cliente c = new Cliente(ip, Integer.parseInt(port), ipServidor, Integer.parseInt(portServidor));
 
         try {
             c.iniciar(controlador);
-            vista.mostrarMenuPrincipal();
+            vista.nuevoJugador();
         } catch (RemoteException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -40,4 +40,9 @@ public class Ficha {
         return ValorFinal;
     }
 
+    @Override
+    public String toString() {
+        return numeroFicha.toString() + " " + color;
+    }
+
 }

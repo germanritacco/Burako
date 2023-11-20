@@ -13,6 +13,11 @@ public class AppServidor {
 
     public static void main(String[] args) {
         ArrayList<String> ips = Util.getIpDisponibles();
+
+        String ip = "127.0.0.1";
+        String port = "8888";
+
+        /*
         String ip = (String) JOptionPane.showInputDialog(
                 null,
                 "Seleccione la IP en la que escuchará peticiones el servidor", "IP del servidor",
@@ -28,7 +33,7 @@ public class AppServidor {
                 null,
                 null,
                 8888
-        );
+        );*/
 
         IBurako modelo = new Burako();
         Servidor servidor = new Servidor(ip, Integer.parseInt(port));

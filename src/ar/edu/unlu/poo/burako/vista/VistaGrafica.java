@@ -3,6 +3,7 @@ package ar.edu.unlu.poo.burako.vista;
 import ar.edu.unlu.poo.burako.controlador.Controlador;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class VistaGrafica implements IVista {
     private JPanel frmPrincipal;
@@ -32,8 +33,19 @@ public class VistaGrafica implements IVista {
 
     }
 
+    /**
+     *
+     */
     @Override
-    public void mostrarMenuPrincipal() {
+    public void nuevoJugador() {
+
+    }
+
+    /**
+     * @param fichas
+     */
+    @Override
+    public void mostrarAtril(ArrayList<String> fichas) {
 
     }
 

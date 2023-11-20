@@ -4,15 +4,10 @@ import ar.edu.unlu.poo.burako.controlador.Controlador;
 import ar.edu.unlu.poo.burako.vista.IVista;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import javax.swing.text.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
+import java.util.ArrayList;
 
 public class VistaConsola implements IVista {
     private JTextField txtEntrada;
@@ -49,6 +44,13 @@ public class VistaConsola implements IVista {
 
         // Cuando el botón tenga el foco y se presione "Enter", se activará automáticamente el ActionListener asociado al botón.
         frame.getRootPane().setDefaultButton(btnEnter);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent arg0) {
+                controlador.cerrarApp();
+            }
+        });
     }
 
     @Override
@@ -62,7 +64,6 @@ public class VistaConsola implements IVista {
     }
 
     private void escribirTexto() {
-        //controlador.escribirTexto();
         appendColor(txtEntrada.getText() + "\n", Color.ORANGE);
         procesarEntrada(txtEntrada.getText());
         txtEntrada.setText("");
@@ -78,9 +79,24 @@ public class VistaConsola implements IVista {
 
     @Override
     public void mostrarTexto(String txt) {
-        appendColor(txt, Color.GREEN);
-        appendColor(txt, Color.CYAN);
-        appendColor(txt, Color.MAGENTA);
+        appendColorPosicion(txt, Color.GREEN, 0);
+    }
+
+    public void mostrarAtril(ArrayList<String> fichas) {
+        for (String ficha : fichas) {
+            if (ficha.contains("NEGRO")) {
+                appendColor(ficha + "\n", Color.WHITE);
+            } else if (ficha.contains("AZUL")) {
+                appendColor(ficha + "\n", Color.BLUE);
+            } else if (ficha.contains("AMARILLO")) {
+                appendColor(ficha + "\n", Color.YELLOW);
+            } else if (ficha.contains("ROJO")) {
+                appendColor(ficha + "\n", Color.RED);
+            } else {
+                // Si no contiene ninguna palabra clave, usar un color predeterminado
+                appendColor(ficha + "\n", Color.MAGENTA);
+            }
+        }
     }
 
     public void appendColor(String texto, Color color) {
@@ -95,11 +111,31 @@ public class VistaConsola implements IVista {
         txtPane.setCaretPosition(txtPane.getDocument().getLength()); // Ajusta la posición del cursor al final del documento
     }
 
+    public void appendColorPosicion(String texto, Color color, int numeroLinea) {
+        StyledDocument doc = txtPane.getStyledDocument();
+        Style style = txtPane.addStyle("Style", null);
+        StyleConstants.setForeground(style, color);
 
-    public void mostrarMenuPrincipal() {
+        // Obtener la posición de inicio y fin de la línea especificada
+        Element root = doc.getDefaultRootElement();
+        int startOffset = root.getElement(numeroLinea).getStartOffset();
+        int endOffset = root.getElement(numeroLinea).getEndOffset();
+
+        try {
+            // Insertar el texto en la línea especificada
+            doc.insertString(endOffset, texto, style);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+
+        txtPane.setCaretPosition(endOffset); // Ajusta la posición del cursor al final de la línea
+    }
+
+    public void nuevoJugador() {
         iniciar();
-        flujoActual = new FlujoMenuPrincipal(this, controlador);
+        flujoActual = new FlujoNuevoJugador(this, controlador);
         flujoActual.mostrarSiguienteTexto();
+
     }
 
 }

@@ -13,14 +13,20 @@ public class FlujoMenuPrincipal extends Flujo {
     @Override
     public Flujo procesarEntrada(String string) {
         switch (string) {
-            case "1" -> test();
+            case "0" -> controlador.cerrarApp();
+            case "1" -> {
+                controlador.repartirCartas();
+                return new FlujoRepartirFichas(vista, controlador);
+            }
+            case "2" -> mostrarJugadores();
         }
         return this;
     }
 
-    private void test() {
-        controlador.escribirTexto();
-        vista.appendColor(controlador.mostrarTexto(), Color.YELLOW);
+    public void mostrarJugadores() {
+        vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
+        vista.appendColor(" Jugadores conectados:\n", Color.CYAN);
+        vista.appendColor(controlador.mostrarJugadores(), Color.RED);
     }
 
     @Override
@@ -30,12 +36,9 @@ public class FlujoMenuPrincipal extends Flujo {
         vista.appendColor(" |                                   BURAKO                                   |\n", Color.CYAN);
         vista.appendColor("  ============================================================================\n", Color.CYAN);
         vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  2   Operaciones con colas\n", Color.CYAN);
-        vista.appendColor("  3   Colas iguales\n", Color.CYAN);
-        vista.appendColor("  4   Elementos no repetidos\n", Color.CYAN);
-        vista.appendColor("  5   Divisores\n", Color.CYAN);
-        vista.appendColor("  6   Lista con valores comunes\n", Color.CYAN);
-        vista.appendColor("  7   Cola de clientes\n", Color.CYAN);
+        vista.appendColor("  1   Iniciar partida\n", Color.CYAN);
+        vista.appendColor("  2   Mostrar jugadores\n", Color.CYAN);
+        vista.appendColor("  3   Mostrar puntos\n", Color.CYAN);
         vista.appendColor("\n", Color.CYAN);
         vista.appendColor("  0   Salir\n", Color.CYAN);
         vista.appendColor("\n", Color.CYAN);
