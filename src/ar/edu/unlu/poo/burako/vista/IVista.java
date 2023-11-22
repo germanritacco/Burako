@@ -12,7 +12,7 @@ public interface IVista {
 
     void mostrarTexto(String txt);
 
-    public void nuevoJugador();
+    void nuevoJugador();
 
     void mostrarAtril(ArrayList<String> fichas);
 

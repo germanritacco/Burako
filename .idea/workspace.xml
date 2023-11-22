@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="Flujos">
+    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/AppClienteConsola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/AppClienteConsola.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/AppServidor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/AppServidor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +72,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15429688&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.scopes&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -180,7 +180,10 @@
       <workItem from="1700256716001" duration="11721000" />
       <workItem from="1700339607555" duration="17961000" />
       <workItem from="1700408587182" duration="10771000" />
-      <workItem from="1700444960374" duration="3425000" />
+      <workItem from="1700444960374" duration="3724000" />
+      <workItem from="1700521680701" duration="1281000" />
+      <workItem from="1700596940748" duration="97000" />
+      <workItem from="1700613314129" duration="670000" />
     </task>
     <task id="LOCAL-00001" summary="Primer commit">
       <option name="closed" value="true" />
@@ -406,7 +409,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700447730855</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="fix">
+      <option name="closed" value="true" />
+      <created>1700448601226</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1700448601226</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -424,7 +435,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Clase Ficha, seteo de valores de fichas, constructor" />
     <MESSAGE value="Clase Pila, agregar fichas a la pila" />
     <MESSAGE value="Clase PilaDeMuerto" />
     <MESSAGE value="Clase Dado, tirar dado" />
@@ -449,6 +459,7 @@
     <MESSAGE value="MVC &amp; Observer aplicado a modo de test" />
     <MESSAGE value="RMI" />
     <MESSAGE value="Flujos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Flujos" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
 </project>

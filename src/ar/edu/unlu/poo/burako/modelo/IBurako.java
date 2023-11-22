@@ -8,23 +8,23 @@ import java.util.ArrayList;
 
 public interface IBurako extends IObservableRemoto {
 
-    public void setJugador(String nombre) throws RemoteException;
+    void setJugador(String nombre) throws RemoteException;
 
-    public Jugador getJugador(String nombre) throws RemoteException;
+    Jugador getJugador(String nombre) throws RemoteException;
 
-    public void desconectarUsuario(Jugador jugador) throws RemoteException;
+    void desconectarUsuario(Jugador jugador) throws RemoteException;
 
-    public void cerrar(IObservadorRemoto controlador, String jugador) throws RemoteException;
+    void cerrar(IObservadorRemoto controlador, String jugador) throws RemoteException;
 
-    public String getJugadores() throws RemoteException;
+    String getJugadores() throws RemoteException;
 
-    public void enviarMensajeDelSistema(String mensaje) throws RemoteException;
+    void enviarMensajeDelSistema(String mensaje) throws RemoteException;
 
-    public String getMensajeSistema() throws RemoteException;
+    String getMensajeSistema() throws RemoteException;
 
-    public void repartirFichas() throws RemoteException;
+    void repartirFichas() throws RemoteException;
 
-    public ArrayList<String> getFichas(String nombre) throws RemoteException;
+    ArrayList<String> getFichas(String nombre) throws RemoteException;
 
-    public void mostrarJugadores() throws RemoteException;
+    void mostrarJugadores() throws RemoteException;
 }
