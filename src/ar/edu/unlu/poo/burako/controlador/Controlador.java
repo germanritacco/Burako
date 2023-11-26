@@ -34,10 +34,19 @@ public class Controlador implements IControladorRemoto {
             switch ((Eventos) cambio) {
                 case NUEVO_MENSAJE -> vista.mostrarTexto(this.modelo.getMensajeSistema() + "\n");
                 case MOSTRAR_ATRIL -> {
-                    ArrayList<String> fichas = this.modelo.getFichas(jugador.getNombre());
+                    ArrayList<String> fichas = this.modelo.getFichas(jugador);
                     this.vista.mostrarAtril(fichas);
                 }
                 case MOSTRAR_JUGADORES -> vista.mostrarTexto(this.modelo.getJugadores());
+                case PARTIDA -> {
+                    ArrayList<String> fichas = this.modelo.getFichas(jugador);
+                    ArrayList<String> pozo = this.modelo.mostrarPozo();
+                    this.vista.mostrarAtril(fichas);
+                }
+                case ABANDONAR_PARTIDA -> vista.abandonarPartida(jugador.getNombre());
+                case CAMBIO_TURNO -> {
+
+                }
             }
         }
     }
@@ -53,8 +62,8 @@ public class Controlador implements IControladorRemoto {
 
     public void nuevoJugador(String string) {
         try {
-            modelo.setJugador(string);
-            jugador = modelo.getJugador(string);
+            jugador = modelo.setJugador(string);
+            // jugador = modelo.getJugador(string);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -76,4 +85,70 @@ public class Controlador implements IControladorRemoto {
         }
     }
 
+    public boolean isTurno() {
+        return jugador.isTurno();
+    }
+
+    public void tomarFichaMazo() {
+        try {
+            modelo.recogerFichaMazo(jugador.getNombre());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Integer cantidadFichasAtril() {
+        try {
+            return modelo.cantidadFichasAtril(jugador.getNombre());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void abandonarPartida() {
+        try {
+            modelo.abandonarPartida();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Boolean hayJuegosMesa() {
+        try {
+            return modelo.hayJuegosMesa(jugador);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean agregarNuevaJugada(String[] seleccion) {
+        try {
+            return modelo.agregarNuevaJugada(jugador, seleccion);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int cantidadJuegosMesa() {
+        return modelo.cantidadJuegosMesa(jugador);
+    }
+
+    public boolean agregarFichaJugadaExistente(int posicion, String[] seleccion) {
+        try {
+            return modelo.agregarFichaJugadaExistente(jugador, seleccion, posicion);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void agregarFichaPozo(int posicion) {
+        try {
+            modelo.agregarFichaPozo(jugador, posicion);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void cambiarTurno() {
+    }
 }

@@ -21,4 +21,15 @@ public class Pozo {
         return pozoCompleto;
     }
 
+    public ArrayList<String> mostrarPozo() {
+        ArrayList<String> fichas = new ArrayList<>();
+        for (Ficha ficha : pozo) {
+            if (ficha instanceof Comodin) {
+                fichas.add("COMODIN");
+            } else {
+                fichas.add(ficha.toString());
+            }
+        }
+        return fichas;
+    }
 }

@@ -3,28 +3,45 @@ package ar.edu.unlu.poo.burako.modelo;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Tablero {
+public class Tablero implements ITablero {
 
     // TODO Implementar jugadas
 
+
     protected ArrayList<ArrayList<Ficha>> jugadaEnMesa = new ArrayList<>();
 
-    private Jugador jugador;
+    private ArrayList<Jugador> jugadores;
 
+    public Tablero() {
+        this.jugadaEnMesa = new ArrayList<>();
+        this.jugadores = new ArrayList<>(2);
+    }
+
+
+    @Override
     public ArrayList<ArrayList<Ficha>> getJugadaEnMesa() {
         return jugadaEnMesa;
     }
 
+
+    @Override
     public void setJugadaEnMesa(ArrayList<Ficha> jugadaEnMesa) {
         this.jugadaEnMesa.add(jugadaEnMesa);
     }
 
-    public Jugador getJugador() {
-        return jugador;
+    public boolean isVacio() {
+        return this.jugadaEnMesa.isEmpty();
     }
 
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
+
+    @Override
+    public ArrayList<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    @Override
+    public void agregarJugadores(Jugador jugador) {
+        jugadores.add(jugador);
     }
 
     /**
@@ -33,6 +50,8 @@ public class Tablero {
      * @param juego ArrayList de Fichas a verificar la jugada
      * @return Retorna Verdadero si el juego forma una escalera, caso contrario falso.
      */
+
+    @Override
     public boolean esEscalera(ArrayList<Ficha> juego) {
         // realiza una copia de "juego" para no alterar el orden
         ArrayList<Ficha> copiaJuego = new ArrayList<>(juego);
@@ -80,6 +99,8 @@ public class Tablero {
      * @param juego ArrayList de Fichas a verificar la jugada
      * @return Retorna Verdadero si el juego forma una escalera, caso contrario falso.
      */
+
+    @Override
     public boolean esPierna(ArrayList<Ficha> juego) {
         // Contamos cuántas cartas tienen el mismo número
         int contador = 1;
@@ -109,6 +130,8 @@ public class Tablero {
      * @param juego ArrayList de Fichas a verificar la canasta
      * @return Retorna Verdadero si el juego forma una canasta pura, caso contrario falso.
      */
+
+    @Override
     public boolean esCanastaPura(ArrayList<Ficha> juego) {
         return (esPierna(juego) || esEscalera(juego)) && juego.size() >= 7 && !contieneComodin(juego);
     }
@@ -120,6 +143,8 @@ public class Tablero {
      * @param juego ArrayList de Fichas a verificar la canasta
      * @return Retorna Verdadero si el juego forma una canasta impura, caso contrario falso.
      */
+
+    @Override
     public boolean esCanastaImpura(ArrayList<Ficha> juego) {
         return (esPierna(juego) || esEscalera(juego)) && juego.size() >= 7 && contieneComodin(juego);
     }
@@ -147,4 +172,30 @@ public class Tablero {
         return suma;
     }
 
+    public boolean verificarJugadaNueva(ArrayList<Ficha> jugada) {
+        boolean estado = false;
+        if (jugada.size() >= 3) {
+            if (esEscalera(jugada) || esPierna(jugada)) {
+                this.jugadaEnMesa.add(jugada);
+                estado = true;
+            }
+        }
+        return estado;
+    }
+
+    public boolean verificarJugadaExistente(ArrayList<Ficha> jugada, int posicion) {
+        boolean estado = false;
+        if (jugada.size() >= 3) {
+            if (esEscalera(jugada) || esPierna(jugada)) {
+                this.jugadaEnMesa.add(posicion -1, jugada);
+                estado = true;
+            }
+        }
+        return estado;
+    }
+
+
+    public int sizeJugadaEnMesa() {
+       return this.jugadaEnMesa.size();
+    }
 }

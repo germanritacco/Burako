@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface IBurako extends IObservableRemoto {
 
-    void setJugador(String nombre) throws RemoteException;
+    Jugador setJugador(String nombre) throws RemoteException;
 
     Jugador getJugador(String nombre) throws RemoteException;
 
@@ -24,7 +24,25 @@ public interface IBurako extends IObservableRemoto {
 
     void repartirFichas() throws RemoteException;
 
-    ArrayList<String> getFichas(String nombre) throws RemoteException;
+    ArrayList<String> getFichas(Jugador jugador) throws RemoteException;
 
     void mostrarJugadores() throws RemoteException;
+
+    ArrayList<String> mostrarPozo() throws RemoteException;
+
+    void recogerFichaMazo(String nombre) throws RemoteException;
+
+    Integer cantidadFichasAtril(String nombre) throws RemoteException;
+
+    void abandonarPartida() throws RemoteException;
+
+    Boolean hayJuegosMesa(Jugador jugador) throws RemoteException;
+
+    boolean agregarNuevaJugada(Jugador jugador, String[] seleccion) throws RemoteException;
+
+    int cantidadJuegosMesa(Jugador jugador);
+
+    boolean agregarFichaJugadaExistente(Jugador jugador, String[] seleccion, int posicion) throws RemoteException;
+
+    void agregarFichaPozo(Jugador jugador, int posicion)  throws RemoteException;
 }

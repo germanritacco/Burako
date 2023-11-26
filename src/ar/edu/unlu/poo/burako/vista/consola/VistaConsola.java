@@ -99,6 +99,14 @@ public class VistaConsola implements IVista {
         }
     }
 
+    /**
+     * @param nombre
+     */
+    @Override
+    public void abandonarPartida(String nombre) {
+
+    }
+
     public void appendColor(String texto, Color color) {
         StyledDocument doc = txtPane.getStyledDocument();
         Style style = txtPane.addStyle("Style", null);
@@ -136,6 +144,39 @@ public class VistaConsola implements IVista {
         flujoActual = new FlujoNuevoJugador(this, controlador);
         flujoActual.mostrarSiguienteTexto();
 
+    }
+
+    public void mostrarPartida(String jugador, ArrayList<String> atril){
+        mostrarTurno(jugador);
+        mostrarAtril(atril);
+        if (!controlador.isTurno()){
+            flujoActual = new FlujoEsperarTurno(this, controlador);
+            flujoActual.mostrarSiguienteTexto();
+        } else if ((controlador.isTurno())){
+            flujoActual = new FlujoTurno(this, controlador);
+            flujoActual.mostrarSiguienteTexto();
+        }
+
+
+    }
+
+    private void mostrarTurno(String jugador) {
+        appendColor(" Es el turno de: ", Color.ORANGE);
+        appendColor(jugador + "\n", Color.RED);
+    }
+
+    public void disableComponents(){
+        txtEntrada.setEnabled(false);
+        txtEntrada.setVisible(false);
+        btnEnter.setEnabled(false);
+        btnEnter.setVisible(false);
+    }
+
+    public void enableComponents(){
+        txtEntrada.setEnabled(false);
+        txtEntrada.setVisible(false);
+        btnEnter.setEnabled(false);
+        btnEnter.setVisible(false);
     }
 
 }

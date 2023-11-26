@@ -49,4 +49,12 @@ public class VistaGrafica implements IVista {
 
     }
 
+    /**
+     * @param nombre
+     */
+    @Override
+    public void abandonarPartida(String nombre) {
+
+    }
+
 }

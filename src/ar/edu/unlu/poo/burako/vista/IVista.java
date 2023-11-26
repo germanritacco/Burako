@@ -16,4 +16,5 @@ public interface IVista {
 
     void mostrarAtril(ArrayList<String> fichas);
 
+    void abandonarPartida(String nombre);
 }
