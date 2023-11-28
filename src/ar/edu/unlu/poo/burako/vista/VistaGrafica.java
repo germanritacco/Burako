@@ -42,18 +42,68 @@ public class VistaGrafica implements IVista {
     }
 
     /**
-     * @param fichas
-     */
-    @Override
-    public void mostrarAtril(ArrayList<String> fichas) {
-
-    }
-
-    /**
      * @param nombre
      */
     @Override
     public void abandonarPartida(String nombre) {
+
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void disableComponents() {
+
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void enableComponents() {
+
+    }
+
+    /**
+     * @param jugador
+     */
+    @Override
+    public void mostrarTurno(String jugador) {
+
+    }
+
+    /**
+     * @param atril
+     * @param pozo
+     * @param nombreJugador
+     */
+    @Override
+    public void iniciarPartida(ArrayList<String> atril, ArrayList<String> pozo, String nombreJugador) {
+
+    }
+
+    /**
+     * @param atril
+     */
+    @Override
+    public void mostrarAtril(ArrayList<String> atril) {
+
+    }
+
+    /**
+     * @param atril
+     */
+    @Override
+    public void mostrarJuegosMesa(ArrayList<ArrayList<String>> atril) {
+
+    }
+
+    /**
+     * @param pozo
+     */
+    @Override
+    public void mostrarPozo(ArrayList<String> pozo) {
 
     }
 

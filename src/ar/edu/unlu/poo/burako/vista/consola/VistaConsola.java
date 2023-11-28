@@ -1,6 +1,7 @@
 package ar.edu.unlu.poo.burako.vista.consola;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
+import ar.edu.unlu.poo.burako.modelo.Ficha;
 import ar.edu.unlu.poo.burako.vista.IVista;
 
 import javax.swing.*;
@@ -64,8 +65,8 @@ public class VistaConsola implements IVista {
     }
 
     private void escribirTexto() {
-        appendColor(txtEntrada.getText() + "\n", Color.ORANGE);
-        procesarEntrada(txtEntrada.getText());
+        appendColor(txtEntrada.getText().toUpperCase() + "\n", Color.ORANGE);
+        procesarEntrada(txtEntrada.getText().toUpperCase());
         txtEntrada.setText("");
     }
 
@@ -82,20 +83,44 @@ public class VistaConsola implements IVista {
         appendColorPosicion(txt, Color.GREEN, 0);
     }
 
-    public void mostrarAtril(ArrayList<String> fichas) {
+    public void mostrarFichas(ArrayList<String> fichas, String separador) {
         for (String ficha : fichas) {
             if (ficha.contains("NEGRO")) {
-                appendColor(ficha + "\n", Color.WHITE);
+                appendColor(ficha, Color.WHITE);
             } else if (ficha.contains("AZUL")) {
-                appendColor(ficha + "\n", Color.BLUE);
+                appendColor(ficha, Color.BLUE);
             } else if (ficha.contains("AMARILLO")) {
-                appendColor(ficha + "\n", Color.YELLOW);
+                appendColor(ficha, Color.YELLOW);
             } else if (ficha.contains("ROJO")) {
-                appendColor(ficha + "\n", Color.RED);
+                appendColor(ficha, Color.RED);
             } else {
-                // Si no contiene ninguna palabra clave, usar un color predeterminado
-                appendColor(ficha + "\n", Color.MAGENTA);
+                appendColor(ficha, Color.MAGENTA); // Comodin
             }
+            appendColor(separador, Color.GRAY);
+        }
+    }
+
+    public void mostrarFichasIndice(ArrayList<String> fichas, String separador) {
+        int indice = 1;
+        for (String ficha : fichas) {
+            if (indice < 10) {
+                appendColor(" " + indice + ")   ", Color.GRAY);
+            } else {
+                appendColor(" " + indice + ")  ", Color.GRAY);
+            }
+            if (ficha.contains("NEGRO")) {
+                appendColor(ficha, Color.WHITE);
+            } else if (ficha.contains("AZUL")) {
+                appendColor(ficha, Color.BLUE);
+            } else if (ficha.contains("AMARILLO")) {
+                appendColor(ficha, Color.YELLOW);
+            } else if (ficha.contains("ROJO")) {
+                appendColor(ficha, Color.RED);
+            } else {
+                appendColor(ficha, Color.MAGENTA); // Comodin
+            }
+            appendColor(separador, Color.GRAY);
+            indice++;
         }
     }
 
@@ -104,7 +129,10 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void abandonarPartida(String nombre) {
-
+        if (!controlador.isJugadorTurno()) {
+            flujoActual = new FlujoAbandonarPartida(this, controlador, nombre);
+            flujoActual.mostrarSiguienteTexto();
+        }
     }
 
     public void appendColor(String texto, Color color) {
@@ -146,37 +174,84 @@ public class VistaConsola implements IVista {
 
     }
 
-    public void mostrarPartida(String jugador, ArrayList<String> atril){
-        mostrarTurno(jugador);
-        mostrarAtril(atril);
-        if (!controlador.isTurno()){
-            flujoActual = new FlujoEsperarTurno(this, controlador);
-            flujoActual.mostrarSiguienteTexto();
-        } else if ((controlador.isTurno())){
-            flujoActual = new FlujoTurno(this, controlador);
-            flujoActual.mostrarSiguienteTexto();
-        }
-
-
-    }
-
-    private void mostrarTurno(String jugador) {
+    public void mostrarTurno(String jugador) {
         appendColor(" Es el turno de: ", Color.ORANGE);
         appendColor(jugador + "\n", Color.RED);
     }
 
-    public void disableComponents(){
+    /**
+     * @param fichas
+     * @param pozo
+     * @param nombreJugador
+     */
+    @Override
+    public void iniciarPartida(ArrayList<String> atril, ArrayList<String> pozo, String nombreJugador) {
+        appendColor("\n  ============================================================================\n", Color.CYAN);
+        appendColor(" |                              PARTIDA EN CURSO                              |\n", Color.CYAN);
+        appendColor("  ============================================================================\n", Color.CYAN);
+        mostrarTurno(controlador.nombreJugadorTurno());
+        mostrarPozo(pozo);
+        mostrarAtril(atril);
+        if (controlador.isJugadorTurno()) {
+            flujoActual = new FlujoTomarFicha(this, controlador);
+            flujoActual.mostrarSiguienteTexto();
+        } else {
+            flujoActual = new FlujoEsperarTurno(this, controlador);
+            flujoActual.mostrarSiguienteTexto();
+        }
+    }
+
+    /**
+     * @param juegosMesa
+     */
+
+    /**
+     * @param atril
+     */
+    @Override
+    public void mostrarJuegosMesa(ArrayList<ArrayList<String>> juegosMesa) {
+        appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
+        if (juegosMesa == null || juegosMesa.isEmpty()) {
+            appendColor(" No hay juegos en mesa\n", Color.RED);
+        } else {
+            appendColor(" Juegos en mesa: \n", Color.PINK);
+            int numeroJuego = 1;
+            for (ArrayList<String> juego : juegosMesa) {
+                appendColor("N°" + numeroJuego + ": ", Color.PINK);
+                mostrarFichas(juego, " | ");
+                appendColor("\n", Color.CYAN);
+                numeroJuego++;
+            }
+        }
+    }
+
+
+    public void mostrarPozo(ArrayList<String> pozo) {
+        appendColor("\n ------------------------------------------------------------------------------\n", Color.CYAN);
+        appendColor(" Fichas en Pozo: ", Color.PINK);
+        mostrarFichas(pozo, " | ");
+    }
+
+    public void mostrarAtril(ArrayList<String> atril) {
+        appendColor("\n ------------------------------------------------------------------------------\n", Color.CYAN);
+        appendColor(" Atril: \n", Color.PINK);
+        mostrarFichasIndice(atril, "\n");
+    }
+
+    public void disableComponents() {
         txtEntrada.setEnabled(false);
         txtEntrada.setVisible(false);
         btnEnter.setEnabled(false);
         btnEnter.setVisible(false);
     }
 
-    public void enableComponents(){
-        txtEntrada.setEnabled(false);
-        txtEntrada.setVisible(false);
-        btnEnter.setEnabled(false);
-        btnEnter.setVisible(false);
+    public void enableComponents() {
+        txtEntrada.setEnabled(true);
+        txtEntrada.setVisible(true);
+        btnEnter.setEnabled(true);
+        btnEnter.setVisible(true);
+        flujoActual = new FlujoTomarFicha(this, controlador);
+        flujoActual.mostrarSiguienteTexto();
     }
 
 }

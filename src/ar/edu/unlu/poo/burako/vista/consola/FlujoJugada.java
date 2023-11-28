@@ -22,10 +22,12 @@ public class FlujoJugada extends Flujo {
             case "2" -> {
                 return agregarfichasJuegoMesa();
             }
-            case "3" -> return new FlujoPozo(vista, controlador);
+            case "3" -> {
+                return new FlujoPozo(vista, controlador);
+            }
             case "0" -> {
-                controlador.abandonarPartida();
-                return FlujoAbandonarPartida(vista, controlador);
+                String nombreJugador = controlador.abandonarPartida();
+                return new FlujoAbandonarPartida(vista, controlador, nombreJugador);
             }
             default -> vista.appendColor("Opcion incorrecta", Color.RED);
         }
@@ -46,6 +48,9 @@ public class FlujoJugada extends Flujo {
      */
     @Override
     public void mostrarSiguienteTexto() {
+        vista.mostrarAtril(controlador.mostrarAtril());
+        vista.mostrarJuegosMesa(controlador.mostrarJuegosEnMesa());
+        vista.appendColor("\n ------------------------------------------------------------------------------\n", Color.CYAN);
         vista.appendColor("  1   Bajar juego a la mesa\n", Color.CYAN);
         vista.appendColor("  2   Agregar ficha a juego existente en  la mesa\n", Color.CYAN);
         vista.appendColor("  3   Devolver ficha a pozo\n", Color.CYAN);

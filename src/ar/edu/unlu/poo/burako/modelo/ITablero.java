@@ -23,7 +23,7 @@ public interface ITablero {
 
     int sizeJugadaEnMesa();
 
-     boolean verificarJugadaNueva(ArrayList<Ficha> jugada);
+    boolean verificarJugadaNueva(ArrayList<Ficha> jugada);
 
     boolean verificarJugadaExistente(ArrayList<Ficha> jugada, int posicion);
 

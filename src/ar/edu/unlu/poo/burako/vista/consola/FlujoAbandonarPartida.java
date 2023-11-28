@@ -4,9 +4,13 @@ import ar.edu.unlu.poo.burako.controlador.Controlador;
 
 import java.awt.*;
 
-public class FlujoEsperarTurno extends Flujo {
-    public FlujoEsperarTurno(VistaConsola vista, Controlador controlador) {
+public class FlujoAbandonarPartida extends Flujo {
+
+    private String jugador;
+
+    public FlujoAbandonarPartida(VistaConsola vista, Controlador controlador, String jugador) {
         super(vista, controlador);
+        this.jugador = jugador;
     }
 
     /**
@@ -23,11 +27,11 @@ public class FlujoEsperarTurno extends Flujo {
      */
     @Override
     public void mostrarSiguienteTexto() {
-        vista.disableComponents();
-        vista.appendColor("\n", Color.CYAN);
         vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
-        vista.mostrarTurno(controlador.nombreJugadorTurno());
-        vista.appendColor("\n                               ¡AGUARDE SU TURNO!", Color.RED);
+        vista.appendColor("\n", Color.CYAN);
+        vista.appendColor("  ¡PARTIDA TERMINADA!", Color.RED);
+        vista.appendColor("  El " + jugador + " ha terminado la partida.", Color.RED);
+        vista.appendColor("  Volveras al menu principal", Color.ORANGE);
 
     }
 }

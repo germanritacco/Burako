@@ -15,8 +15,7 @@ public class FlujoMenuPrincipal extends Flujo {
         switch (string) {
             case "0" -> controlador.cerrarApp();
             case "1" -> {
-                controlador.repartirCartas();
-                return new FlujoRepartirFichas(vista, controlador);
+                return iniciarPartida();
             }
             case "2" -> mostrarJugadores();
         }
@@ -45,6 +44,16 @@ public class FlujoMenuPrincipal extends Flujo {
         vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
         vista.appendColor("\n", Color.CYAN);
         vista.appendColor("  Por favor seleccione una opción: ", Color.CYAN);
+    }
+
+    private Flujo iniciarPartida() {
+        controlador.iniciarPartida();
+        if (controlador.isJugadorTurno()) {
+            return new FlujoTomarFicha(vista, controlador);
+        } else {
+            return new FlujoVacio(vista, controlador);
+        }
+
     }
 
 }

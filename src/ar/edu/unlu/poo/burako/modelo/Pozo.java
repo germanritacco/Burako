@@ -5,7 +5,7 @@ import java.util.Collection;
 
 public class Pozo {
 
-    protected ArrayList<Ficha> pozo;
+    private ArrayList<Ficha> pozo;
 
     public Pozo() {
         pozo = new ArrayList<>();
@@ -15,8 +15,8 @@ public class Pozo {
         pozo.add(ficha);
     }
 
-    public Collection<Ficha> recogerPozo() {
-        Collection<Ficha> pozoCompleto = new ArrayList<>(pozo);
+    public ArrayList<Ficha> recogerPozo() {
+        ArrayList<Ficha> pozoCompleto = new ArrayList<>(pozo);
         pozo.clear();
         return pozoCompleto;
     }
@@ -31,5 +31,9 @@ public class Pozo {
             }
         }
         return fichas;
+    }
+
+    public boolean isEmpty() {
+        return pozo.isEmpty();
     }
 }

@@ -14,7 +14,19 @@ public interface IVista {
 
     void nuevoJugador();
 
-    void mostrarAtril(ArrayList<String> fichas);
-
     void abandonarPartida(String nombre);
+
+    void disableComponents();
+
+    void enableComponents();
+
+    void mostrarTurno(String jugador);
+
+    void iniciarPartida(ArrayList<String> atril, ArrayList<String> pozo, String nombreJugador);
+
+    void mostrarAtril(ArrayList<String> atril);
+
+    void mostrarJuegosMesa(ArrayList<ArrayList<String>> atril);
+
+    void mostrarPozo(ArrayList<String> pozo);
 }

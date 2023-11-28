@@ -33,19 +33,27 @@ public class Controlador implements IControladorRemoto {
         if (cambio instanceof Eventos) {
             switch ((Eventos) cambio) {
                 case NUEVO_MENSAJE -> vista.mostrarTexto(this.modelo.getMensajeSistema() + "\n");
-                case MOSTRAR_ATRIL -> {
-                    ArrayList<String> fichas = this.modelo.getFichas(jugador);
-                    this.vista.mostrarAtril(fichas);
-                }
                 case MOSTRAR_JUGADORES -> vista.mostrarTexto(this.modelo.getJugadores());
                 case PARTIDA -> {
-                    ArrayList<String> fichas = this.modelo.getFichas(jugador);
+                    ArrayList<String> atril = this.modelo.getFichas(jugador.getId());
                     ArrayList<String> pozo = this.modelo.mostrarPozo();
-                    this.vista.mostrarAtril(fichas);
+                    this.vista.iniciarPartida(atril, pozo, jugador.getNombre());
                 }
                 case ABANDONAR_PARTIDA -> vista.abandonarPartida(jugador.getNombre());
                 case CAMBIO_TURNO -> {
-
+                    if (isJugadorTurno()) {
+                        vista.mostrarAtril(mostrarAtril());
+                        vista.disableComponents();
+                    }
+                    this.modelo.cambiarTurno(jugador.getId());
+                    // Siguiente jugador
+                    if (isJugadorTurno()) {
+                        String jugadorActual = this.modelo.mostrarTurno(jugador.getId());
+                        vista.mostrarTurno(jugadorActual);
+                        vista.mostrarPozo(this.modelo.mostrarPozo());
+                        vista.mostrarAtril(mostrarAtril());
+                        vista.enableComponents();
+                    }
                 }
             }
         }
@@ -53,7 +61,9 @@ public class Controlador implements IControladorRemoto {
 
     public void cerrarApp() {
         try {
-            this.modelo.cerrar(this, jugador.getNombre());
+            if (jugador != null) {
+                this.modelo.cerrar(this, jugador.getId());
+            }
             System.exit(0);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
@@ -63,7 +73,6 @@ public class Controlador implements IControladorRemoto {
     public void nuevoJugador(String string) {
         try {
             jugador = modelo.setJugador(string);
-            // jugador = modelo.getJugador(string);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -77,21 +86,9 @@ public class Controlador implements IControladorRemoto {
         }
     }
 
-    public void repartirCartas() {
-        try {
-            modelo.repartirFichas();
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public boolean isTurno() {
-        return jugador.isTurno();
-    }
-
     public void tomarFichaMazo() {
         try {
-            modelo.recogerFichaMazo(jugador.getNombre());
+            modelo.recogerFichaMazo(jugador.getId());
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -99,15 +96,16 @@ public class Controlador implements IControladorRemoto {
 
     public Integer cantidadFichasAtril() {
         try {
-            return modelo.cantidadFichasAtril(jugador.getNombre());
+            return modelo.cantidadFichasAtril(jugador.getId());
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void abandonarPartida() {
+    public String abandonarPartida() {
         try {
             modelo.abandonarPartida();
+            return jugador.getNombre();
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -115,7 +113,7 @@ public class Controlador implements IControladorRemoto {
 
     public Boolean hayJuegosMesa() {
         try {
-            return modelo.hayJuegosMesa(jugador);
+            return modelo.hayJuegosMesa(jugador.getId());
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -123,19 +121,23 @@ public class Controlador implements IControladorRemoto {
 
     public boolean agregarNuevaJugada(String[] seleccion) {
         try {
-            return modelo.agregarNuevaJugada(jugador, seleccion);
+            return modelo.agregarNuevaJugada(jugador.getId(), seleccion);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
     }
 
     public int cantidadJuegosMesa() {
-        return modelo.cantidadJuegosMesa(jugador);
+        try {
+            return modelo.cantidadJuegosMesa(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean agregarFichaJugadaExistente(int posicion, String[] seleccion) {
         try {
-            return modelo.agregarFichaJugadaExistente(jugador, seleccion, posicion);
+            return modelo.agregarFichaJugadaExistente(jugador.getId(), seleccion, posicion);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -143,12 +145,66 @@ public class Controlador implements IControladorRemoto {
 
     public void agregarFichaPozo(int posicion) {
         try {
-            modelo.agregarFichaPozo(jugador, posicion);
+            modelo.agregarFichaPozo(jugador.getId(), posicion);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void cambiarTurno() {
+    public boolean isJugadorTurno() {
+        try {
+            return modelo.isJugadorActual(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    public String nombreJugadorTurno() {
+        try {
+            return modelo.nombreJugadorTurno();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void iniciarPartida() {
+        try {
+            modelo.comenzarPartida();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean isPozoVacio() {
+        try {
+            return modelo.isPozoVacio();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void recogerPozo() {
+        try {
+            modelo.recogerPozo(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<String> mostrarAtril() {
+        try {
+            return this.modelo.getFichas(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<ArrayList<String>> mostrarJuegosEnMesa() {
+        try {
+            return modelo.mostrarJuegosEnMesa(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

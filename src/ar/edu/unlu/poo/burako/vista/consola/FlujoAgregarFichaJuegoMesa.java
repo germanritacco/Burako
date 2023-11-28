@@ -34,18 +34,12 @@ public class FlujoAgregarFichaJuegoMesa extends Flujo {
         return new FlujoJugada(vista, controlador);
     }
 
-    private void mostrarTexto() {
-        vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  Por favor seleccione las fichas que desea agregar como jugada,", Color.CYAN);
-        vista.appendColor("  separado por ',' (Ej: '1,3,4,5'): ", Color.CYAN);
-    }
-
     /**
      *
      */
     @Override
     public void mostrarSiguienteTexto() {
+        vista.mostrarJuegosMesa(controlador.mostrarJuegosEnMesa());
         vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
         vista.appendColor("\n", Color.CYAN);
         vista.appendColor("  Por favor seleccione la jugada en mesa a la cual desea agregar fichas: ", Color.CYAN);

@@ -14,12 +14,20 @@ public class Jugador implements Serializable {
 
     private boolean turno;
 
+    private static int ID = 0;
+
+    private int id;
+
     public boolean isTurno() {
         return turno;
     }
 
-    public void setTurno() {
-        this.turno = true;
+    public void setTurno(boolean estado) {
+        this.turno = estado;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public Jugador(String nombre) {
@@ -27,6 +35,7 @@ public class Jugador implements Serializable {
         this.reset();
         this.atril = new ArrayList<>();
         this.turno = false;
+        this.id = Jugador.ID++;
     }
 
     public void reset() {
@@ -45,15 +54,15 @@ public class Jugador implements Serializable {
         return atril;
     }
 
-    public void setAtril(ArrayList<Ficha> atril) {
-        this.atril = atril;
+    public void addAtril(ArrayList<Ficha> atril) {
+        this.atril.addAll(atril);
     }
 
-    public void addFichaAtril(Ficha ficha){
+    public void addFichaAtril(Ficha ficha) {
         this.atril.add(ficha);
     }
 
-    public Ficha removeFichaAtril(int posicion){
+    public Ficha removeFichaAtril(int posicion) {
         return this.atril.remove(posicion);
     }
 

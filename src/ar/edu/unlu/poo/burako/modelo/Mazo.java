@@ -6,7 +6,6 @@ import static java.lang.Math.random;
 
 public class Mazo {
 
-
     private final ArrayList<Pila> mazo; // pilas de 10 fichas c/u
 
     private final ArrayList<PilaDeMuerto> muerto; // 2 pilas de 11 fichas c/u
@@ -29,8 +28,8 @@ public class Mazo {
         ArrayList<Ficha> fichasSinRepartir = crearFichas();
         this.mazo = new ArrayList<>(5);
         this.muerto = new ArrayList<>(2);
-        jugador1.setAtril(repartirAtril(fichasSinRepartir));
-        jugador2.setAtril(repartirAtril(fichasSinRepartir));
+        jugador1.addAtril(repartirAtril(fichasSinRepartir));
+        jugador2.addAtril(repartirAtril(fichasSinRepartir));
         repartirMuerto(fichasSinRepartir);
         repartirMazo(fichasSinRepartir);
     }
@@ -47,10 +46,10 @@ public class Mazo {
         ArrayList<Ficha> fichasSinRepartir = crearFichas();
         this.mazo = new ArrayList<>(5);
         this.muerto = new ArrayList<>(2);
-        jugador1.setAtril(repartirAtril(fichasSinRepartir));
-        jugador2.setAtril(repartirAtril(fichasSinRepartir));
-        jugador3.setAtril(repartirAtril(fichasSinRepartir));
-        jugador4.setAtril(repartirAtril(fichasSinRepartir));
+        jugador1.addAtril(repartirAtril(fichasSinRepartir));
+        jugador2.addAtril(repartirAtril(fichasSinRepartir));
+        jugador3.addAtril(repartirAtril(fichasSinRepartir));
+        jugador4.addAtril(repartirAtril(fichasSinRepartir));
         repartirMuerto(fichasSinRepartir);
         repartirMazo(fichasSinRepartir);
     }
@@ -124,7 +123,10 @@ public class Mazo {
     public Ficha recogerFichaMazo() {
         if (!mazo.isEmpty()) {
             Pila pilaUltima = mazo.get(mazo.size() - 1);
-            // TODO Contemplar que sucede cuando Pila este vacío
+            if (pilaUltima.isEmpty()) {
+                mazo.remove(pilaUltima);
+                pilaUltima = mazo.get(mazo.size() - 1);
+            }
             return pilaUltima.sacarFicha();
         } else {
             return null;

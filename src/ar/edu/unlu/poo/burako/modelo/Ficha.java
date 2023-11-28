@@ -1,8 +1,14 @@
 package ar.edu.unlu.poo.burako.modelo;
 
-public class Ficha {
+import java.io.Serializable;
 
-    protected ColorFicha color;
+public class Ficha implements Serializable {
+
+    private ColorFicha color;
+
+    protected Integer numeroFicha;
+
+    protected Integer valorFicha;
 
     public ColorFicha getColor() {
         return color;
@@ -15,10 +21,6 @@ public class Ficha {
     public Integer getValorFicha() {
         return valorFicha;
     }
-
-    protected Integer numeroFicha;
-
-    protected Integer valorFicha;
 
     public Ficha(ColorFicha color, Integer numeroFicha) {
         this.color = color;

@@ -18,12 +18,12 @@ public class FlujoPozo extends Flujo {
         try {
             int opcion = Integer.parseInt(string);
             if (opcion >= 1 && opcion <= controlador.cantidadFichasAtril()) {
-              controlador.agregarFichaPozo(opcion);
-              controlador.cambiarTurno();
-
+                controlador.agregarFichaPozo(opcion);
+                return new FlujoEsperarTurno(vista, controlador);
             }
+        } catch (NumberFormatException e) {
+            vista.appendColor("ERROR: Numero de ficha no valido.", Color.RED);
         }
-
         return this;
     }
 
@@ -32,9 +32,9 @@ public class FlujoPozo extends Flujo {
      */
     @Override
     public void mostrarSiguienteTexto() {
+        vista.mostrarAtril(controlador.mostrarAtril());
         vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
         vista.appendColor("\n", Color.CYAN);
         vista.appendColor("  Por favor seleccione la ficha que desea dejar en el pozo: ", Color.CYAN);
-
     }
 }

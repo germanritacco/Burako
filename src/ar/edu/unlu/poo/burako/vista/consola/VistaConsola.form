@@ -8,7 +8,7 @@
     <properties>
       <background color="-14605013"/>
       <minimumSize width="800" height="500"/>
-      <preferredSize width="725" height="477"/>
+      <preferredSize width="725" height="700"/>
     </properties>
     <border type="empty">
       <size top="5" left="5" bottom="5" right="5"/>

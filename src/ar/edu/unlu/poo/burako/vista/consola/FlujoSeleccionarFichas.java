@@ -28,7 +28,8 @@ public class FlujoSeleccionarFichas extends Flujo {
                 return new FlujoAgregarFichaJuegoMesa(vista, controlador, seleccion);
 
             } else {
-                return new FlujoBajarJuego(vista, controlador, seleccion);
+                validarBajarJuego(seleccion);
+                return new FlujoJugada(vista, controlador);
             }
         } catch (NullPointerException e) {
             vista.appendColor("Error: " + e.getMessage(), Color.RED);
@@ -38,15 +39,28 @@ public class FlujoSeleccionarFichas extends Flujo {
         return this;
     }
 
+    public void validarBajarJuego(String[] seleccion) {
+        try {
+            vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
+            if (controlador.agregarNuevaJugada(seleccion)) {
+                vista.appendColor(" Jugada bajada a la mesa correctamente.", Color.GREEN);
+            } else {
+                vista.appendColor(" Jugada no válida.", Color.RED);
+            }
+        } catch (NumberFormatException e) {
+            vista.appendColor("Error: La cadena no es un número válido.", Color.RED);
+        }
+    }
+
     /**
      *
      */
     @Override
     public void mostrarSiguienteTexto() {
+        vista.mostrarAtril(controlador.mostrarAtril());
         vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
         vista.appendColor("\n", Color.CYAN);
         vista.appendColor("  Por favor seleccione las fichas que desea agregar como jugada,", Color.CYAN);
         vista.appendColor("  separado por ',' (Ej: '1,3,4,5'): ", Color.CYAN);
-
     }
 }

@@ -5,10 +5,7 @@ import java.util.Comparator;
 
 public class Tablero implements ITablero {
 
-    // TODO Implementar jugadas
-
-
-    protected ArrayList<ArrayList<Ficha>> jugadaEnMesa = new ArrayList<>();
+    protected ArrayList<ArrayList<Ficha>> jugadaEnMesa;
 
     private ArrayList<Jugador> jugadores;
 
@@ -17,12 +14,10 @@ public class Tablero implements ITablero {
         this.jugadores = new ArrayList<>(2);
     }
 
-
     @Override
     public ArrayList<ArrayList<Ficha>> getJugadaEnMesa() {
         return jugadaEnMesa;
     }
-
 
     @Override
     public void setJugadaEnMesa(ArrayList<Ficha> jugadaEnMesa) {
@@ -50,7 +45,6 @@ public class Tablero implements ITablero {
      * @param juego ArrayList de Fichas a verificar la jugada
      * @return Retorna Verdadero si el juego forma una escalera, caso contrario falso.
      */
-
     @Override
     public boolean esEscalera(ArrayList<Ficha> juego) {
         // realiza una copia de "juego" para no alterar el orden
@@ -97,26 +91,28 @@ public class Tablero implements ITablero {
      * Pierna: Tres fichas del mismo número, no importa el color. Ejemplo: 5 rojo, 5 azul, 5 azul.
      *
      * @param juego ArrayList de Fichas a verificar la jugada
-     * @return Retorna Verdadero si el juego forma una escalera, caso contrario falso.
+     * @return Retorna Verdadero si el juego forma una pierna, caso contrario falso.
      */
-
     @Override
     public boolean esPierna(ArrayList<Ficha> juego) {
-        // Contamos cuántas cartas tienen el mismo número
-        int contador = 1;
-        int i = 0;
-        while (i < juego.size() && juego.get(i) instanceof Comodin) {
-            contador++;
-            i++;
+        ArrayList<Ficha> copiaJuego = new ArrayList<>(juego);
+        int contador = 0;
+        // Cuenta y saca todos los comodines y 2 en el juego de fichas
+        for (Ficha ficha : copiaJuego) {
+            if (ficha.getNumeroFicha().equals(2) || ficha instanceof Comodin) {
+                contador++;
+                copiaJuego.remove(ficha);
+            }
         }
-        if (i < juego.size()) {
-            int numeroFicha = juego.get(i).getNumeroFicha();
-            for (i = i + 1; i < juego.size() - 1; i++) {
-                if (juego.get(i).getNumeroFicha().equals(numeroFicha) || juego.get(i) instanceof Comodin || juego.get(i).getNumeroFicha().equals(2)) { // con comodin
-                    contador++;
-                } else {
-                    return false;
-                }
+        //verifica que el resto de fichas sean todas de igual numero
+        int i = 0;
+        int numeroFicha = copiaJuego.get(i).getNumeroFicha();
+        contador++;
+        for (i = i + 1; i <= copiaJuego.size() - 1; i++) {
+            if (copiaJuego.get(i).getNumeroFicha().equals(numeroFicha)) {
+                contador++;
+            } else {
+                return false;
             }
         }
         return contador >= 3;
@@ -176,6 +172,7 @@ public class Tablero implements ITablero {
         boolean estado = false;
         if (jugada.size() >= 3) {
             if (esEscalera(jugada) || esPierna(jugada)) {
+                jugada.sort(Comparator.comparing(Ficha::getNumeroFicha));
                 this.jugadaEnMesa.add(jugada);
                 estado = true;
             }
@@ -187,7 +184,7 @@ public class Tablero implements ITablero {
         boolean estado = false;
         if (jugada.size() >= 3) {
             if (esEscalera(jugada) || esPierna(jugada)) {
-                this.jugadaEnMesa.add(posicion -1, jugada);
+                this.jugadaEnMesa.add(posicion - 1, jugada);
                 estado = true;
             }
         }
@@ -196,6 +193,23 @@ public class Tablero implements ITablero {
 
 
     public int sizeJugadaEnMesa() {
-       return this.jugadaEnMesa.size();
+        return this.jugadaEnMesa.size();
     }
+
+    public ArrayList<ArrayList<String>> mostrarJuegosEnMesa() {
+        ArrayList<ArrayList<String>> juegosEnMesa = new ArrayList<>();
+        for (ArrayList<Ficha> juego : jugadaEnMesa) {
+            ArrayList<String> fichas = new ArrayList<>();
+            for (Ficha ficha : juego) {
+                if (ficha instanceof Comodin) {
+                    fichas.add("COMODIN");
+                } else {
+                    fichas.add(ficha.toString());
+                }
+            }
+            juegosEnMesa.add(fichas);
+        }
+        return juegosEnMesa;
+    }
+
 }

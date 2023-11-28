@@ -22,4 +22,8 @@ public class Pila {
         }
     }
 
+    public boolean isEmpty() {
+        return pila.isEmpty();
+    }
+
 }
