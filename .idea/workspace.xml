@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="cambio turno completo">
+    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="Agregar al menu principal">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Burako.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Burako.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Tablero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Tablero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAbandonarPartida.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAbandonarPartida.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoPozo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoPozo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoSeleccionarFichas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoSeleccionarFichas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Dado.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -210,7 +205,7 @@
       <workItem from="1701004242053" duration="34543000" />
       <workItem from="1701111945255" duration="28423000" />
       <workItem from="1701206734172" duration="4531000" />
-      <workItem from="1701375698121" duration="4255000" />
+      <workItem from="1701375698121" duration="4973000" />
     </task>
     <task id="LOCAL-00001" summary="Primer commit">
       <option name="closed" value="true" />
@@ -468,7 +463,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701143635407</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Agregar al menu principal">
+      <option name="closed" value="true" />
+      <created>1701380262209</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1701380262209</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -486,7 +489,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Clase Comodin, seteo de valor" />
     <MESSAGE value="Clase Pozo, agregar ficha al pozo, recoger pozo completo" />
     <MESSAGE value="Clase Tablero, sin implementar" />
     <MESSAGE value="Clase Jugador, añadido atributo atril" />
@@ -511,7 +513,8 @@
     <MESSAGE value="fix Interfaces" />
     <MESSAGE value="Backup jugador manejado por String" />
     <MESSAGE value="cambio turno completo" />
-    <option name="LAST_COMMIT_MESSAGE" value="cambio turno completo" />
+    <MESSAGE value="Agregar al menu principal" />
+    <option name="LAST_COMMIT_MESSAGE" value="Agregar al menu principal" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

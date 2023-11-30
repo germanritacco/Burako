@@ -32,7 +32,6 @@ public class FlujoSeleccionarFichas extends Flujo {
                     return new FlujoAgregarFichaJuegoMesa(vista, controlador, seleccion);
 
                 } else {
-                    System.out.println("entro aca");
                     validarBajarJuego(seleccion);
                     return new FlujoJugada(vista, controlador);
                 }
