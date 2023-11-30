@@ -98,7 +98,7 @@ public class Tablero implements ITablero {
         ArrayList<Ficha> copiaJuego = new ArrayList<>(juego);
         int contador = 0;
         // Cuenta y saca todos los comodines y 2 en el juego de fichas
-        for (Ficha ficha : copiaJuego) {
+        for (Ficha ficha : juego) {
             if (ficha.getNumeroFicha().equals(2) || ficha instanceof Comodin) {
                 contador++;
                 copiaJuego.remove(ficha);

@@ -4,34 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="Backup jugador manejado por String">
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAbandonarPartida.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoVacio.java" afterDir="false" />
+    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="cambio turno completo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/controlador/Controlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/controlador/Controlador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Burako.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Burako.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Dado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Dado.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Eventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Eventos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Ficha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Ficha.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/IBurako.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/IBurako.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/ITablero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/ITablero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Jugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Jugador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Mazo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Mazo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Pila.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Pila.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Pozo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Pozo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Tablero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Tablero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/IVista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/IVista.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/VistaGrafica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/VistaGrafica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAgregarFichaJuegoMesa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAgregarFichaJuegoMesa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoBajarJuego.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoEsperarTurno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoEsperarTurno.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoJugada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoJugada.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoMenuPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoMenuPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAbandonarPartida.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAbandonarPartida.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoPozo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoPozo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoRepartirFichas.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoSeleccionarFichas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoSeleccionarFichas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoTurno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoTomarFicha.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,8 +95,8 @@
       <recent name="ar.edu.unlu.poo.burako" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.AppClienteConsola 2">
-    <configuration name="AppClienteConsola 1" type="Application" factoryName="Application" temporary="true">
+  <component name="RunManager" selected="Application.Test">
+    <configuration name="AppClienteConsola 1" type="Application" factoryName="Application" singleton="false" temporary="true">
       <option name="MAIN_CLASS_NAME" value="ar.edu.unlu.poo.burako.AppClienteConsola" />
       <module name="Burako" />
       <extension name="coverage">
@@ -177,9 +156,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.AppClienteConsola 2" />
         <item itemvalue="Application.AppClienteConsola 1" />
         <item itemvalue="Application.AppServidor" />
+        <item itemvalue="Application.AppClienteConsola 2" />
       </list>
     </recent_temporary>
   </component>
@@ -229,7 +208,9 @@
       <workItem from="1700862706513" duration="13540000" />
       <workItem from="1700947521713" duration="17298000" />
       <workItem from="1701004242053" duration="34543000" />
-      <workItem from="1701111945255" duration="28118000" />
+      <workItem from="1701111945255" duration="28423000" />
+      <workItem from="1701206734172" duration="4531000" />
+      <workItem from="1701375698121" duration="4255000" />
     </task>
     <task id="LOCAL-00001" summary="Primer commit">
       <option name="closed" value="true" />
@@ -479,7 +460,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701004340835</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="cambio turno completo">
+      <option name="closed" value="true" />
+      <created>1701143635407</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1701143635407</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,7 +486,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Clase Dado, tirar dado" />
     <MESSAGE value="Clase Comodin, seteo de valor" />
     <MESSAGE value="Clase Pozo, agregar ficha al pozo, recoger pozo completo" />
     <MESSAGE value="Clase Tablero, sin implementar" />
@@ -522,6 +510,22 @@
     <MESSAGE value="fix" />
     <MESSAGE value="fix Interfaces" />
     <MESSAGE value="Backup jugador manejado por String" />
-    <option name="LAST_COMMIT_MESSAGE" value="Backup jugador manejado por String" />
+    <MESSAGE value="cambio turno completo" />
+    <option name="LAST_COMMIT_MESSAGE" value="cambio turno completo" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Tablero.java</url>
+          <line>96</line>
+          <properties class="ar.edu.unlu.poo.burako.modelo.Tablero" method="esPierna">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

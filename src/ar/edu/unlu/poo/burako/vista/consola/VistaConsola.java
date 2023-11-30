@@ -254,4 +254,9 @@ public class VistaConsola implements IVista {
         flujoActual.mostrarSiguienteTexto();
     }
 
+
+    public void mostrarMenuPrincipal(){
+        flujoActual = new FlujoMenuPrincipal(this, controlador);
+        flujoActual.mostrarSiguienteTexto();
+    }
 }

@@ -220,12 +220,14 @@ public class Burako extends ObservableRemoto implements IBurako {
         switch (jugadorId) {
             case 0, 2 -> {
                 estado = tableroEquipo1.verificarJugadaNueva(jugada);
+                System.out.println("paso pir aca eq 1");
                 if (estado) {
                     borrarJugadaAtril(jugadorId, seleccion);
                 }
             }
             case 1, 3 -> {
                 estado = tableroEquipo2.verificarJugadaNueva(jugada);
+                System.out.println("paso pir aca eq 2");
                 if (estado) {
                     borrarJugadaAtril(jugadorId, seleccion);
                 }
