@@ -5,10 +5,30 @@ import java.io.Serializable;
 public class Ficha implements Serializable {
 
     private ColorFicha color;
-
     protected Integer numeroFicha;
-
     protected Integer valorFicha;
+
+    /**
+     * Constructor de clase.
+     * <li>Asigna el color.</li>
+     * <li>Asigna el numero.</li>
+     * <li>Asigna el valor.</li>
+     *
+     * @param color       Color de la ficha.
+     * @param numeroFicha Número de la ficha.
+     */
+    public Ficha(ColorFicha color, Integer numeroFicha) {
+        this.color = color;
+        valorFicha = Valor(numeroFicha);
+        this.numeroFicha = numeroFicha;
+    }
+
+    /**
+     * Constructor de clase.
+     * <li>Utilizado por Comodín.</li>
+     */
+    public Ficha() {
+    }
 
     /**
      * Obtiene el color de la ficha.
@@ -35,24 +55,6 @@ public class Ficha implements Serializable {
      */
     public Integer getValorFicha() {
         return valorFicha;
-    }
-
-    /**
-     * Constructor de clase.
-     * <li>Asigna el color.</li>
-     * <li>Asigna el numero.</li>
-     * <li>Asigna el valor.</li>
-     *
-     * @param color       Color de la ficha.
-     * @param numeroFicha Número de la ficha.
-     */
-    public Ficha(ColorFicha color, Integer numeroFicha) {
-        this.color = color;
-        valorFicha = Valor(numeroFicha);
-        this.numeroFicha = numeroFicha;
-    }
-
-    public Ficha() {
     }
 
     /**

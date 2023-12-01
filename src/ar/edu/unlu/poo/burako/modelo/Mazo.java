@@ -7,13 +7,10 @@ import static java.lang.Math.random;
 public class Mazo {
 
     private final Pila mazo;
-
     private final ArrayList<PilaDeMuerto> muerto; // 2 pilas de 11 fichas c/u
-
     public ArrayList<Ficha> sacarMuerto() {
         return muerto.remove(0).getPilaDeMuerto();
     }
-
     public ArrayList<PilaDeMuerto> getMuerto() {
         return muerto;
     }

@@ -6,9 +6,8 @@ import java.util.Comparator;
 
 public class Tablero implements ITablero {
 
-    protected ArrayList<ArrayList<Ficha>> jugadaEnMesa;
-
-    private ArrayList<Jugador> jugadores;
+    private final ArrayList<ArrayList<Ficha>> jugadaEnMesa;
+    private final ArrayList<Jugador> jugadores;
 
     /**
      * Constructor de clase.
@@ -31,24 +30,14 @@ public class Tablero implements ITablero {
     }
 
     /**
-     * Asigna una lista de Fichas a los juegos en mesa.
-     *
-     * @param jugadaEnMesa Lista de Fichas.
-     */
-    @Override
-    public void setJugadaEnMesa(ArrayList<Ficha> jugadaEnMesa) {
-        this.jugadaEnMesa.add(jugadaEnMesa);
-    }
-
-    /**
      * Verifica si hay juegos en mesa.
      *
-     * @return <li>TRUE: Si la hay juegos en mesa.</li><li>FALSE: Si no hay juegos en mesa.</li>
+     * @return <li>TRUE: Si en mesa no hay juegos.</li><li>FALSE: Si hay juegos en mesa.</li>
      */
+    @Override
     public boolean isVacio() {
         return this.jugadaEnMesa.isEmpty();
     }
-
 
     /**
      * Retorna los jugadores que puede usar la instancia de Tablero.
@@ -77,8 +66,7 @@ public class Tablero implements ITablero {
      * @param juego Lista de Fichas a verificar la jugada
      * @return <li>TRUE: Si el juego forma una escalera.</li><li>FALSE: Si el juego no forma una escalera.</li>
      */
-    @Override
-    public boolean esEscalera(ArrayList<Ficha> juego) {
+    private boolean esEscalera(ArrayList<Ficha> juego) {
         // realiza una copia de "juego" para no alterar el orden
         ArrayList<Ficha> copiaJuego = new ArrayList<>(juego);
         copiaJuego.sort(Comparator.comparing(Ficha::getNumeroFicha)); // Ordena de forma ascendente por NumeroFicha
@@ -132,8 +120,7 @@ public class Tablero implements ITablero {
      * @param juego Lista de Fichas a verificar la jugada
      * @return <li>TRUE: Si el juego forma una pierna.</li><li>FALSE: Si el juego no forma una pierna.</li>
      */
-    @Override
-    public boolean esPierna(ArrayList<Ficha> juego) {
+    private boolean esPierna(ArrayList<Ficha> juego) {
         ArrayList<Ficha> copiaJuego = new ArrayList<>(juego);
         int contador = 0;
         // Cuenta y saca todos los comodines y 2 en el juego de fichas
@@ -157,7 +144,6 @@ public class Tablero implements ITablero {
         return contador >= 3;
     }
 
-
     /**
      * Verifica si un juego forma una canasta pura.
      * <li>Una canasta pura es una pierna o una escalera de como mínimo 7 fichas sin ningún comodín.</li>
@@ -165,8 +151,7 @@ public class Tablero implements ITablero {
      * @param juego Lista de Fichas a verificar la canasta.
      * @return <li>TRUE: Si el juego forma una canasta pura.</li><li>FALSE: Si el juego no forma una canasta pura.</li>
      */
-    @Override
-    public boolean esCanastaPura(ArrayList<Ficha> juego) {
+    private boolean esCanastaPura(ArrayList<Ficha> juego) {
         return (esPierna(juego) || esEscalera(juego)) && juego.size() >= 7 && !contieneComodin(juego);
     }
 
@@ -177,8 +162,7 @@ public class Tablero implements ITablero {
      * @param juego Lista de Fichas a verificar la canasta.
      * @return <li>TRUE: Si el juego forma una canasta impura.</li><li>FALSE: Si el juego no forma una canasta impura.</li>
      */
-    @Override
-    public boolean esCanastaImpura(ArrayList<Ficha> juego) {
+    private boolean esCanastaImpura(ArrayList<Ficha> juego) {
         return (esPierna(juego) || esEscalera(juego)) && juego.size() >= 7 && contieneComodin(juego);
     }
 
@@ -217,6 +201,7 @@ public class Tablero implements ITablero {
      * @param jugada Lista de fichas.
      * @return <li>TRUE: Si el juego es escalera o pierna.</li><li>FALSE: Si el juego no es escalera o pierna.</li>
      */
+    @Override
     public boolean verificarJugadaNueva(ArrayList<Ficha> jugada) {
         boolean estado = false;
         if (jugada.size() >= 3) {
@@ -236,6 +221,7 @@ public class Tablero implements ITablero {
      * @param posicion Posición de la lista de fichas a donde se desea agregar nuevas fichas.
      * @return <li>TRUE: Si el juego es escalera o pierna.</li><li>FALSE: Si el juego no es escalera o pierna.</li>
      */
+    @Override
     public boolean verificarJugadaExistente(ArrayList<Ficha> jugada, int posicion) {
         boolean estado = false;
         if (jugada.size() >= 3) {
@@ -247,12 +233,12 @@ public class Tablero implements ITablero {
         return estado;
     }
 
-
     /**
      * Retorna la cantidad de juegos que hay en mesa.
      *
      * @return Cantidad de juegos en mesa.
      */
+    @Override
     public int sizeJugadaEnMesa() {
         return this.jugadaEnMesa.size();
     }
@@ -262,6 +248,7 @@ public class Tablero implements ITablero {
      *
      * @return Lista de listas de fichas que forma las jugadas.
      */
+    @Override
     public ArrayList<ArrayList<String>> mostrarJuegosEnMesa() {
         ArrayList<ArrayList<String>> juegosEnMesa = new ArrayList<>();
         for (ArrayList<Ficha> juego : jugadaEnMesa) {

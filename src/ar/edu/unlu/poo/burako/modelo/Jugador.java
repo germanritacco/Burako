@@ -7,15 +7,10 @@ import java.util.Objects;
 public class Jugador implements Serializable {
 
     private final String nombre;
-
     private Integer puntos;
-
     private ArrayList<Ficha> atril;
-
     private boolean turno;
-
     private static int ID = 0;
-
     private int id;
 
     /**

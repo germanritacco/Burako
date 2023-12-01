@@ -9,16 +9,11 @@ import java.util.ArrayList;
 public class Burako extends ObservableRemoto implements IBurako {
 
     private Mazo mazo;
-
     private Pozo pozo;
-
     private final ArrayList<Jugador> jugadores;
-
     private String mensajeSistema;
-
     private final Tablero tableroEquipo1;
     private final Tablero tableroEquipo2;
-
 
     /**
      * Constructor de clase.
@@ -177,7 +172,6 @@ public class Burako extends ObservableRemoto implements IBurako {
         }
     }
 
-
     /**
      * Verifica si el pozo esta vacío.
      *
@@ -188,7 +182,6 @@ public class Burako extends ObservableRemoto implements IBurako {
     public boolean isPozoVacio() throws RemoteException {
         return pozo.isEmpty();
     }
-
 
     /**
      * Agrega al atril del jugador todas las fichas del pozo.
@@ -202,7 +195,6 @@ public class Burako extends ObservableRemoto implements IBurako {
         jugador.addAtril(pozo.recogerPozo());
         this.notificarObservadores(Eventos.CAMBIO_FICHAS_ATRIL);
     }
-
 
     /**
      * Retorna el nombre del jugador que posee el turno.
@@ -294,7 +286,6 @@ public class Burako extends ObservableRemoto implements IBurako {
         return jugador.getAtril().size();
     }
 
-
     /**
      * Informa a las vistas que se ha desconectado un jugador.
      *
@@ -327,7 +318,6 @@ public class Burako extends ObservableRemoto implements IBurako {
             }
         }
     }
-
 
     /**
      * Verifica y agrega un nuevo juego a mesa.
@@ -424,7 +414,6 @@ public class Burako extends ObservableRemoto implements IBurako {
         return estado;
     }
 
-
     /**
      * Agrega una ficha del atril al pozo.
      *
@@ -441,7 +430,6 @@ public class Burako extends ObservableRemoto implements IBurako {
         this.notificarObservadores(Eventos.CAMBIO_TURNO);
     }
 
-
     /**
      * Verifica si un jugador posee el turno.
      *
@@ -454,7 +442,6 @@ public class Burako extends ObservableRemoto implements IBurako {
         Jugador jugador = jugadores.get(jugadorId);
         return jugador.isTurno();
     }
-
 
     /**
      * Retorna la cantidad de juegos que posee un jugador en mesa.
