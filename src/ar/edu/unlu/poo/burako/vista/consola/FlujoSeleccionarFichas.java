@@ -13,10 +13,6 @@ public class FlujoSeleccionarFichas extends Flujo {
         juegoMesa = isJuegoMesa;
     }
 
-    /**
-     * @param string
-     * @return
-     */
     @Override
     public Flujo procesarEntrada(String string) {
         try {
@@ -46,7 +42,7 @@ public class FlujoSeleccionarFichas extends Flujo {
 
     }
 
-    public void validarBajarJuego(String[] seleccion) {
+    private void validarBajarJuego(String[] seleccion) {
         try {
             vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
             if (controlador.agregarNuevaJugada(seleccion)) {
@@ -59,9 +55,6 @@ public class FlujoSeleccionarFichas extends Flujo {
         }
     }
 
-    /**
-     *
-     */
     @Override
     public void mostrarSiguienteTexto() {
         vista.mostrarAtril(controlador.mostrarAtril());
@@ -72,4 +65,5 @@ public class FlujoSeleccionarFichas extends Flujo {
         vista.appendColor("  Por favor seleccione las fichas que desea agregar como jugada,", Color.CYAN);
         vista.appendColor("  separado por ',' (Ej: '1,3,4,5'): ", Color.CYAN);
     }
+
 }

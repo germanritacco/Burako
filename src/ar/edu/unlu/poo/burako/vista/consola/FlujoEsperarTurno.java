@@ -5,22 +5,16 @@ import ar.edu.unlu.poo.burako.controlador.Controlador;
 import java.awt.*;
 
 public class FlujoEsperarTurno extends Flujo {
+
     public FlujoEsperarTurno(VistaConsola vista, Controlador controlador) {
         super(vista, controlador);
     }
 
-    /**
-     * @param string
-     * @return
-     */
     @Override
     public Flujo procesarEntrada(String string) {
         return null;
     }
 
-    /**
-     *
-     */
     @Override
     public void mostrarSiguienteTexto() {
         vista.disableComponents();
@@ -28,6 +22,6 @@ public class FlujoEsperarTurno extends Flujo {
         vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
         vista.mostrarTurno(controlador.nombreJugadorTurno());
         vista.appendColor("\n                               ¡AGUARDE SU TURNO!", Color.RED);
-
     }
+
 }

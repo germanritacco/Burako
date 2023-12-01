@@ -6,17 +6,13 @@ import java.awt.*;
 
 public class FlujoAgregarFichaJuegoMesa extends Flujo {
 
-    private String[] seleccion;
+    private final String[] seleccion;
 
     public FlujoAgregarFichaJuegoMesa(VistaConsola vista, Controlador controlador, String[] seleccion) {
         super(vista, controlador);
         this.seleccion = seleccion;
     }
 
-    /**
-     * @param string
-     * @return
-     */
     @Override
     public Flujo procesarEntrada(String string) {
         try {
@@ -34,9 +30,6 @@ public class FlujoAgregarFichaJuegoMesa extends Flujo {
         return new FlujoJugada(vista, controlador);
     }
 
-    /**
-     *
-     */
     @Override
     public void mostrarSiguienteTexto() {
         vista.mostrarJuegosMesa(controlador.mostrarJuegosEnMesa());
@@ -44,4 +37,5 @@ public class FlujoAgregarFichaJuegoMesa extends Flujo {
         vista.appendColor("\n", Color.CYAN);
         vista.appendColor("  Por favor seleccione la jugada en mesa a la cual desea agregar fichas: ", Color.CYAN);
     }
+
 }

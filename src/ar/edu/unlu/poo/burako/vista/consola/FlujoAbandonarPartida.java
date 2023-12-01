@@ -6,25 +6,18 @@ import java.awt.*;
 
 public class FlujoAbandonarPartida extends Flujo {
 
-    private String jugador;
+    private final String jugador;
 
     public FlujoAbandonarPartida(VistaConsola vista, Controlador controlador, String jugador) {
         super(vista, controlador);
         this.jugador = jugador;
     }
 
-    /**
-     * @param string
-     * @return
-     */
     @Override
     public Flujo procesarEntrada(String string) {
         return null;
     }
 
-    /**
-     *
-     */
     @Override
     public void mostrarSiguienteTexto() {
         vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
@@ -35,4 +28,5 @@ public class FlujoAbandonarPartida extends Flujo {
         vista.mostrarMenuPrincipal();
         vista.enableComponents();
     }
+
 }

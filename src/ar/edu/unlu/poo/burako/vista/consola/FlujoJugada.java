@@ -5,14 +5,11 @@ import ar.edu.unlu.poo.burako.controlador.Controlador;
 import java.awt.*;
 
 public class FlujoJugada extends Flujo {
+
     public FlujoJugada(VistaConsola vista, Controlador controlador) {
         super(vista, controlador);
     }
 
-    /**
-     * @param string
-     * @return
-     */
     @Override
     public Flujo procesarEntrada(String string) {
         switch (string) {
@@ -43,9 +40,6 @@ public class FlujoJugada extends Flujo {
         return this;
     }
 
-    /**
-     *
-     */
     @Override
     public void mostrarSiguienteTexto() {
         vista.mostrarAtril(controlador.mostrarAtril());
@@ -61,4 +55,5 @@ public class FlujoJugada extends Flujo {
         vista.appendColor("\n", Color.CYAN);
         vista.appendColor("  Por favor seleccione una opción: ", Color.CYAN);
     }
+
 }

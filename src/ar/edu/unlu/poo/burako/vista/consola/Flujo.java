@@ -12,8 +12,17 @@ public abstract class Flujo {
         this.controlador = controlador;
     }
 
+    /**
+     * Procesa el dato ingresado por el usuario
+     *
+     * @param string Dato ingresado por el usuario
+     * @return Instancia del siguiente flujo.
+     */
     public abstract Flujo procesarEntrada(String string);
 
+    /**
+     * Texto a mostrar en la vista actual.
+     */
     public abstract void mostrarSiguienteTexto();
 
 }

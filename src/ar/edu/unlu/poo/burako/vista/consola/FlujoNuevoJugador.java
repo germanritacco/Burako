@@ -10,19 +10,12 @@ public class FlujoNuevoJugador extends Flujo {
         super(vista, controlador);
     }
 
-    /**
-     * @param string
-     * @return
-     */
     @Override
     public Flujo procesarEntrada(String string) {
         controlador.nuevoJugador(string);
         return new FlujoMenuPrincipal(vista, controlador);
     }
 
-    /**
-     *
-     */
     @Override
     public void mostrarSiguienteTexto() {
         vista.appendColor("\n", Color.CYAN);
@@ -32,4 +25,5 @@ public class FlujoNuevoJugador extends Flujo {
         vista.appendColor("\n", Color.CYAN);
         vista.appendColor("  Ingrese nombre de jugador: ", Color.CYAN);
     }
+
 }

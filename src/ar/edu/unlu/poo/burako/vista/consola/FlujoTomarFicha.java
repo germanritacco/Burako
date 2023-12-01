@@ -9,10 +9,6 @@ public class FlujoTomarFicha extends Flujo {
         super(vista, controlador);
     }
 
-    /**
-     * @param string
-     * @return
-     */
     @Override
     public Flujo procesarEntrada(String string) {
         switch (string) {
@@ -37,9 +33,6 @@ public class FlujoTomarFicha extends Flujo {
         return this;
     }
 
-    /**
-     *
-     */
     @Override
     public void mostrarSiguienteTexto() {
         vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);

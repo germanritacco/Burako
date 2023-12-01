@@ -2,31 +2,102 @@ package ar.edu.unlu.poo.burako.vista;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public interface IVista {
 
+    /**
+     * Asigna el controlador de la vista.
+     *
+     * @param controlador Instancia de controlador.
+     */
     void setControlador(Controlador controlador);
 
-    void iniciar();
-
+    /**
+     * Muestra por pantalla el texto recibido por parámetro.
+     *
+     * @param txt Texto a mostrar.
+     */
     void mostrarTexto(String txt);
 
-    void nuevoJugador();
-
+    /**
+     * Cambia el flujo cuando un jugador abandona la partida.
+     *
+     * @param nombre Nombre del jugador.
+     */
     void abandonarPartida(String nombre);
 
-    void disableComponents();
+    /**
+     * Añade nuevo texto al final de la pantalla, en el color indicado.
+     *
+     * @param texto Texto a añadir.
+     * @param color Color que se desea mostrar el texto.
+     */
+    void appendColor(String texto, Color color);
 
-    void enableComponents();
+    /**
+     * Añade nuevo texto en la posición indicada de la pantalla, en el color indicado.
+     *
+     * @param texto       Texto a añadir.
+     * @param color       Color que se desea mostrar el texto.
+     * @param numeroLinea Posición donde se desea agregar el texto.
+     */
+    void appendColorPosicion(String texto, Color color, int numeroLinea);
 
+    /**
+     * Punto de partida de ejecución, iniciación con el flujo de nuevo jugador.
+     */
+    void nuevoJugador();
+
+    /**
+     * Muestra por pantalla que jugador posee el turno.
+     *
+     * @param jugador Nombre del jugador.
+     */
     void mostrarTurno(String jugador);
 
-    void iniciarPartida(ArrayList<String> atril, ArrayList<String> pozo, String nombreJugador);
+    /**
+     * Muestra por pantalla lo necesario para iniciar la partida.
+     *
+     * @param atril Lista de fichas que posee el jugador en el atril.
+     * @param pozo  Lista de fichas que posee el pozo.
+     */
+    void iniciarPartida(ArrayList<String> atril, ArrayList<String> pozo);
 
+    /**
+     * Muestra por pantalla los juegos que posee un jugador.
+     *
+     * @param juegosMesa Lista de listas de fichas.
+     */
+    void mostrarJuegosMesa(ArrayList<ArrayList<String>> juegosMesa);
+
+    /**
+     * Muestra por pantalla el pozo.
+     *
+     * @param pozo Lista de fichas que posee el pozo.
+     */
+    void mostrarPozo(ArrayList<String> pozo);
+
+    /**
+     * Muestra por pantalla el atril del jugador.
+     *
+     * @param atril Lista de fichas que posee el atril.
+     */
     void mostrarAtril(ArrayList<String> atril);
 
-    void mostrarJuegosMesa(ArrayList<ArrayList<String>> atril);
+    /**
+     * Deshabilita los componentes que permiten la entrada de texto por parte del usuario.
+     */
+    void disableComponents();
 
-    void mostrarPozo(ArrayList<String> pozo);
+    /**
+     * Habilita los componentes que permiten la entrada de texto por parte del usuario y asigna el flujo correspondiente.
+     */
+    void enableComponents();
+
+    /**
+     * Cambia al flujo correspondiente de mostrar el menu principal.
+     */
+    void mostrarMenuPrincipal();
 }

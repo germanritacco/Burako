@@ -5,14 +5,11 @@ import ar.edu.unlu.poo.burako.controlador.Controlador;
 import java.awt.*;
 
 public class FlujoPozo extends Flujo {
+
     public FlujoPozo(VistaConsola vista, Controlador controlador) {
         super(vista, controlador);
     }
 
-    /**
-     * @param string
-     * @return
-     */
     @Override
     public Flujo procesarEntrada(String string) {
         try {
@@ -30,9 +27,6 @@ public class FlujoPozo extends Flujo {
         return this;
     }
 
-    /**
-     *
-     */
     @Override
     public void mostrarSiguienteTexto() {
         vista.mostrarAtril(controlador.mostrarAtril());
@@ -42,4 +36,5 @@ public class FlujoPozo extends Flujo {
         vista.appendColor("\n", Color.CYAN);
         vista.appendColor("  Por favor seleccione la ficha que desea dejar en el pozo: ", Color.CYAN);
     }
+
 }

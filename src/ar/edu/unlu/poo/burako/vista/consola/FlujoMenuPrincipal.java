@@ -22,10 +22,19 @@ public class FlujoMenuPrincipal extends Flujo {
         return this;
     }
 
-    public void mostrarJugadores() {
+    private void mostrarJugadores() {
         vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
         vista.appendColor(" Jugadores conectados:\n", Color.CYAN);
         vista.appendColor(controlador.mostrarJugadores(), Color.RED);
+    }
+
+    private Flujo iniciarPartida() {
+        controlador.iniciarPartida();
+        if (controlador.isJugadorTurno()) {
+            return new FlujoTomarFicha(vista, controlador);
+        } else {
+            return new FlujoVacio(vista, controlador);
+        }
     }
 
     @Override
@@ -44,16 +53,6 @@ public class FlujoMenuPrincipal extends Flujo {
         vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
         vista.appendColor("\n", Color.CYAN);
         vista.appendColor("  Por favor seleccione una opción: ", Color.CYAN);
-    }
-
-    private Flujo iniciarPartida() {
-        controlador.iniciarPartida();
-        if (controlador.isJugadorTurno()) {
-            return new FlujoTomarFicha(vista, controlador);
-        } else {
-            return new FlujoVacio(vista, controlador);
-        }
-
     }
 
 }
