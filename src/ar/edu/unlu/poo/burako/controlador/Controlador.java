@@ -13,33 +13,57 @@ import java.util.ArrayList;
 public class Controlador implements IControladorRemoto {
 
     private final IVista vista;
-
     private IBurako modelo;
-
     private Jugador jugador;
 
+
+    /**
+     * Constructor de clase.
+     * <li>Asigna la vista al controlador.</li>
+     *
+     * @param vista Instancia de vista.
+     */
     public Controlador(IVista vista) {
         this.vista = vista;
         this.vista.setControlador(this);
     }
 
+    /**
+     * Asigna el modelo al controlador.
+     *
+     * @param modeloRemoto Clase modelo.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
     @Override
     public <T extends IObservableRemoto> void setModeloRemoto(T modeloRemoto) throws RemoteException {
         this.modelo = (IBurako) modeloRemoto;
     }
 
+    /**
+     * Informa a las vistas si hay nuevos cambios a mostrar.
+     *
+     * @param modelo Clase modelo.
+     * @param cambio Enumerado que controla que cambio mostrar.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
     @Override
     public void actualizar(IObservableRemoto modelo, Object cambio) throws RemoteException {
         if (cambio instanceof Eventos) {
             switch ((Eventos) cambio) {
-                case NUEVO_MENSAJE -> vista.mostrarTexto(this.modelo.getMensajeSistema() + "\n");
-                case MOSTRAR_JUGADORES -> vista.mostrarTexto(this.modelo.getJugadores());
+                case NUEVO_MENSAJE -> {
+                    vista.mostrarTexto(this.modelo.getMensajeSistema() + "\n");
+                }
+                case ABANDONAR_PARTIDA -> {
+                    vista.abandonarPartida(jugador.getNombre());
+                }
+                case MOSTRAR_JUGADORES -> {
+                    vista.mostrarTexto(this.modelo.getJugadores());
+                }
                 case PARTIDA -> {
                     ArrayList<String> atril = this.modelo.getFichas(jugador.getId());
                     ArrayList<String> pozo = this.modelo.mostrarPozo();
-                    this.vista.iniciarPartida(atril, pozo, jugador.getNombre());
+                    this.vista.iniciarPartida(atril, pozo);
                 }
-                case ABANDONAR_PARTIDA -> vista.abandonarPartida(jugador.getNombre());
                 case CAMBIO_TURNO -> {
                     if (isJugadorTurno()) {
                         vista.mostrarAtril(mostrarAtril());
