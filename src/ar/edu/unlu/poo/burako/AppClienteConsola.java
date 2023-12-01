@@ -15,13 +15,15 @@ public class AppClienteConsola {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                ArrayList<String> ips = Util.getIpDisponibles();
 
-                String ip = "127.0.0.1";
-                String port = "9999";
-                String ipServidor = "127.0.0.1";
-                String portServidor = "8888";
+                String ip = args[0];
+                String port = args[1];
+                String ipServidor = args[2];
+                String portServidor = args[3];
+
         /*
+        ArrayList<String> ips = Util.getIpDisponibles();
+
         String ip = (String) JOptionPane.showInputDialog(
                 null,
                 "Seleccione la IP en la que escuchará peticiones el cliente", "IP del cliente",
@@ -55,7 +57,9 @@ public class AppClienteConsola {
                 8888
         );*/
 
-                IVista vista = new VistaConsola();
+                int x = Integer.parseInt(args[4]);
+                int y = Integer.parseInt(args[5]);
+                IVista vista = new VistaConsola(x, y);
                 Controlador controlador = new Controlador(vista);
                 Cliente c = new Cliente(ip, Integer.parseInt(port), ipServidor, Integer.parseInt(portServidor));
 
