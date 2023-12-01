@@ -20,28 +20,58 @@ public class Burako extends ObservableRemoto implements IBurako {
     private final Tablero tableroEquipo2;
 
 
+    /**
+     * Constructor de clase.
+     * <li>Crea el ArrayList de Jugador, y 2 instancias de Tablero.</li>
+     */
     public Burako() {
         jugadores = new ArrayList<>();
         tableroEquipo1 = new Tablero();
         tableroEquipo2 = new Tablero();
     }
 
+    /**
+     * Recupera el mensaje guardado en la clase modelo.
+     *
+     * @return Mensaje a mostrar en las vistas.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
     @Override
     public String getMensajeSistema() throws RemoteException {
         return mensajeSistema;
     }
 
+    /**
+     * Cierra la conexión de un jugador con el servidor remoto.
+     *
+     * @param controlador Controlador que está asociado a una vista.
+     * @param jugadorId   N° de ID del jugador.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
     public void cerrar(IObservadorRemoto controlador, int jugadorId) throws RemoteException {
         this.removerObservador(controlador);
         this.desconectarUsuario(jugadores.get(jugadorId));
     }
 
-    @Override
-    public void desconectarUsuario(Jugador jugador) throws RemoteException {
+    /**
+     * Remueve al jugador de la lista de jugadores.
+     *
+     * @param jugador Instancia de jugador.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    private void desconectarUsuario(Jugador jugador) throws RemoteException {
         this.enviarMensajeDelSistema("El jugador " + jugador.getNombre() + " se ha retirado de la partida");
         jugadores.remove(jugador);
     }
 
+    /**
+     * Obtiene El listado de jugadores conectados.
+     *
+     * @return Texto del listado de jugadores.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
     public String getJugadores() throws RemoteException {
         String texto = "";
         for (Jugador jugador : this.jugadores) {
@@ -50,6 +80,14 @@ public class Burako extends ObservableRemoto implements IBurako {
         return texto;
     }
 
+    /**
+     * Retorna el listado de fichas de un jugador.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @return ArrayList de String, cada posición contiene el número y color de ficha.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
     public ArrayList<String> getFichas(int jugadorId) throws RemoteException {
         ArrayList<String> fichas = new ArrayList<>();
         Jugador jugador = jugadores.get(jugadorId);
@@ -63,37 +101,71 @@ public class Burako extends ObservableRemoto implements IBurako {
         return fichas;
     }
 
+    /**
+     * Agrega un nuevo jugador
+     *
+     * @param nombre Nombre del jugador.
+     * @return Instancia de jugador.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
     public Jugador setJugador(String nombre) throws RemoteException {
         Jugador nuegoJugador = new Jugador(nombre);
         this.jugadores.add(nuegoJugador);
         switch (jugadores.size()) {
-            case 0, 2 -> this.tableroEquipo1.agregarJugadores(nuegoJugador);
-            case 1, 3 -> this.tableroEquipo2.agregarJugadores(nuegoJugador);
+            case 1, 3 -> this.tableroEquipo1.agregarJugadores(nuegoJugador);
+            case 2, 4 -> this.tableroEquipo2.agregarJugadores(nuegoJugador);
         }
         this.enviarMensajeDelSistema("El jugador " + nombre + " se ha unido a la partida");
         return nuegoJugador;
     }
 
-    @Override
-    public void enviarMensajeDelSistema(String mensaje) throws RemoteException {
+    /**
+     * Envía mensajes desde el modelo hacia las vistas.
+     *
+     * @param mensaje Mensaje a mostrar en las vistas.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    private void enviarMensajeDelSistema(String mensaje) throws RemoteException {
         this.mensajeSistema = mensaje;
         this.notificarObservadores(Eventos.NUEVO_MENSAJE);
     }
 
-    public void repartirFichas() throws RemoteException {
+    /**
+     * Reparte las fichas para los jugadores, pila de muertos y mazo.
+     *
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    private void repartirFichas() throws RemoteException {
         switch (jugadores.size()) {
             case 2 -> this.mazo = new Mazo(jugadores.get(0), jugadores.get(1));
             case 4 -> this.mazo = new Mazo(jugadores.get(0), jugadores.get(1), jugadores.get(2), jugadores.get(3));
         }
     }
 
-    private void tomarMuerto(int jugadorId) {
+    /**
+     * Agrega al atril del jugador las fichas de la pila de muertos.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
+    public void tomarMuerto(int jugadorId) throws RemoteException {
         if (!mazo.getMuerto().isEmpty()) {
             Jugador jugador = jugadores.get(jugadorId);
             jugador.addAtril(mazo.sacarMuerto());
         }
     }
 
+    /**
+     * Inicia la partida:
+     * <li>Reparte las fichas.</li>
+     * <li>Instancia el pozo.</li>
+     * <li>Asigna el turno al primer jugador.</li>
+     *
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
     public void comenzarPartida() throws RemoteException {
         if (jugadores.size() == 2 || jugadores.size() == 4) {
             repartirFichas();
@@ -101,20 +173,28 @@ public class Burako extends ObservableRemoto implements IBurako {
             jugadores.get(0).setTurno(true);
             this.notificarObservadores(Eventos.PARTIDA);
         } else {
-            this.enviarMensajeDelSistema("La partida no puede comenzar ya que faltan jugadores en la partida");
+            this.enviarMensajeDelSistema("La partida no puede comenzar, ya que faltan jugadores en la partida");
         }
     }
 
+
     /**
-     * @return
+     * Verifica si el pozo esta vacío.
+     *
+     * @return <li>TRUE: Si el pozo esta vacío.</li><li>FALSE: Si el pozo contiene fichas.</li>
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public boolean isPozoVacio() throws RemoteException {
         return pozo.isEmpty();
     }
 
+
     /**
-     * @throws RemoteException
+     * Agrega al atril del jugador todas las fichas del pozo.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public void recogerPozo(int jugadorId) throws RemoteException {
@@ -123,9 +203,12 @@ public class Burako extends ObservableRemoto implements IBurako {
         this.notificarObservadores(Eventos.CAMBIO_FICHAS_ATRIL);
     }
 
+
     /**
-     * @return
-     * @throws RemoteException
+     * Retorna el nombre del jugador que posee el turno.
+     *
+     * @return Nombre del jugador.
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public String nombreJugadorTurno() throws RemoteException {
@@ -138,8 +221,11 @@ public class Burako extends ObservableRemoto implements IBurako {
     }
 
     /**
-     * @param jugadorId
-     * @throws RemoteException
+     * Retorna una lista que posee en cada posición, la lista de fichas que forman una jugada en mesa.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @return Lista de listas de fichas que forma las jugadas.
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public ArrayList<ArrayList<String>> mostrarJuegosEnMesa(int jugadorId) throws RemoteException {
@@ -158,32 +244,61 @@ public class Burako extends ObservableRemoto implements IBurako {
 
     }
 
+    /**
+     * Retorna el nombre del jugador que posee el turno.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @return Nombre del jugador.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
     public String mostrarTurno(int jugadorId) throws RemoteException {
         Jugador jugador = jugadores.get(jugadorId);
         return jugador.getNombre();
     }
 
     /**
+     * Retorna el listado de fichas del pozo.
      *
+     * @return ArrayList de String, cada posición contiene el número y color de ficha.
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
-
+    @Override
     public ArrayList<String> mostrarPozo() throws RemoteException {
         return pozo.mostrarPozo();
     }
 
+    /**
+     * Toma una ficha del mazo y la agrega al atril del jugador.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
     public void recogerFichaMazo(int jugadorId) throws RemoteException {
         Jugador jugador = jugadores.get(jugadorId);
         jugador.addFichaAtril(mazo.recogerFichaMazo());
         this.notificarObservadores(Eventos.CAMBIO_FICHAS_ATRIL);
     }
 
+    /**
+     * Retorna la cantidad de fichas que posee el jugador en el atril.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @return Cantidad de fichas.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
     public Integer cantidadFichasAtril(int jugadorId) throws RemoteException {
         Jugador jugador = jugadores.get(jugadorId);
         return jugador.getAtril().size();
     }
 
+
     /**
+     * Informa a las vistas que se ha desconectado un jugador.
      *
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public void abandonarPartida() throws RemoteException {
@@ -192,7 +307,11 @@ public class Burako extends ObservableRemoto implements IBurako {
     }
 
     /**
-     * @param jugador
+     * Verifica si el jugador posee juegos en mesa.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @return <li>TRUE: Si la mesa posee juegos.</li><li>FALSE: Si la mesa esta vacía.</li>
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public Boolean hayJuegosMesa(int jugadorId) throws RemoteException {
@@ -209,9 +328,15 @@ public class Burako extends ObservableRemoto implements IBurako {
         }
     }
 
+
     /**
-     * @param seleccion
-     * @throws RemoteException
+     * Verifica y agrega un nuevo juego a mesa.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @param seleccion Arreglo de las posiciones de fichas que forman un posible juego.
+     * @return <li>TRUE: Si las fichas forman un juego y se agregaron a la mesa.</li><li>FALSE: Si las fichas no forman un juego.</li>
+     * @throws RemoteException       Se lanza si ocurre un error de red.
+     * @throws NumberFormatException Se lanza si hay un error al convertir una cadena a un número.
      */
     @Override
     public boolean agregarNuevaJugada(int jugadorId, String[] seleccion) throws RemoteException, NumberFormatException {
@@ -234,6 +359,13 @@ public class Burako extends ObservableRemoto implements IBurako {
         return estado;
     }
 
+    /**
+     * Arma una lista de fichas, a partir de un arreglo que posee las posiciones de ficha.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @param seleccion Arreglo de las posiciones de fichas que forman un posible juego.
+     * @return Lista de fichas.
+     */
     private ArrayList<Ficha> armarJugada(int jugadorId, String[] seleccion) {
         ArrayList<Ficha> jugada = new ArrayList<>();
         Jugador jugador = jugadores.get(jugadorId);
@@ -244,6 +376,12 @@ public class Burako extends ObservableRemoto implements IBurako {
         return jugada;
     }
 
+    /**
+     * Remueve del atril las fichas seleccionadas.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @param seleccion Arreglo de las posiciones de fichas que forman un posible juego.
+     */
     private void borrarJugadaAtril(int jugadorId, String[] seleccion) {
         Jugador jugador = jugadores.get(jugadorId);
         int incremento = 0;
@@ -254,6 +392,15 @@ public class Burako extends ObservableRemoto implements IBurako {
         }
     }
 
+    /**
+     * Verifica y agrega fichas a un juego existente en mesa.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @param seleccion Arreglo de las posiciones de fichas que forman un posible juego.
+     * @param posicion  Posición de la lista de fichas a donde se desea agregar nuevas fichas.
+     * @return <li>TRUE: Si las fichas forman un juego y se agregaron a la jugada existente en mesa.</li><li>FALSE: Si las fichas no se puede agregar la jugada existente en mesa.</li>
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
     @Override
     public boolean agregarFichaJugadaExistente(int jugadorId, String[] seleccion, int posicion) throws RemoteException {
         boolean estado = false;
@@ -277,10 +424,13 @@ public class Burako extends ObservableRemoto implements IBurako {
         return estado;
     }
 
+
     /**
-     * @param jugador
-     * @param posicion
-     * @throws RemoteException
+     * Agrega una ficha del atril al pozo.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @param posicion  Posición de la ficha seleccionada.
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public void agregarFichaPozo(int jugadorId, int posicion) throws RemoteException {
@@ -291,9 +441,13 @@ public class Burako extends ObservableRemoto implements IBurako {
         this.notificarObservadores(Eventos.CAMBIO_TURNO);
     }
 
+
     /**
-     * @param jugadorId
-     * @return
+     * Verifica si un jugador posee el turno.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @return <li>TRUE: Si el jugador posee el turno.</li><li>FALSE: Si el jugador no posee el turno.</li>
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public boolean isJugadorActual(int jugadorId) throws RemoteException {
@@ -301,9 +455,13 @@ public class Burako extends ObservableRemoto implements IBurako {
         return jugador.isTurno();
     }
 
+
     /**
-     * @param jugador
-     * @return
+     * Retorna la cantidad de juegos que posee un jugador en mesa.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @return Cantidad de juegos en mesa.
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public int cantidadJuegosMesa(int jugadorId) throws RemoteException {
@@ -320,6 +478,13 @@ public class Burako extends ObservableRemoto implements IBurako {
         }
     }
 
+    /**
+     * Asigna el turno al siguiente jugador de la ronda.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
     public void cambiarTurno(int jugadorId) throws RemoteException {
         int indice = (jugadorId + 1) % jugadores.size(); // Recorrido circular del ArrayList
         jugadores.get(indice).setTurno(true);

@@ -6,7 +6,7 @@ import static java.lang.Math.random;
 
 public class Mazo {
 
-    private final ArrayList<Pila> mazo; // pilas de 10 fichas c/u
+    private final Pila mazo;
 
     private final ArrayList<PilaDeMuerto> muerto; // 2 pilas de 11 fichas c/u
 
@@ -19,14 +19,17 @@ public class Mazo {
     }
 
     /**
-     * Constructor para 2 jugadores
+     * Constructor de clase para 2 jugadores.
+     * <li>Asigna las fichas para los jugadores.</li>
+     * <li>Instancia y asigna fichas al mazo</li>
+     * <li>Instancia y asigna fichas al muerto.</li>
      *
      * @param jugador1 Jugador N°1
      * @param jugador2 Jugador N°2
      */
     public Mazo(Jugador jugador1, Jugador jugador2) {
         ArrayList<Ficha> fichasSinRepartir = crearFichas();
-        this.mazo = new ArrayList<>(5);
+        this.mazo = new Pila();
         this.muerto = new ArrayList<>(2);
         jugador1.addAtril(repartirAtril(fichasSinRepartir));
         jugador2.addAtril(repartirAtril(fichasSinRepartir));
@@ -35,7 +38,10 @@ public class Mazo {
     }
 
     /**
-     * Constructor para 4 jugadores
+     * Constructor de clase para 4 jugadores.
+     * <li>Asigna las fichas para los jugadores.</li>
+     * <li>Instancia y asigna fichas al mazo</li>
+     * <li>Instancia y asigna fichas al muerto.</li>
      *
      * @param jugador1 Jugador N°1 (pareja de Jugador N°3)
      * @param jugador2 Jugador N°2 (pareja de Jugador N°4)
@@ -44,7 +50,7 @@ public class Mazo {
      */
     public Mazo(Jugador jugador1, Jugador jugador2, Jugador jugador3, Jugador jugador4) {
         ArrayList<Ficha> fichasSinRepartir = crearFichas();
-        this.mazo = new ArrayList<>(5);
+        this.mazo = new Pila();
         this.muerto = new ArrayList<>(2);
         jugador1.addAtril(repartirAtril(fichasSinRepartir));
         jugador2.addAtril(repartirAtril(fichasSinRepartir));
@@ -55,9 +61,9 @@ public class Mazo {
     }
 
     /**
-     * Genera las 106 fichas necesarias para jugar
+     * Genera las 106 fichas necesarias para jugar.
      *
-     * @return ArrayList con el total de fichas
+     * @return Lista de fichas.
      */
     public ArrayList<Ficha> crearFichas() {
         ArrayList<Ficha> fichasSinRepartir = new ArrayList<>();
@@ -74,9 +80,9 @@ public class Mazo {
     }
 
     /**
-     * Reparte de forma aleatoria las 2 pilas de Muertos
+     * Reparte de forma aleatoria las 2 pilas de Muertos.
      *
-     * @param fichasSinRepartir ArrayList de fichas restantes a repartir
+     * @param fichasSinRepartir Lista de fichas restantes a repartir.
      */
     public void repartirMuerto(ArrayList<Ficha> fichasSinRepartir) {
         for (int i = 0; i < 2; i++) {
@@ -90,26 +96,22 @@ public class Mazo {
     }
 
     /**
-     * Reparte de forma aleatoria pilas de 10 fichas hasta que no haya mas fichas a repartir
+     * Reparte de forma aleatoria el resto de fichas para formar el mazo.
      *
-     * @param fichasSinRepartir ArrayList de fichas restantes a repartir
+     * @param fichasSinRepartir Lista de fichas restantes a repartir.
      */
     public void repartirMazo(ArrayList<Ficha> fichasSinRepartir) {
         while (!fichasSinRepartir.isEmpty()) {
-            Pila pilaAux = new Pila();
-            for (int i = 1; i <= 10 && !fichasSinRepartir.isEmpty(); i++) {
-                Ficha fichaAux = fichasSinRepartir.remove((int) (Math.random() * fichasSinRepartir.size()));
-                pilaAux.agregarFicha(fichaAux);
-            }
-            this.mazo.add(pilaAux);
+            Ficha ficha = fichasSinRepartir.remove((int) (Math.random() * fichasSinRepartir.size()));
+            mazo.agregarFicha(ficha);
         }
     }
 
     /**
-     * Reparte 11 fichas para un jugador
+     * Reparte 11 fichas para un jugador.
      *
-     * @param fichasSinRepartir ArrayList de fichas restantes a repartir
-     * @return ArrayList con 11 fichas
+     * @param fichasSinRepartir Lista de fichas restantes a repartir.
+     * @return Lista con 11 fichas.
      */
     public ArrayList<Ficha> repartirAtril(ArrayList<Ficha> fichasSinRepartir) {
         ArrayList<Ficha> fichasAtrilAux = new ArrayList<>();
@@ -120,14 +122,14 @@ public class Mazo {
         return fichasAtrilAux;
     }
 
+    /**
+     * Recoge una ficha del mazo.
+     *
+     * @return Ficha.
+     */
     public Ficha recogerFichaMazo() {
         if (!mazo.isEmpty()) {
-            Pila pilaUltima = mazo.get(mazo.size() - 1);
-            if (pilaUltima.isEmpty()) {
-                mazo.remove(pilaUltima);
-                pilaUltima = mazo.get(mazo.size() - 1);
-            }
-            return pilaUltima.sacarFicha();
+            return mazo.sacarFicha();
         } else {
             return null;
         }
