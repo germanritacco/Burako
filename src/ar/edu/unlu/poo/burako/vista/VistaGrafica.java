@@ -154,4 +154,12 @@ public class VistaGrafica implements IVista {
     public void mostrarMenuPrincipal() {
 
     }
+
+    /**
+     * @param puntaje
+     */
+    @Override
+    public void mostrarPuntos(String puntaje) {
+
+    }
 }

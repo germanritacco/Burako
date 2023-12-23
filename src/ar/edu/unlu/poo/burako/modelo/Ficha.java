@@ -63,7 +63,7 @@ public class Ficha implements Serializable {
      * @param ficha Numero de ficha.
      * @return Valor (puntaje) de la ficha.
      */
-    public Integer Valor(Integer ficha) {
+    private Integer Valor(Integer ficha) {
         int ValorFinal = 0;
         switch (ficha) {
             case 1 -> ValorFinal = 15;

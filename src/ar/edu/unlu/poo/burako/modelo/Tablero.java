@@ -9,6 +9,8 @@ public class Tablero implements ITablero {
     private final ArrayList<ArrayList<Ficha>> jugadaEnMesa;
     private final ArrayList<Jugador> jugadores;
 
+    private int puntosEquipos;
+
     /**
      * Constructor de clase.
      * <li>Instancia de juegos en mesa.</li>
@@ -151,7 +153,7 @@ public class Tablero implements ITablero {
      * @param juego Lista de Fichas a verificar la canasta.
      * @return <li>TRUE: Si el juego forma una canasta pura.</li><li>FALSE: Si el juego no forma una canasta pura.</li>
      */
-    private boolean esCanastaPura(ArrayList<Ficha> juego) {
+    private boolean isCanastaPura(ArrayList<Ficha> juego) {
         return (esPierna(juego) || esEscalera(juego)) && juego.size() >= 7 && !contieneComodin(juego);
     }
 
@@ -162,7 +164,7 @@ public class Tablero implements ITablero {
      * @param juego Lista de Fichas a verificar la canasta.
      * @return <li>TRUE: Si el juego forma una canasta impura.</li><li>FALSE: Si el juego no forma una canasta impura.</li>
      */
-    private boolean esCanastaImpura(ArrayList<Ficha> juego) {
+    private boolean isCanastaImpura(ArrayList<Ficha> juego) {
         return (esPierna(juego) || esEscalera(juego)) && juego.size() >= 7 && contieneComodin(juego);
     }
 
@@ -265,4 +267,58 @@ public class Tablero implements ITablero {
         return juegosEnMesa;
     }
 
+    public boolean isCanasta() {
+        for (ArrayList<Ficha> juego : jugadaEnMesa) {
+            if (isCanastaPura(juego) || isCanastaImpura(juego)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void puntosEnMesa() {
+        boolean isCanasta = false;
+        int suma = 0;
+        for (ArrayList<Ficha> juego : jugadaEnMesa) {
+            for (Ficha ficha : juego) {
+                suma += ficha.getValorFicha();
+            }
+            if (isCanastaPura(juego)) {
+                suma += 100;
+                isCanasta = true;
+            }
+            if (isCanastaImpura(juego)) {
+                suma += 200;
+                isCanasta = true;
+            }
+        }
+        if (isCanasta) {
+            this.puntosEquipos = suma;
+        } else {
+            this.puntosEquipos -= suma;
+        }
+    }
+
+    public int getPuntosEquipos() {
+        return puntosEquipos;
+    }
+
+    public void restarPuntos(int puntos) {
+        this.puntosEquipos -= puntos;
+    }
+
+    public void sumarPuntos(int puntos) {
+        this.puntosEquipos += puntos;
+    }
+
+    public String mostrarPuntajeJugadores() {
+        String jugadoresTablero = " • ";
+        for (Jugador jugador : jugadores) {
+            jugadoresTablero += jugador.getNombre() + ", ";
+
+        }
+        jugadoresTablero = jugadoresTablero.substring(0, jugadoresTablero.length() - 2);
+        jugadoresTablero += ": " + puntosEquipos;
+        return jugadoresTablero;
+    }
 }

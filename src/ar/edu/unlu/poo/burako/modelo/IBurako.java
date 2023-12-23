@@ -207,4 +207,14 @@ public interface IBurako extends IObservableRemoto {
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
     void cambiarTurno(int jugadorId) throws RemoteException;
+
+    boolean atrilVacio(int jugadorId) throws RemoteException;
+
+    boolean tomoMuerto(int jugadorId) throws RemoteException;
+
+    Boolean isCanasta(int jugadorId) throws RemoteException;
+
+    void calcularPuntos(int jugadorId) throws RemoteException;
+
+    String mostrarPuntos() throws RemoteException;
 }

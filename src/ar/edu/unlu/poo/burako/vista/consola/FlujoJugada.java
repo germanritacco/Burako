@@ -17,7 +17,11 @@ public class FlujoJugada extends Flujo {
                 return new FlujoSeleccionarFichas(vista, controlador, false);
             }
             case "2" -> {
-                return agregarfichasJuegoMesa();
+                if (controlador.cantidadFichasAtril().equals(1) && !controlador.isCanasta()) {
+                    vista.appendColor("ERROR: No posee canasta en mesa,\nNo puede cerrar partida aun!", Color.RED);
+                } else {
+                    return agregarfichasJuegoMesa();
+                }
             }
             case "3" -> {
                 return new FlujoPozo(vista, controlador);

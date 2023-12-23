@@ -7,5 +7,6 @@ public enum Eventos {
     ABANDONAR_PARTIDA,
     CAMBIO_TURNO,
     CAMBIO_FICHAS_ATRIL,
+    PUNTAJE,
     PARTIDA
 }

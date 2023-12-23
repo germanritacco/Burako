@@ -100,4 +100,7 @@ public interface IVista {
      * Cambia al flujo correspondiente de mostrar el menu principal.
      */
     void mostrarMenuPrincipal();
+
+    void mostrarPuntos(String puntaje);
+
 }

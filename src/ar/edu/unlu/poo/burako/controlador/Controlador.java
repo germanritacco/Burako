@@ -79,6 +79,9 @@ public class Controlador implements IControladorRemoto {
                         vista.enableComponents();
                     }
                 }
+                case PUNTAJE -> {
+                    vista.mostrarPuntos(this.modelo.mostrarPuntos());
+                }
             }
         }
     }
@@ -231,4 +234,43 @@ public class Controlador implements IControladorRemoto {
         }
     }
 
+    public boolean atrilVacio() {
+        try {
+            return modelo.atrilVacio(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean tomoMuerto() {
+        try {
+            return modelo.tomoMuerto(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void tomarMuerto() {
+        try {
+            modelo.tomarMuerto(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean isCanasta() {
+        try {
+            return modelo.isCanasta(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void finalizarPartida() {
+        try {
+            modelo.calcularPuntos(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

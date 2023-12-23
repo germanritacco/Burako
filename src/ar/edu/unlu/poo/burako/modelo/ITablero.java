@@ -63,4 +63,10 @@ public interface ITablero {
      */
     ArrayList<ArrayList<String>> mostrarJuegosEnMesa();
 
+    void restarPuntos(int puntos);
+
+    void sumarPuntos(int puntos);
+
+    String mostrarPuntajeJugadores();
+
 }

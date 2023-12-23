@@ -20,6 +20,10 @@ public class FlujoAgregarFichaJuegoMesa extends Flujo {
             if (opcion >= 1 && opcion <= controlador.cantidadJuegosMesa()) {
                 if (controlador.agregarFichaJugadaExistente(opcion, seleccion)) {
                     vista.appendColor(" Fichas agregadas a juego en mesa correctamente.", Color.GREEN);
+                    if (controlador.atrilVacio() && !controlador.tomoMuerto()) {
+                        controlador.tomarMuerto();
+                        vista.appendColor(" Atril Vacío. Se ha tomado el muerto.", Color.GREEN);
+                    }
                 } else {
                     vista.appendColor(" Fichas no válidas para agregar a juego en mesa.", Color.RED);
                 }

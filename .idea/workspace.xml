@@ -4,17 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="Cambios menores">
+    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="Mejorado ejecucion de apps">
+      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoPartidaTerminada.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/controlador/Controlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/controlador/Controlador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Burako.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Burako.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Eventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Eventos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Ficha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Ficha.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/IBurako.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/IBurako.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/ITablero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/ITablero.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Jugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Jugador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Mazo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Mazo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Pila.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Pila.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/PilaDeMuerto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/PilaDeMuerto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Pozo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Pozo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Tablero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Tablero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/IVista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/IVista.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/VistaGrafica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/VistaGrafica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAgregarFichaJuegoMesa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAgregarFichaJuegoMesa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoJugada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoJugada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoPozo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoPozo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoSeleccionarFichas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoSeleccionarFichas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +32,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -64,6 +71,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Application.Test.executor&quot;: &quot;Run&quot;,
     &quot;OverrideImplement.generate.javadoc&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
@@ -71,15 +79,17 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Gerr/IdeaProjects/Burako/src/Main.java&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15429688&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.rainbow.brackets.root&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -92,6 +102,7 @@
       <recent name="C:\Users\Gerr\IdeaProjects\Burako\src\ar\edu\unlu\poo\burako\vista\consola" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="ar.edu.unlu.poo.burako.vista.consola" />
       <recent name="ar.edu.unlu.poo.burako.modelo" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -165,6 +176,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-openjdk-21.0.1-3183f394aec4-7d648f2c" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -213,7 +231,17 @@
       <workItem from="1701004242053" duration="34543000" />
       <workItem from="1701111945255" duration="28423000" />
       <workItem from="1701206734172" duration="4531000" />
-      <workItem from="1701375698121" duration="18926000" />
+      <workItem from="1701375698121" duration="19341000" />
+      <workItem from="1701461665806" duration="10225000" />
+      <workItem from="1701722103920" duration="17001000" />
+      <workItem from="1701810471118" duration="1249000" />
+      <workItem from="1702326217633" duration="1888000" />
+      <workItem from="1702589401423" duration="632000" />
+      <workItem from="1702590096774" duration="150000" />
+      <workItem from="1702759373823" duration="4602000" />
+      <workItem from="1703019462710" duration="604000" />
+      <workItem from="1703365725502" duration="658000" />
+      <workItem from="1703367494089" duration="6521000" />
     </task>
     <task id="LOCAL-00001" summary="Primer commit">
       <option name="closed" value="true" />
@@ -487,7 +515,55 @@
       <option name="project" value="LOCAL" />
       <updated>1701381307015</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Javadoc en modelo">
+      <option name="closed" value="true" />
+      <created>1701396959186</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1701396959186</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1701470043479</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1701470043479</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1701470133636</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1701470133636</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Javadoc en vista">
+      <option name="closed" value="true" />
+      <created>1701470159847</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1701470159847</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Javadoc en controlador">
+      <option name="closed" value="true" />
+      <created>1701470168767</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1701470168767</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Mejorado ejecucion de apps">
+      <option name="closed" value="true" />
+      <created>1701470203169</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1701470203169</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -505,12 +581,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Clase Tablero, sin implementar" />
-    <MESSAGE value="Clase Jugador, añadido atributo atril" />
-    <MESSAGE value="Clase Burako, jugadores prueba" />
-    <MESSAGE value="Clase Mazo, reparte las fichas a los atriles, muertos y mazos" />
-    <MESSAGE value="IntelliJ code" />
-    <MESSAGE value="Clase" />
     <MESSAGE value="Clase Ficha: Getters" />
     <MESSAGE value="Clase Mazo: recogerFichaMazo" />
     <MESSAGE value="Clase Pila: sacarFicha" />
@@ -530,6 +600,16 @@
     <MESSAGE value="cambio turno completo" />
     <MESSAGE value="Agregar al menu principal" />
     <MESSAGE value="Cambios menores" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambios menores" />
+    <MESSAGE value="Javadoc en modelo" />
+    <MESSAGE value="Fix Javadoc en modelo" />
+    <MESSAGE value="Fix" />
+    <MESSAGE value="Javadoc en vista" />
+    <MESSAGE value="Javadoc en controlador" />
+    <MESSAGE value="Mejorado ejecucion de apps" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mejorado ejecucion de apps" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

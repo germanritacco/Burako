@@ -13,6 +13,10 @@ public class Jugador implements Serializable {
     private static int ID = 0;
     private int id;
 
+    private int companieroId;
+
+    private boolean tomoMuerto;
+
     /**
      * Retorna si el jugador posee el turno.
      *
@@ -56,6 +60,7 @@ public class Jugador implements Serializable {
         this.atril = new ArrayList<>();
         this.turno = false;
         this.id = Jugador.ID++;
+        this.tomoMuerto = false;
     }
 
     /**
@@ -81,6 +86,10 @@ public class Jugador implements Serializable {
      */
     public Integer getPuntos() {
         return puntos;
+    }
+
+    public void setPuntos(int puntos) {
+        this.puntos = puntos;
     }
 
     /**
@@ -120,4 +129,31 @@ public class Jugador implements Serializable {
         return this.atril.remove(posicion);
     }
 
+    public boolean atrilIsEmpty() {
+        return this.atril.isEmpty();
+    }
+
+    public boolean isTomoMuerto() {
+        return tomoMuerto;
+    }
+
+    public void setTomoMuerto(boolean tomoMuerto) {
+        this.tomoMuerto = tomoMuerto;
+    }
+
+    public void calcularPuntosAtril() {
+        int suma = 0;
+        for (Ficha ficha : atril) {
+            suma += ficha.getValorFicha();
+        }
+        this.puntos = suma;
+    }
+
+    public int getCompanieroId() {
+        return companieroId;
+    }
+
+    public void setCompanieroId(int companieroId) {
+        this.companieroId = companieroId;
+    }
 }

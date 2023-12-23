@@ -341,4 +341,16 @@ public class VistaConsola implements IVista {
         flujoActual = new FlujoMenuPrincipal(this, controlador);
         flujoActual.mostrarSiguienteTexto();
     }
+
+    /**
+     *
+     */
+    @Override
+    public void mostrarPuntos(String puntaje) {
+        appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
+        appendColor("\n", Color.CYAN);
+        appendColor("  PARTIDA TERMINA!\n", Color.CYAN);
+        appendColor(puntaje, Color.GREEN);
+        mostrarMenuPrincipal();
+    }
 }

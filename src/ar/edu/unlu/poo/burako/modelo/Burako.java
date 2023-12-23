@@ -3,8 +3,10 @@ package ar.edu.unlu.poo.burako.modelo;
 import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
 import ar.edu.unlu.rmimvc.observer.ObservableRemoto;
 
+import java.io.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Burako extends ObservableRemoto implements IBurako {
 
@@ -15,6 +17,8 @@ public class Burako extends ObservableRemoto implements IBurako {
     private final Tablero tableroEquipo1;
     private final Tablero tableroEquipo2;
 
+    private ArrayList<Tablero> topPuntos;
+
     /**
      * Constructor de clase.
      * <li>Crea el ArrayList de Jugador, y 2 instancias de Tablero.</li>
@@ -23,6 +27,7 @@ public class Burako extends ObservableRemoto implements IBurako {
         jugadores = new ArrayList<>();
         tableroEquipo1 = new Tablero();
         tableroEquipo2 = new Tablero();
+        deserializarPuntos();
     }
 
     /**
@@ -149,6 +154,7 @@ public class Burako extends ObservableRemoto implements IBurako {
         if (!mazo.getMuerto().isEmpty()) {
             Jugador jugador = jugadores.get(jugadorId);
             jugador.addAtril(mazo.sacarMuerto());
+            jugador.setTomoMuerto(true);
         }
     }
 
@@ -475,6 +481,179 @@ public class Burako extends ObservableRemoto implements IBurako {
     public void cambiarTurno(int jugadorId) throws RemoteException {
         int indice = (jugadorId + 1) % jugadores.size(); // Recorrido circular del ArrayList
         jugadores.get(indice).setTurno(true);
+    }
+
+    /**
+     * @param jugadorId
+     * @return
+     * @throws RemoteException
+     */
+    @Override
+    public boolean atrilVacio(int jugadorId) throws RemoteException {
+        Jugador jugador = jugadores.get(jugadorId);
+        return jugador.atrilIsEmpty();
+    }
+
+    /**
+     * @param jugadorId
+     * @return
+     * @throws RemoteException
+     */
+    @Override
+    public boolean tomoMuerto(int jugadorId) throws RemoteException {
+        Jugador jugador = jugadores.get(jugadorId);
+        return jugador.isTomoMuerto();
+    }
+
+    /**
+     * @param jugadorId
+     * @throws RemoteException
+     */
+    @Override
+    public Boolean isCanasta(int jugadorId) throws RemoteException {
+        switch (jugadorId) {
+            case 0, 2 -> {
+                return this.tableroEquipo1.isCanasta();
+            }
+            case 1, 3 -> {
+                return this.tableroEquipo2.isCanasta();
+            }
+            default -> {
+                return null;
+            }
+        }
+
+    }
+
+    /**
+     * @throws RemoteException
+     */
+    @Override
+    public void calcularPuntos(int jugadorCierre) throws RemoteException {
+        int puntosEnMesa;
+        int puntosAtril;
+        for (Jugador jugador : jugadores) {
+            jugador.calcularPuntosAtril();
+            int jugadorId = jugador.getId();
+            switch (jugadorId) {
+                case 0, 2 -> {
+                    if (jugadorId == jugadorCierre) {
+                        this.tableroEquipo1.sumarPuntos(100);
+                    }
+                    this.tableroEquipo1.puntosEnMesa();
+                    this.tableroEquipo1.restarPuntos(jugador.getPuntos());
+                }
+                case 1, 3 -> {
+                    if (jugadorId == jugadorCierre) {
+                        this.tableroEquipo2.sumarPuntos(100);
+                    }
+                    this.tableroEquipo2.puntosEnMesa();
+                    this.tableroEquipo2.restarPuntos(jugador.getPuntos());
+                }
+            }
+        }
+        puntosMuerto();
+        ganador();
+        this.notificarObservadores(Eventos.PUNTAJE);
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public String mostrarPuntos() throws RemoteException {
+        String puntos = "";
+        puntos = tableroEquipo1.mostrarPuntajeJugadores();
+        puntos = "\n";
+        puntos = tableroEquipo2.mostrarPuntajeJugadores();
+        return puntos;
+    }
+
+    private void puntosMuerto() {
+        switch (jugadores.size()) {
+            case 4 -> {
+                if (jugadores.get(0).isTomoMuerto() || jugadores.get(2).isTomoMuerto()) {
+                    this.tableroEquipo1.sumarPuntos(100);
+                } else {
+                    this.tableroEquipo1.restarPuntos(100);
+                }
+                if (jugadores.get(1).isTomoMuerto() || jugadores.get(3).isTomoMuerto()) {
+                    this.tableroEquipo2.sumarPuntos(100);
+                } else {
+                    this.tableroEquipo2.restarPuntos(100);
+                }
+            }
+            case 2 -> {
+                if (jugadores.get(0).isTomoMuerto()) {
+                    this.tableroEquipo1.sumarPuntos(100);
+                } else {
+                    this.tableroEquipo1.restarPuntos(100);
+                }
+                if (jugadores.get(1).isTomoMuerto()) {
+                    this.tableroEquipo2.sumarPuntos(100);
+                } else {
+                    this.tableroEquipo2.restarPuntos(100);
+                }
+            }
+        }
+    }
+
+    public void ganador() {
+        Tablero tableroGanador;
+        if (tableroEquipo1.getPuntosEquipos() > tableroEquipo2.getPuntosEquipos()) {
+            tableroGanador = tableroEquipo1;
+        } else {
+            tableroGanador = tableroEquipo2;
+        }
+        actualizarTopPuntos(tableroGanador);
+    }
+
+    public void actualizarTopPuntos(Tablero tableroGanador) {
+        if (topPuntos.size() < 5) {
+            topPuntos.add(tableroGanador);
+        } else {
+            topPuntos.sort(Comparator.comparingInt(Tablero::getPuntosEquipos).reversed());
+            int ultimoTop = topPuntos.get(topPuntos.size() - 1).getPuntosEquipos();
+            if (tableroGanador.getPuntosEquipos() > ultimoTop) {
+                topPuntos.remove(topPuntos.size() - 1);
+                topPuntos.add(tableroGanador);
+            }
+            topPuntos.sort(Comparator.comparingInt(Tablero::getPuntosEquipos));
+        }
+        serializarPuntos();
+    }
+
+    public void serializarPuntos() {
+        try {
+            FileOutputStream fosPuntos = new FileOutputStream("puntos.bin");
+            var oos = new ObjectOutputStream(fosPuntos);
+            oos.writeObject(topPuntos);
+            oos.close();
+            fosPuntos.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deserializarPuntos() {
+        try {
+            File archivo = new File("puntos.bin");
+            if (archivo.exists()) {
+                FileInputStream fisPuntos = new FileInputStream(archivo);
+                var ois = new ObjectInputStream(fisPuntos);
+                topPuntos = (ArrayList<Tablero>) ois.readObject();
+                ois.close();
+                fisPuntos.close();
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
