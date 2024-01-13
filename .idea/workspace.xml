@@ -4,23 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="Mejorado ejecucion de apps">
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoPartidaTerminada.java" afterDir="false" />
+    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="Implementado partida terminada, contar puntos, top 5 jugadores">
+      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/ColorRGB.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/controlador/Controlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/controlador/Controlador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Burako.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Burako.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Eventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Eventos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Ficha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Ficha.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/IBurako.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/IBurako.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/ITablero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/ITablero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Jugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Jugador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Tablero.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/Tablero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/IVista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/IVista.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/VistaGrafica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/VistaGrafica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAbandonarPartida.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAbandonarPartida.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAgregarFichaJuegoMesa.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoAgregarFichaJuegoMesa.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoEsperarTurno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoEsperarTurno.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoJugada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoJugada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoMenuPrincipal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoMenuPrincipal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoNuevoJugador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoNuevoJugador.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoPozo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoPozo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoSeleccionarFichas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoSeleccionarFichas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoTomarFicha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/FlujoTomarFicha.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/consola/VistaConsola.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,30 +64,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Test.executor&quot;: &quot;Run&quot;,
-    &quot;OverrideImplement.generate.javadoc&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Gerr/IdeaProjects/Burako/src/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15429688&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.rainbow.brackets.root&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Test 1.executor": "Run",
+    "Application.Test.executor": "Run",
+    "OverrideImplement.generate.javadoc": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "onboarding.tips.debug.path": "C:/Users/Gerr/IdeaProjects/Burako/src/Main.java",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15429688",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Console Colors",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="ar.edu.unlu.poo.burako.vista.consola" />
@@ -109,7 +105,7 @@
       <recent name="ar.edu.unlu.poo.burako" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Test">
+  <component name="RunManager" selected="Application.Test 1">
     <configuration name="AppClienteConsola 1" type="Application" factoryName="Application" singleton="false" temporary="true">
       <option name="MAIN_CLASS_NAME" value="ar.edu.unlu.poo.burako.AppClienteConsola" />
       <module name="Burako" />
@@ -149,7 +145,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application">
+    <configuration name="Test 1" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="ar.edu.unlu.poo.burako.Test" />
       <module name="Burako" />
       <extension name="coverage">
@@ -163,7 +159,7 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Test" />
+      <item itemvalue="Application.Test 1" />
       <item itemvalue="Application.AppClienteConsola 1" />
       <item itemvalue="Application.AppClienteConsola 2" />
       <item itemvalue="Application.AppServidor" />
@@ -241,7 +237,15 @@
       <workItem from="1702759373823" duration="4602000" />
       <workItem from="1703019462710" duration="604000" />
       <workItem from="1703365725502" duration="658000" />
-      <workItem from="1703367494089" duration="6521000" />
+      <workItem from="1703367494089" duration="7893000" />
+      <workItem from="1703450849816" duration="599000" />
+      <workItem from="1703801028475" duration="485000" />
+      <workItem from="1705012541086" duration="64000" />
+      <workItem from="1705012630782" duration="43000" />
+      <workItem from="1705012687438" duration="5879000" />
+      <workItem from="1705100512175" duration="55000" />
+      <workItem from="1705100577346" duration="3000" />
+      <workItem from="1705101895251" duration="4332000" />
     </task>
     <task id="LOCAL-00001" summary="Primer commit">
       <option name="closed" value="true" />
@@ -563,7 +567,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701470203169</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Implementado partida terminada, contar puntos, top 5 jugadores">
+      <option name="closed" value="true" />
+      <created>1703374366161</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1703374366161</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -581,7 +593,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Clase Ficha: Getters" />
     <MESSAGE value="Clase Mazo: recogerFichaMazo" />
     <MESSAGE value="Clase Pila: sacarFicha" />
     <MESSAGE value="Clase Tablero: setters &amp; getters, esEscalera a optimizar" />
@@ -606,7 +617,8 @@
     <MESSAGE value="Javadoc en vista" />
     <MESSAGE value="Javadoc en controlador" />
     <MESSAGE value="Mejorado ejecucion de apps" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mejorado ejecucion de apps" />
+    <MESSAGE value="Implementado partida terminada, contar puntos, top 5 jugadores" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementado partida terminada, contar puntos, top 5 jugadores" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

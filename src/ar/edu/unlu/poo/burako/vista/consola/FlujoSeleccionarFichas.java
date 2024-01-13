@@ -1,6 +1,7 @@
 package ar.edu.unlu.poo.burako.vista.consola;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
+import ar.edu.unlu.poo.burako.vista.ColorRGB;
 
 import java.awt.*;
 
@@ -33,9 +34,9 @@ public class FlujoSeleccionarFichas extends Flujo {
                 }
             }
         } catch (NullPointerException e) {
-            vista.appendColor("Error: " + e.getMessage(), Color.RED);
+            vista.appendColor("Error: " + e.getMessage(), ColorRGB.RED);
         } catch (NumberFormatException e) {
-            vista.appendColor("Error: La cadena no es un número válido.", Color.RED);
+            vista.appendColor("Error: La cadena no es un número válido.", ColorRGB.RED);
         }
 
         return this;
@@ -44,30 +45,30 @@ public class FlujoSeleccionarFichas extends Flujo {
 
     private void validarBajarJuego(String[] seleccion) {
         try {
-            vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
+            vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
             if (controlador.agregarNuevaJugada(seleccion)) {
-                vista.appendColor(" Jugada bajada a la mesa correctamente.", Color.GREEN);
+                vista.appendColor(" Jugada bajada a la mesa correctamente.", ColorRGB.GREEN);
                 if (controlador.atrilVacio() && !controlador.tomoMuerto()) {
                     controlador.tomarMuerto();
-                    vista.appendColor(" Atril Vacío. Se ha tomado el muerto.", Color.GREEN);
+                    vista.appendColor(" Atril Vacío. Se ha tomado el muerto.", ColorRGB.GREEN);
                 }
             } else {
-                vista.appendColor(" Jugada no válida.", Color.RED);
+                vista.appendColor(" Jugada no válida.", ColorRGB.RED);
             }
         } catch (NumberFormatException e) {
-            vista.appendColor("Error: La cadena no es un número válido.", Color.RED);
+            vista.appendColor("Error: La cadena no es un número válido.", ColorRGB.RED);
         }
     }
 
     @Override
     public void mostrarSiguienteTexto() {
         vista.mostrarAtril(controlador.mostrarAtril());
-        vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  0  Volver al menu anterior\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  Por favor seleccione las fichas que desea agregar como jugada,", Color.CYAN);
-        vista.appendColor("  separado por ',' (Ej: '1,3,4,5'): ", Color.CYAN);
+        vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  0  Volver al menu anterior\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  Por favor seleccione las fichas que desea agregar como jugada,", ColorRGB.CYAN);
+        vista.appendColor("  separado por ',' (Ej: '1,3,4,5'): ", ColorRGB.CYAN);
     }
 
 }

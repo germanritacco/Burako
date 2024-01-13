@@ -1,6 +1,7 @@
 package ar.edu.unlu.poo.burako.vista.consola;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
+import ar.edu.unlu.poo.burako.vista.ColorRGB;
 
 import java.awt.*;
 
@@ -23,9 +24,9 @@ public class FlujoMenuPrincipal extends Flujo {
     }
 
     private void mostrarJugadores() {
-        vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
-        vista.appendColor(" Jugadores conectados:\n", Color.CYAN);
-        vista.appendColor(controlador.mostrarJugadores(), Color.RED);
+        vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        vista.appendColor(" Jugadores conectados:\n", ColorRGB.CYAN);
+        vista.appendColor(controlador.mostrarJugadores(), ColorRGB.RED);
     }
 
     private Flujo iniciarPartida() {
@@ -39,20 +40,20 @@ public class FlujoMenuPrincipal extends Flujo {
 
     @Override
     public void mostrarSiguienteTexto() {
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  ============================================================================\n", Color.CYAN);
-        vista.appendColor(" |                                   BURAKO                                   |\n", Color.CYAN);
-        vista.appendColor("  ============================================================================\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  1   Iniciar partida\n", Color.CYAN);
-        vista.appendColor("  2   Mostrar jugadores\n", Color.CYAN);
-        vista.appendColor("  3   Mostrar puntos\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  0   Salir\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  Por favor seleccione una opción: ", Color.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  ============================================================================\n", ColorRGB.CYAN);
+        vista.appendColor(" |                                   BURAKO                                   |\n", ColorRGB.CYAN);
+        vista.appendColor("  ============================================================================\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  1   Iniciar partida\n", ColorRGB.CYAN);
+        vista.appendColor("  2   Mostrar jugadores\n", ColorRGB.CYAN);
+        vista.appendColor("  3   Mostrar puntos\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  0   Salir\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  Por favor seleccione una opción: ", ColorRGB.CYAN);
     }
 
 }

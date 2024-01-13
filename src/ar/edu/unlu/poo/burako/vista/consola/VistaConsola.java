@@ -2,6 +2,7 @@ package ar.edu.unlu.poo.burako.vista.consola;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
 import ar.edu.unlu.poo.burako.modelo.Ficha;
+import ar.edu.unlu.poo.burako.vista.ColorRGB;
 import ar.edu.unlu.poo.burako.vista.IVista;
 
 import javax.swing.*;
@@ -76,7 +77,7 @@ public class VistaConsola implements IVista {
      * Muestra por pantalla el texto ingresado por el usuario.
      */
     private void escribirTexto() {
-        appendColor(txtEntrada.getText().toUpperCase() + "\n", Color.ORANGE);
+        appendColor(txtEntrada.getText().toUpperCase() + "\n", ColorRGB.ORANGE);
         procesarEntrada(txtEntrada.getText().toUpperCase());
         txtEntrada.setText("");
     }
@@ -101,7 +102,7 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void mostrarTexto(String txt) {
-        appendColorPosicion(txt, Color.GREEN, 0);
+        appendColorPosicion(txt, ColorRGB.GREEN, 0);
     }
 
     /**
@@ -113,7 +114,7 @@ public class VistaConsola implements IVista {
     private void mostrarFichas(ArrayList<String> fichas, String separador) {
         for (String ficha : fichas) {
             colorFicha(ficha);
-            appendColor(separador, Color.GRAY);
+            appendColor(separador, ColorRGB.GRAY);
         }
     }
 
@@ -127,12 +128,12 @@ public class VistaConsola implements IVista {
         int indice = 1;
         for (String ficha : fichas) {
             if (indice < 10) {
-                appendColor(" " + indice + ")   ", Color.GRAY);
+                appendColor(" " + indice + ")   ", ColorRGB.GRAY);
             } else {
-                appendColor(" " + indice + ")  ", Color.GRAY);
+                appendColor(" " + indice + ")  ", ColorRGB.GRAY);
             }
             colorFicha(ficha);
-            appendColor(separador, Color.GRAY);
+            appendColor(separador, ColorRGB.GRAY);
             indice++;
         }
     }
@@ -146,13 +147,13 @@ public class VistaConsola implements IVista {
         if (ficha.contains("NEGRO")) {
             appendColor(ficha, Color.WHITE);
         } else if (ficha.contains("AZUL")) {
-            appendColor(ficha, Color.BLUE);
+            appendColor(ficha, ColorRGB.BLUE);
         } else if (ficha.contains("AMARILLO")) {
-            appendColor(ficha, Color.YELLOW);
+            appendColor(ficha, ColorRGB.YELLOW);
         } else if (ficha.contains("ROJO")) {
-            appendColor(ficha, Color.RED);
+            appendColor(ficha, ColorRGB.RED);
         } else {
-            appendColor(ficha, Color.MAGENTA); // Comodin
+            appendColor(ficha, ColorRGB.MAGENTA); // Comodin
         }
 
     }
@@ -232,8 +233,8 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void mostrarTurno(String jugador) {
-        appendColor(" Es el turno de: ", Color.ORANGE);
-        appendColor(jugador + "\n", Color.RED);
+        appendColor(" Es el turno de: ", ColorRGB.ORANGE);
+        appendColor(jugador + "\n", ColorRGB.RED);
     }
 
 
@@ -245,9 +246,9 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void iniciarPartida(ArrayList<String> atril, ArrayList<String> pozo) {
-        appendColor("\n  ============================================================================\n", Color.CYAN);
-        appendColor(" |                              PARTIDA EN CURSO                              |\n", Color.CYAN);
-        appendColor("  ============================================================================\n", Color.CYAN);
+        appendColor("\n  ============================================================================\n", ColorRGB.CYAN);
+        appendColor(" |                              PARTIDA EN CURSO                              |\n", ColorRGB.CYAN);
+        appendColor("  ============================================================================\n", ColorRGB.CYAN);
         mostrarTurno(controlador.nombreJugadorTurno());
         mostrarPozo(pozo);
         mostrarAtril(atril);
@@ -268,16 +269,16 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void mostrarJuegosMesa(ArrayList<ArrayList<String>> juegosMesa) {
-        appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
+        appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
         if (juegosMesa == null || juegosMesa.isEmpty()) {
-            appendColor(" No hay juegos en mesa\n", Color.RED);
+            appendColor(" No hay juegos en mesa\n", ColorRGB.RED);
         } else {
-            appendColor(" Juegos en mesa: \n", Color.PINK);
+            appendColor(" Juegos en mesa: \n", ColorRGB.PINK);
             int numeroJuego = 1;
             for (ArrayList<String> juego : juegosMesa) {
-                appendColor("N°" + numeroJuego + ": ", Color.PINK);
+                appendColor("N°" + numeroJuego + ": ", ColorRGB.PINK);
                 mostrarFichas(juego, " | ");
-                appendColor("\n", Color.CYAN);
+                appendColor("\n", ColorRGB.CYAN);
                 numeroJuego++;
             }
         }
@@ -291,8 +292,8 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void mostrarPozo(ArrayList<String> pozo) {
-        appendColor("\n ------------------------------------------------------------------------------\n", Color.CYAN);
-        appendColor(" Fichas en Pozo: ", Color.PINK);
+        appendColor("\n ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        appendColor(" Fichas en Pozo: ", ColorRGB.PINK);
         mostrarFichas(pozo, " | ");
     }
 
@@ -303,8 +304,8 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void mostrarAtril(ArrayList<String> atril) {
-        appendColor("\n ------------------------------------------------------------------------------\n", Color.CYAN);
-        appendColor(" Atril: \n", Color.PINK);
+        appendColor("\n ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        appendColor(" Atril: \n", ColorRGB.PINK);
         mostrarFichasIndice(atril, "\n");
     }
 
@@ -347,10 +348,10 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void mostrarPuntos(String puntaje) {
-        appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
-        appendColor("\n", Color.CYAN);
-        appendColor("  PARTIDA TERMINA!\n", Color.CYAN);
-        appendColor(puntaje, Color.GREEN);
+        appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        appendColor("\n", ColorRGB.CYAN);
+        appendColor("  PARTIDA TERMINA!\n", ColorRGB.CYAN);
+        appendColor(puntaje, ColorRGB.GREEN);
         mostrarMenuPrincipal();
     }
 }

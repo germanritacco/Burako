@@ -1,6 +1,7 @@
 package ar.edu.unlu.poo.burako.vista.consola;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
+import ar.edu.unlu.poo.burako.vista.ColorRGB;
 
 import java.awt.*;
 
@@ -18,7 +19,7 @@ public class FlujoJugada extends Flujo {
             }
             case "2" -> {
                 if (controlador.cantidadFichasAtril().equals(1) && !controlador.isCanasta()) {
-                    vista.appendColor("ERROR: No posee canasta en mesa,\nNo puede cerrar partida aun!", Color.RED);
+                    vista.appendColor("ERROR: No posee canasta en mesa,\nNo puede cerrar partida aun!", ColorRGB.RED);
                 } else {
                     return agregarfichasJuegoMesa();
                 }
@@ -30,7 +31,7 @@ public class FlujoJugada extends Flujo {
                 String nombreJugador = controlador.abandonarPartida();
                 return new FlujoAbandonarPartida(vista, controlador, nombreJugador);
             }
-            default -> vista.appendColor("Opcion incorrecta", Color.RED);
+            default -> vista.appendColor("Opcion incorrecta", ColorRGB.RED);
         }
         return this;
     }
@@ -39,7 +40,7 @@ public class FlujoJugada extends Flujo {
         if (controlador.hayJuegosMesa()) {
             return new FlujoSeleccionarFichas(vista, controlador, true);
         } else {
-            vista.appendColor("ERROR: No hay jugadas existentes en mesa", Color.RED);
+            vista.appendColor("ERROR: No hay jugadas existentes en mesa", ColorRGB.RED);
         }
         return this;
     }
@@ -48,16 +49,16 @@ public class FlujoJugada extends Flujo {
     public void mostrarSiguienteTexto() {
         vista.mostrarAtril(controlador.mostrarAtril());
         vista.mostrarJuegosMesa(controlador.mostrarJuegosEnMesa());
-        vista.appendColor("\n ------------------------------------------------------------------------------\n", Color.CYAN);
-        vista.appendColor("  1   Bajar juego a la mesa\n", Color.CYAN);
-        vista.appendColor("  2   Agregar ficha a juego existente en  la mesa\n", Color.CYAN);
-        vista.appendColor("  3   Devolver ficha a pozo\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  0   Abandonar partida\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  Por favor seleccione una opción: ", Color.CYAN);
+        vista.appendColor("\n ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        vista.appendColor("  1   Bajar juego a la mesa\n", ColorRGB.CYAN);
+        vista.appendColor("  2   Agregar ficha a juego existente en  la mesa\n", ColorRGB.CYAN);
+        vista.appendColor("  3   Devolver ficha a pozo\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  0   Abandonar partida\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  Por favor seleccione una opción: ", ColorRGB.CYAN);
     }
 
 }

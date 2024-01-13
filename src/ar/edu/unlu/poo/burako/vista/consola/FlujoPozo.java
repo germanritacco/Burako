@@ -1,6 +1,7 @@
 package ar.edu.unlu.poo.burako.vista.consola;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
+import ar.edu.unlu.poo.burako.vista.ColorRGB;
 
 import java.awt.*;
 
@@ -21,7 +22,7 @@ public class FlujoPozo extends Flujo {
                 controlador.agregarFichaPozo(opcion);
                 if (controlador.atrilVacio() && !controlador.tomoMuerto()) {
                     controlador.tomarMuerto();
-                    vista.appendColor(" Atril Vacío. Se ha tomado el muerto.", Color.GREEN);
+                    vista.appendColor(" Atril Vacío. Se ha tomado el muerto.", ColorRGB.GREEN);
                 }
                 if (controlador.isCanasta() && controlador.tomoMuerto() && controlador.atrilVacio()) {
                     return new FlujoPartidaTerminada(vista, controlador);
@@ -29,7 +30,7 @@ public class FlujoPozo extends Flujo {
                 return new FlujoEsperarTurno(vista, controlador);
             }
         } catch (NumberFormatException e) {
-            vista.appendColor("ERROR: Numero de ficha no valido.", Color.RED);
+            vista.appendColor("ERROR: Numero de ficha no valido.", ColorRGB.RED);
         }
         return this;
     }
@@ -37,11 +38,11 @@ public class FlujoPozo extends Flujo {
     @Override
     public void mostrarSiguienteTexto() {
         vista.mostrarAtril(controlador.mostrarAtril());
-        vista.appendColor(" ------------------------------------------------------------------------------\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  0  Volver al menu anterior\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  Por favor seleccione la ficha que desea dejar en el pozo: ", Color.CYAN);
+        vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  0  Volver al menu anterior\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  Por favor seleccione la ficha que desea dejar en el pozo: ", ColorRGB.CYAN);
     }
 
 }

@@ -1,6 +1,7 @@
 package ar.edu.unlu.poo.burako.vista.consola;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
+import ar.edu.unlu.poo.burako.vista.ColorRGB;
 
 import java.awt.*;
 
@@ -18,12 +19,12 @@ public class FlujoNuevoJugador extends Flujo {
 
     @Override
     public void mostrarSiguienteTexto() {
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  ============================================================================\n", Color.CYAN);
-        vista.appendColor(" |                                   BURAKO                                   |\n", Color.CYAN);
-        vista.appendColor("  ============================================================================\n", Color.CYAN);
-        vista.appendColor("\n", Color.CYAN);
-        vista.appendColor("  Ingrese nombre de jugador: ", Color.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  ============================================================================\n", ColorRGB.CYAN);
+        vista.appendColor(" |                                   BURAKO                                   |\n", ColorRGB.CYAN);
+        vista.appendColor("  ============================================================================\n", ColorRGB.CYAN);
+        vista.appendColor("\n", ColorRGB.CYAN);
+        vista.appendColor("  Ingrese nombre de jugador: ", ColorRGB.CYAN);
     }
 
 }
