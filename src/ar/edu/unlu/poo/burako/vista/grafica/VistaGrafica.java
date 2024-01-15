@@ -1,23 +1,90 @@
-package ar.edu.unlu.poo.burako.vista;
+package ar.edu.unlu.poo.burako.vista.grafica;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
+import ar.edu.unlu.poo.burako.vista.IVista;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class VistaGrafica implements IVista {
-    private JPanel frmPrincipal;
+    private JPanel pnlMain;
+    private JTabbedPane tabPartida;
+    private JPanel pnlPartida;
+    private JList lstNorth;
+    private JList lstWest;
+    private JList lstEast;
+    private JList lstSouth;
+    private JPanel pnlCenter;
+    private JLabel lblJugadorNorth;
+    private JLabel lblJugadorWest;
+    private JLabel lblEast;
+    private JLabel lblSouth;
+    private JPanel test1;
+    private JPanel pnlNorth;
+    private JPanel pnlWest;
+    private JPanel pnlEast;
+    private JPanel pnlSouth;
+    private JPanel pnlFelt;
     private final JFrame frame;
 
+    private Image imgTablero;
     private Controlador controlador;
 
     public VistaGrafica() {
         frame = new JFrame("Burako Grafico");
-        frame.setContentPane(frmPrincipal);
+        frame.setContentPane(pnlMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        frame.setVisible(true);
+
+frame.pack();
+
+
+
+
+
+        // Cargar la imagen de fondo
+       try {
+            imgTablero = new ImageIcon(getClass().getResource("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png")).getImage();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Configurar el pnlCenter
+        pnlFelt = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Rellenar el panel sin deformar la imagen
+                int ancho = getWidth();
+                int alto = getHeight();
+                int imagenAncho = imgTablero.getWidth(this);
+                int imagenAlto = imgTablero.getHeight(this);
+
+                double escalaAncho = (double) ancho / imagenAncho;
+                double escalaAlto = (double) alto / imagenAlto;
+
+                double escala = Math.max(escalaAncho, escalaAlto);
+
+                int nuevoAncho = (int) (imagenAncho * escala);
+                int nuevoAlto = (int) (imagenAlto * escala);
+
+                int x = (ancho - nuevoAncho) / 2;
+                int y = (alto - nuevoAlto) / 2;
+
+                g.drawImage(imgTablero, x, y, nuevoAncho, nuevoAlto, this);
+            }
+        };
+
+        // Establecer un layout para pnlCenter (puedes ajustar según tus necesidades)
+        pnlFelt.setLayout(new BorderLayout());
+        pnlCenter.add(pnlFelt, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+
+
     }
+
 
     /**
      * Asigna el controlador de la vista.
@@ -77,7 +144,7 @@ public class VistaGrafica implements IVista {
      */
     @Override
     public void nuevoJugador() {
-
+        frame.setVisible(true);
     }
 
     /**
@@ -160,6 +227,11 @@ public class VistaGrafica implements IVista {
      */
     @Override
     public void mostrarPuntos(String puntaje) {
+
+    }
+
+    public static void main(String[] args) {
+        IVista vista = new VistaGrafica();
 
     }
 }

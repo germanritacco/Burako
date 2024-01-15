@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="ar.edu.unlu.poo.burako.vista.grafica.VistaGrafica">
+  <grid id="27dc6" binding="pnlMain" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-14605013"/>
+      <minimumSize width="400" height="400"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <tabbedpane id="f96cc" binding="tabPartida">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="200" height="200"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-14605013"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <grid id="73f5c" binding="pnlPartida" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Untitled"/>
+            </constraints>
+            <properties>
+              <background color="-14605013"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <grid id="e8632" binding="pnlNorth" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="North"/>
+                <properties>
+                  <background color="-14605013"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="89553" class="javax.swing.JLabel" binding="lblJugadorNorth">
+                    <constraints border-constraint="East"/>
+                    <properties>
+                      <background color="-14605013"/>
+                      <text value="Label"/>
+                    </properties>
+                  </component>
+                  <component id="4a6b" class="javax.swing.JList" binding="lstNorth">
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <background color="-14605013"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="2a3b7" binding="pnlWest" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="West"/>
+                <properties>
+                  <background color="-14605013"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="ed4a5" class="javax.swing.JLabel" binding="lblJugadorWest">
+                    <constraints border-constraint="North"/>
+                    <properties>
+                      <text value="Label"/>
+                    </properties>
+                  </component>
+                  <component id="44733" class="javax.swing.JList" binding="lstWest">
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <background color="-14605013"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="b6fa0" binding="pnlEast" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="East"/>
+                <properties>
+                  <background color="-14605013"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="20a4c" class="javax.swing.JLabel" binding="lblEast">
+                    <constraints border-constraint="South"/>
+                    <properties>
+                      <background color="-14605013"/>
+                      <text value="Label"/>
+                    </properties>
+                  </component>
+                  <component id="618ef" class="javax.swing.JList" binding="lstEast">
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <background color="-14605013"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="f59d1" binding="pnlSouth" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <background color="-14605013"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="423f" class="javax.swing.JLabel" binding="lblSouth">
+                    <constraints border-constraint="West"/>
+                    <properties>
+                      <text value="Label"/>
+                    </properties>
+                  </component>
+                  <component id="6e9c3" class="javax.swing.JList" binding="lstSouth">
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <background color="-14605013"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="1bdad" binding="pnlCenter" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <opaque value="false"/>
+                </properties>
+                <border type="none"/>
+                <children/>
+              </grid>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
+    </children>
+  </grid>
+</form>
