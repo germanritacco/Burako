@@ -61,7 +61,7 @@ public interface ITablero {
      *
      * @return Lista de listas de fichas que forma las jugadas.
      */
-    ArrayList<ArrayList<String>> mostrarJuegosEnMesa();
+    ArrayList<ArrayList<IFicha>> mostrarJuegosEnMesa();
 
     void restarPuntos(int puntos);
 

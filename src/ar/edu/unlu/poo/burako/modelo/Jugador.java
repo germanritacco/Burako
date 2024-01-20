@@ -2,7 +2,6 @@ package ar.edu.unlu.poo.burako.modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Jugador implements Serializable {
 

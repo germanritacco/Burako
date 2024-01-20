@@ -1,7 +1,6 @@
 package ar.edu.unlu.poo.burako.modelo;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class Pozo {
 
@@ -40,15 +39,9 @@ public class Pozo {
      *
      * @return ArrayList de String, cada posición contiene el número y color de ficha.
      */
-    public ArrayList<String> mostrarPozo() {
-        ArrayList<String> fichas = new ArrayList<>();
-        for (Ficha ficha : pozo) {
-            if (ficha instanceof Comodin) {
-                fichas.add("COMODIN");
-            } else {
-                fichas.add(ficha.toString());
-            }
-        }
+    public ArrayList<IFicha> mostrarPozo() {
+        ArrayList<IFicha> fichas = new ArrayList<>();
+        fichas = new ArrayList<>(pozo);
         return fichas;
     }
 

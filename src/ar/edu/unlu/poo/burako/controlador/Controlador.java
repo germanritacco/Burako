@@ -2,6 +2,7 @@ package ar.edu.unlu.poo.burako.controlador;
 
 import ar.edu.unlu.poo.burako.modelo.Eventos;
 import ar.edu.unlu.poo.burako.modelo.IBurako;
+import ar.edu.unlu.poo.burako.modelo.IFicha;
 import ar.edu.unlu.poo.burako.modelo.Jugador;
 import ar.edu.unlu.poo.burako.vista.IVista;
 import ar.edu.unlu.rmimvc.cliente.IControladorRemoto;
@@ -60,8 +61,8 @@ public class Controlador implements IControladorRemoto {
                     vista.mostrarTexto(this.modelo.getJugadores());
                 }
                 case PARTIDA -> {
-                    ArrayList<String> atril = this.modelo.getFichas(jugador.getId());
-                    ArrayList<String> pozo = this.modelo.mostrarPozo();
+                    ArrayList<IFicha> atril = this.modelo.getFichas(jugador.getId());
+                    ArrayList<IFicha> pozo = this.modelo.mostrarPozo();
                     this.vista.iniciarPartida(atril, pozo);
                 }
                 case CAMBIO_TURNO -> {
@@ -218,7 +219,7 @@ public class Controlador implements IControladorRemoto {
         }
     }
 
-    public ArrayList<String> mostrarAtril() {
+    public ArrayList<IFicha> mostrarAtril() {
         try {
             return this.modelo.getFichas(jugador.getId());
         } catch (RemoteException e) {
@@ -226,7 +227,7 @@ public class Controlador implements IControladorRemoto {
         }
     }
 
-    public ArrayList<ArrayList<String>> mostrarJuegosEnMesa() {
+    public ArrayList<ArrayList<IFicha>> mostrarJuegosEnMesa() {
         try {
             return modelo.mostrarJuegosEnMesa(jugador.getId());
         } catch (RemoteException e) {

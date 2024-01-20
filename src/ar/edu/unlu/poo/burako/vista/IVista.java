@@ -1,6 +1,7 @@
 package ar.edu.unlu.poo.burako.vista;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
+import ar.edu.unlu.poo.burako.modelo.IFicha;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -63,28 +64,28 @@ public interface IVista {
      * @param atril Lista de fichas que posee el jugador en el atril.
      * @param pozo  Lista de fichas que posee el pozo.
      */
-    void iniciarPartida(ArrayList<String> atril, ArrayList<String> pozo);
+    void iniciarPartida(ArrayList<IFicha> atril, ArrayList<IFicha> pozo);
 
     /**
      * Muestra por pantalla los juegos que posee un jugador.
      *
      * @param juegosMesa Lista de listas de fichas.
      */
-    void mostrarJuegosMesa(ArrayList<ArrayList<String>> juegosMesa);
+    void mostrarJuegosMesa(ArrayList<ArrayList<IFicha>> juegosMesa);
 
     /**
      * Muestra por pantalla el pozo.
      *
      * @param pozo Lista de fichas que posee el pozo.
      */
-    void mostrarPozo(ArrayList<String> pozo);
+    void mostrarPozo(ArrayList<IFicha> pozo);
 
     /**
      * Muestra por pantalla el atril del jugador.
      *
      * @param atril Lista de fichas que posee el atril.
      */
-    void mostrarAtril(ArrayList<String> atril);
+    void mostrarAtril(ArrayList<IFicha> atril);
 
     /**
      * Deshabilita los componentes que permiten la entrada de texto por parte del usuario.

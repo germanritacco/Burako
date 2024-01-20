@@ -8,9 +8,11 @@ public class Mazo {
 
     private final Pila mazo;
     private final ArrayList<PilaDeMuerto> muerto; // 2 pilas de 11 fichas c/u
+
     public ArrayList<Ficha> sacarMuerto() {
-        return muerto.remove(0).getPilaDeMuerto();
+        return muerto.removeFirst().getPilaDeMuerto();
     }
+
     public ArrayList<PilaDeMuerto> getMuerto() {
         return muerto;
     }
@@ -67,12 +69,12 @@ public class Mazo {
         for (ColorFicha color : ColorFicha.values()) {
             for (int i = 1; i <= 13; i++) {
                 for (int j = 0; j < 2; j++) {
-                    fichasSinRepartir.add(new Ficha(color, i));
+                    fichasSinRepartir.add(new FichaEstandar(color, i));
                 }
             }
         }
-        fichasSinRepartir.add(new Comodin());
-        fichasSinRepartir.add(new Comodin());
+        fichasSinRepartir.add(new FichaComodin());
+        fichasSinRepartir.add(new FichaComodin());
         return fichasSinRepartir;
     }
 

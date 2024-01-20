@@ -1,6 +1,5 @@
 package ar.edu.unlu.poo.burako.modelo;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -92,7 +91,7 @@ public class Tablero implements ITablero {
         // Verifica si todas las cartas son del mismo color y si hay comodines
         ColorFicha color = copiaJuego.get(0).getColor();
         for (Ficha ficha : copiaJuego) {
-            if (!ficha.getColor().equals(color) && !(ficha instanceof Comodin)) { // con comodin
+            if (!ficha.getColor().equals(color) && !(ficha instanceof FichaComodin)) { // con comodin
                 return false;
             }
         }
@@ -108,7 +107,7 @@ public class Tablero implements ITablero {
     private int cantidadComodines(ArrayList<Ficha> juego) {
         int contador = 0;
         for (Ficha ficha : juego) {
-            if (ficha instanceof Comodin || ficha.getNumeroFicha().equals(2)) {
+            if (ficha instanceof FichaComodin || ficha.getNumeroFicha().equals(2)) {
                 contador++;
             }
         }
@@ -127,7 +126,7 @@ public class Tablero implements ITablero {
         int contador = 0;
         // Cuenta y saca todos los comodines y 2 en el juego de fichas
         for (Ficha ficha : juego) {
-            if (ficha.getNumeroFicha().equals(2) || ficha instanceof Comodin) {
+            if (ficha.getNumeroFicha().equals(2) || ficha instanceof FichaComodin) {
                 contador++;
                 copiaJuego.remove(ficha);
             }
@@ -176,7 +175,7 @@ public class Tablero implements ITablero {
      */
     private boolean contieneComodin(ArrayList<Ficha> juego) {
         for (Ficha ficha : juego) {
-            if (ficha instanceof Comodin) {
+            if (ficha instanceof FichaComodin) {
                 return true;
             }
         }
@@ -251,17 +250,11 @@ public class Tablero implements ITablero {
      * @return Lista de listas de fichas que forma las jugadas.
      */
     @Override
-    public ArrayList<ArrayList<String>> mostrarJuegosEnMesa() {
-        ArrayList<ArrayList<String>> juegosEnMesa = new ArrayList<>();
+    public ArrayList<ArrayList<IFicha>> mostrarJuegosEnMesa() {
+        ArrayList<ArrayList<IFicha>> juegosEnMesa = new ArrayList<>();
         for (ArrayList<Ficha> juego : jugadaEnMesa) {
-            ArrayList<String> fichas = new ArrayList<>();
-            for (Ficha ficha : juego) {
-                if (ficha instanceof Comodin) {
-                    fichas.add("COMODIN");
-                } else {
-                    fichas.add(ficha.toString());
-                }
-            }
+            ArrayList<IFicha> fichas = new ArrayList<>();
+            fichas = new ArrayList<>(juego);
             juegosEnMesa.add(fichas);
         }
         return juegosEnMesa;

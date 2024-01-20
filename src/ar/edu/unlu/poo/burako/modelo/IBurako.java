@@ -39,7 +39,7 @@ public interface IBurako extends IObservableRemoto {
      * @return ArrayList de String, cada posición contiene el número y color de ficha.
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
-    ArrayList<String> getFichas(int jugadorId) throws RemoteException;
+    ArrayList<IFicha> getFichas(int jugadorId) throws RemoteException;
 
     /**
      * Agrega un nuevo jugador
@@ -99,7 +99,7 @@ public interface IBurako extends IObservableRemoto {
      * @return Lista de listas de fichas que forma las jugadas
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
-    ArrayList<ArrayList<String>> mostrarJuegosEnMesa(int jugadorId) throws RemoteException;
+    ArrayList<ArrayList<IFicha>> mostrarJuegosEnMesa(int jugadorId) throws RemoteException;
 
     /**
      * Retorna el nombre del jugador que posee el turno.
@@ -116,7 +116,7 @@ public interface IBurako extends IObservableRemoto {
      * @return ArrayList de String, cada posición contiene el número y color de ficha.
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
-    ArrayList<String> mostrarPozo() throws RemoteException;
+    ArrayList<IFicha> mostrarPozo() throws RemoteException;
 
     /**
      * Toma una ficha del mazo y la agrega al atril del jugador.
@@ -217,4 +217,5 @@ public interface IBurako extends IObservableRemoto {
     void calcularPuntos(int jugadorId) throws RemoteException;
 
     String mostrarPuntos() throws RemoteException;
+
 }

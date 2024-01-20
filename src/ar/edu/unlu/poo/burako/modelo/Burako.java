@@ -73,11 +73,11 @@ public class Burako extends ObservableRemoto implements IBurako {
      */
     @Override
     public String getJugadores() throws RemoteException {
-        String texto = "";
+        StringBuilder texto = new StringBuilder();
         for (Jugador jugador : this.jugadores) {
-            texto += " • " + jugador.getNombre() + "\n";
+            texto.append(" • ").append(jugador.getNombre()).append("\n");
         }
-        return texto;
+        return texto.toString();
     }
 
     /**
@@ -88,16 +88,10 @@ public class Burako extends ObservableRemoto implements IBurako {
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
-    public ArrayList<String> getFichas(int jugadorId) throws RemoteException {
-        ArrayList<String> fichas = new ArrayList<>();
+    public ArrayList<IFicha> getFichas(int jugadorId) throws RemoteException {
+        ArrayList<IFicha> fichas = new ArrayList<>();
         Jugador jugador = jugadores.get(jugadorId);
-        for (Ficha ficha : jugador.getAtril()) {
-            if (ficha instanceof Comodin) {
-                fichas.add("COMODIN");
-            } else {
-                fichas.add(ficha.toString());
-            }
-        }
+        fichas = new ArrayList<>(jugador.getAtril());
         return fichas;
     }
 
@@ -171,7 +165,7 @@ public class Burako extends ObservableRemoto implements IBurako {
         if (jugadores.size() == 2 || jugadores.size() == 4) {
             repartirFichas();
             this.pozo = new Pozo();
-            jugadores.get(0).setTurno(true);
+            jugadores.getFirst().setTurno(true);
             this.notificarObservadores(Eventos.PARTIDA);
         } else {
             this.enviarMensajeDelSistema("La partida no puede comenzar, ya que faltan jugadores en la partida");
@@ -226,7 +220,7 @@ public class Burako extends ObservableRemoto implements IBurako {
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
-    public ArrayList<ArrayList<String>> mostrarJuegosEnMesa(int jugadorId) throws RemoteException {
+    public ArrayList<ArrayList<IFicha>> mostrarJuegosEnMesa(int jugadorId) throws RemoteException {
         switch (jugadorId) {
             case 0, 2 -> {
                 return this.tableroEquipo1.mostrarJuegosEnMesa();
@@ -262,7 +256,7 @@ public class Burako extends ObservableRemoto implements IBurako {
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
-    public ArrayList<String> mostrarPozo() throws RemoteException {
+    public ArrayList<IFicha> mostrarPozo() throws RemoteException {
         return pozo.mostrarPozo();
     }
 
