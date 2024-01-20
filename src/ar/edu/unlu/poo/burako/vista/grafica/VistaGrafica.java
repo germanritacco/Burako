@@ -1,13 +1,20 @@
 package ar.edu.unlu.poo.burako.vista.grafica;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
+import ar.edu.unlu.poo.burako.modelo.FichaComodin;
+import ar.edu.unlu.poo.burako.modelo.IFicha;
+import ar.edu.unlu.poo.burako.modelo.Jugador;
 import ar.edu.unlu.poo.burako.vista.IVista;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.Serializable;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class VistaGrafica implements IVista {
+public class VistaGrafica implements IVista, Serializable {
     private JPanel pnlMain;
     private JTabbedPane tabPartida;
     private JPanel pnlPartida;
@@ -25,66 +32,31 @@ public class VistaGrafica implements IVista {
     private JPanel pnlWest;
     private JPanel pnlEast;
     private JPanel pnlSouth;
-    private JPanel pnlFelt;
+    private JLabel lblFelt;
     private final JFrame frame;
 
     private Image imgTablero;
     private Controlador controlador;
 
-    public VistaGrafica() {
+    private DefaultListModel<ImageIcon> listaModeloIzquierda;
+
+    public VistaGrafica(int x, int y) {
         frame = new JFrame("Burako Grafico");
         frame.setContentPane(pnlMain);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-
-frame.pack();
-
-
-
-
+        frame.setLocation(x, y);
+        frame.pack();
 
         // Cargar la imagen de fondo
-       try {
-            imgTablero = new ImageIcon(getClass().getResource("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png")).getImage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // Configurar el pnlCenter
-        pnlFelt = new JPanel() {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                // Rellenar el panel sin deformar la imagen
-                int ancho = getWidth();
-                int alto = getHeight();
-                int imagenAncho = imgTablero.getWidth(this);
-                int imagenAlto = imgTablero.getHeight(this);
-
-                double escalaAncho = (double) ancho / imagenAncho;
-                double escalaAlto = (double) alto / imagenAlto;
-
-                double escala = Math.max(escalaAncho, escalaAlto);
-
-                int nuevoAncho = (int) (imagenAncho * escala);
-                int nuevoAlto = (int) (imagenAlto * escala);
-
-                int x = (ancho - nuevoAncho) / 2;
-                int y = (alto - nuevoAlto) / 2;
-
-                g.drawImage(imgTablero, x, y, nuevoAncho, nuevoAlto, this);
-            }
-        };
-
-        // Establecer un layout para pnlCenter (puedes ajustar según tus necesidades)
-        pnlFelt.setLayout(new BorderLayout());
-        pnlCenter.add(pnlFelt, BorderLayout.CENTER);
+        lblFelt = new JLabelFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
+        pnlPartida.add(lblFelt, BorderLayout.CENTER);
         frame.revalidate();
         frame.repaint();
 
-
+        listaModeloIzquierda = new DefaultListModel<>();
+        lstSouth.setModel(listaModeloIzquierda);
+        lstSouth.setVisibleRowCount(0);
     }
-
 
     /**
      * Asigna el controlador de la vista.
@@ -93,7 +65,7 @@ frame.pack();
      */
     @Override
     public void setControlador(Controlador controlador) {
-
+        this.controlador = controlador;
     }
 
     /**
@@ -103,7 +75,7 @@ frame.pack();
      */
     @Override
     public void mostrarTexto(String txt) {
-
+        System.out.println(txt);
     }
 
     /**
@@ -145,6 +117,9 @@ frame.pack();
     @Override
     public void nuevoJugador() {
         frame.setVisible(true);
+
+        controlador.nuevoJugador("string");
+        controlador.iniciarPartida();
     }
 
     /**
@@ -164,8 +139,27 @@ frame.pack();
      * @param pozo  Lista de fichas que posee el pozo.
      */
     @Override
-    public void iniciarPartida(ArrayList<String> atril, ArrayList<String> pozo) {
+    public void iniciarPartida(ArrayList<IFicha> atril, ArrayList<IFicha> pozo) {
+        RecortarMosaico cut = new RecortarMosaico();
+        int color;
+        int numero;
+        ImageIcon imagen;
+        for (IFicha ficha : atril) {
+            if (ficha instanceof FichaComodin) {
+                color = 4;
+                numero = ficha.getNumeroFicha();
+            } else {
+                color = ficha.getColor().ordinal();
+                numero = ficha.getNumeroFicha() - 1;
 
+            }
+            System.out.println("color " + color);
+            System.out.println("numero " + numero);
+            imagen = cut.getImagenRecortadaIcon(color, numero, 100, 100);
+            listaModeloIzquierda.addElement(imagen);
+
+        }
+        frame.pack();
     }
 
     /**
@@ -174,7 +168,7 @@ frame.pack();
      * @param juegosMesa Lista de listas de fichas.
      */
     @Override
-    public void mostrarJuegosMesa(ArrayList<ArrayList<String>> juegosMesa) {
+    public void mostrarJuegosMesa(ArrayList<ArrayList<IFicha>> juegosMesa) {
 
     }
 
@@ -184,7 +178,7 @@ frame.pack();
      * @param pozo Lista de fichas que posee el pozo.
      */
     @Override
-    public void mostrarPozo(ArrayList<String> pozo) {
+    public void mostrarPozo(ArrayList<IFicha> pozo) {
 
     }
 
@@ -194,7 +188,7 @@ frame.pack();
      * @param atril Lista de fichas que posee el atril.
      */
     @Override
-    public void mostrarAtril(ArrayList<String> atril) {
+    public void mostrarAtril(ArrayList<IFicha> atril) {
 
     }
 
@@ -230,8 +224,4 @@ frame.pack();
 
     }
 
-    public static void main(String[] args) {
-        IVista vista = new VistaGrafica();
-
-    }
 }

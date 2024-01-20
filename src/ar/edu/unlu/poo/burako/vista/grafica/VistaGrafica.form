@@ -113,6 +113,8 @@
                     <constraints border-constraint="Center"/>
                     <properties>
                       <background color="-14605013"/>
+                      <focusTraversalPolicyProvider value="false"/>
+                      <layoutOrientation value="2"/>
                     </properties>
                   </component>
                 </children>

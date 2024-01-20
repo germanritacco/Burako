@@ -1,7 +1,8 @@
 package ar.edu.unlu.poo.burako.vista.consola;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
-import ar.edu.unlu.poo.burako.modelo.Ficha;
+import ar.edu.unlu.poo.burako.modelo.ColorFicha;
+import ar.edu.unlu.poo.burako.modelo.IFicha;
 import ar.edu.unlu.poo.burako.vista.ColorRGB;
 import ar.edu.unlu.poo.burako.vista.IVista;
 
@@ -111,8 +112,8 @@ public class VistaConsola implements IVista {
      * @param fichas    Lista de fichas.
      * @param separador Separador personalizado.
      */
-    private void mostrarFichas(ArrayList<String> fichas, String separador) {
-        for (String ficha : fichas) {
+    private void mostrarFichas(ArrayList<IFicha> fichas, String separador) {
+        for (IFicha ficha : fichas) {
             colorFicha(ficha);
             appendColor(separador, ColorRGB.GRAY);
         }
@@ -124,9 +125,9 @@ public class VistaConsola implements IVista {
      * @param fichas    Lista de fichas.
      * @param separador Separador personalizado.
      */
-    private void mostrarFichasIndice(ArrayList<String> fichas, String separador) {
+    private void mostrarFichasIndice(ArrayList<IFicha> fichas, String separador) {
         int indice = 1;
-        for (String ficha : fichas) {
+        for (IFicha ficha : fichas) {
             if (indice < 10) {
                 appendColor(" " + indice + ")   ", ColorRGB.GRAY);
             } else {
@@ -143,19 +144,16 @@ public class VistaConsola implements IVista {
      *
      * @param ficha ficha a mostrar.
      */
-    private void colorFicha(String ficha) {
-        if (ficha.contains("NEGRO")) {
-            appendColor(ficha, Color.WHITE);
-        } else if (ficha.contains("AZUL")) {
-            appendColor(ficha, ColorRGB.BLUE);
-        } else if (ficha.contains("AMARILLO")) {
-            appendColor(ficha, ColorRGB.YELLOW);
-        } else if (ficha.contains("ROJO")) {
-            appendColor(ficha, ColorRGB.RED);
-        } else {
-            appendColor(ficha, ColorRGB.MAGENTA); // Comodin
+    private void colorFicha(IFicha ficha) {
+        Color colorRGB;
+        switch (ficha.getColor()) {
+            case NEGRO -> colorRGB = Color.WHITE;
+            case AZUL -> colorRGB = ColorRGB.BLUE;
+            case AMARILLO -> colorRGB = ColorRGB.YELLOW;
+            case ROJO -> colorRGB = ColorRGB.RED;
+            default -> colorRGB = ColorRGB.MAGENTA; // Comodin
         }
-
+        appendColor(ficha.toString(), colorRGB);
     }
 
     /**
@@ -245,7 +243,7 @@ public class VistaConsola implements IVista {
      * @param pozo  Lista de fichas que posee el pozo.
      */
     @Override
-    public void iniciarPartida(ArrayList<String> atril, ArrayList<String> pozo) {
+    public void iniciarPartida(ArrayList<IFicha> atril, ArrayList<IFicha> pozo) {
         appendColor("\n  ============================================================================\n", ColorRGB.CYAN);
         appendColor(" |                              PARTIDA EN CURSO                              |\n", ColorRGB.CYAN);
         appendColor("  ============================================================================\n", ColorRGB.CYAN);
@@ -268,14 +266,14 @@ public class VistaConsola implements IVista {
      * @param juegosMesa Lista de listas de fichas.
      */
     @Override
-    public void mostrarJuegosMesa(ArrayList<ArrayList<String>> juegosMesa) {
+    public void mostrarJuegosMesa(ArrayList<ArrayList<IFicha>> juegosMesa) {
         appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
         if (juegosMesa == null || juegosMesa.isEmpty()) {
             appendColor(" No hay juegos en mesa\n", ColorRGB.RED);
         } else {
             appendColor(" Juegos en mesa: \n", ColorRGB.PINK);
             int numeroJuego = 1;
-            for (ArrayList<String> juego : juegosMesa) {
+            for (ArrayList<IFicha> juego : juegosMesa) {
                 appendColor("N°" + numeroJuego + ": ", ColorRGB.PINK);
                 mostrarFichas(juego, " | ");
                 appendColor("\n", ColorRGB.CYAN);
@@ -291,7 +289,7 @@ public class VistaConsola implements IVista {
      * @param pozo Lista de fichas que posee el pozo.
      */
     @Override
-    public void mostrarPozo(ArrayList<String> pozo) {
+    public void mostrarPozo(ArrayList<IFicha> pozo) {
         appendColor("\n ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
         appendColor(" Fichas en Pozo: ", ColorRGB.PINK);
         mostrarFichas(pozo, " | ");
@@ -303,7 +301,7 @@ public class VistaConsola implements IVista {
      * @param atril Lista de fichas que posee el atril.
      */
     @Override
-    public void mostrarAtril(ArrayList<String> atril) {
+    public void mostrarAtril(ArrayList<IFicha> atril) {
         appendColor("\n ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
         appendColor(" Atril: \n", ColorRGB.PINK);
         mostrarFichasIndice(atril, "\n");
