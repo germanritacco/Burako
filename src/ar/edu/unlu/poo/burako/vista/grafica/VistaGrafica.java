@@ -3,16 +3,14 @@ package ar.edu.unlu.poo.burako.vista.grafica;
 import ar.edu.unlu.poo.burako.controlador.Controlador;
 import ar.edu.unlu.poo.burako.modelo.FichaComodin;
 import ar.edu.unlu.poo.burako.modelo.IFicha;
-import ar.edu.unlu.poo.burako.modelo.Jugador;
 import ar.edu.unlu.poo.burako.vista.IVista;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class VistaGrafica implements IVista, Serializable {
     private JPanel pnlMain;
@@ -32,6 +30,22 @@ public class VistaGrafica implements IVista, Serializable {
     private JPanel pnlWest;
     private JPanel pnlEast;
     private JPanel pnlSouth;
+    private JScrollPane scpNorth;
+    private JScrollPane scpWest;
+    private JScrollPane scpEast;
+    private JScrollPane scpSouth;
+    private JMenuBar mnbMenu;
+    private JMenu mnuPartida;
+    private JMenu mnuOpciones;
+    private JMenu mnuAyuda;
+    private JMenuItem mniAbandonarPartida;
+    private JMenuItem mniSalir;
+    private JMenuItem mniFondo;
+    private JMenuItem mniPanelTexto;
+    private JMenuItem mniReglas;
+    private JMenuItem mniAcercaDe;
+    private JTextPane txpRegistro;
+    private JScrollPane scpRegistro;
     private JLabel lblFelt;
     private final JFrame frame;
 
@@ -39,6 +53,9 @@ public class VistaGrafica implements IVista, Serializable {
     private Controlador controlador;
 
     private DefaultListModel<ImageIcon> listaModeloIzquierda;
+    private DefaultListModel<ImageIcon> listaModeloAbajo;
+    private DefaultListModel<ImageIcon> listaModeloDerecha;
+    private DefaultListModel<ImageIcon> listaModeloArriba;
 
     public VistaGrafica(int x, int y) {
         frame = new JFrame("Burako Grafico");
@@ -53,9 +70,42 @@ public class VistaGrafica implements IVista, Serializable {
         frame.revalidate();
         frame.repaint();
 
+        listaModeloAbajo = new DefaultListModel<>();
+        lstSouth.setModel(listaModeloAbajo);
+        lstSouth.setVisibleRowCount(1);
+
         listaModeloIzquierda = new DefaultListModel<>();
-        lstSouth.setModel(listaModeloIzquierda);
-        lstSouth.setVisibleRowCount(0);
+        lstWest.setModel(listaModeloIzquierda);
+        lstWest.setVisibleRowCount(0);
+
+        listaModeloDerecha = new DefaultListModel<>();
+        lstEast.setModel(listaModeloDerecha);
+        lstEast.setVisibleRowCount(0);
+
+        listaModeloArriba = new DefaultListModel<>();
+        lstNorth.setModel(listaModeloArriba);
+        lstNorth.setVisibleRowCount(1);
+
+        mniPanelTexto.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (scpRegistro.isVisible()) {
+                    scpRegistro.setVisible(false);
+                    mniPanelTexto.setText("Ocultar Panel Registro");
+                } else {
+                    scpRegistro.setVisible(true);
+                    mniPanelTexto.setText("Mostrar Panel Registro");
+                }
+                pnlMain.revalidate();
+                pnlMain.repaint();
+            }
+        });
+
     }
 
     /**
@@ -155,11 +205,31 @@ public class VistaGrafica implements IVista, Serializable {
             }
             System.out.println("color " + color);
             System.out.println("numero " + numero);
-            imagen = cut.getImagenRecortadaIcon(color, numero, 100, 100);
+            imagen = cut.getImagenRecortadaIcon(color, numero, 100, 100, 0);
+            listaModeloAbajo.addElement(imagen);
+            // Ficha contrincante
+            imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 90);
             listaModeloIzquierda.addElement(imagen);
+
+            imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 90);
+            listaModeloDerecha.addElement(imagen);
+
+            imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 0);
+            listaModeloArriba.addElement(imagen);
+
+            imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 0);
+            listaModeloArriba.addElement(imagen);
+
+
+            scpEast.setPreferredSize(new Dimension(lstEast.getPreferredSize().width + 18, lstEast.getPreferredSize().height));
+            scpWest.setPreferredSize(new Dimension(lstWest.getPreferredSize().width + 18, lstWest.getPreferredSize().height));
+            scpNorth.setPreferredSize(new Dimension(lstNorth.getPreferredSize().width, lstNorth.getPreferredSize().height + 18));
+            scpSouth.setPreferredSize(new Dimension(lstSouth.getPreferredSize().width, lstSouth.getPreferredSize().height + 18));
 
         }
         frame.pack();
+        pnlNorth.revalidate();
+        pnlNorth.repaint();
     }
 
     /**
@@ -204,7 +274,7 @@ public class VistaGrafica implements IVista, Serializable {
      * Habilita los componentes que permiten la entrada de texto por parte del usuario y asigna el flujo correspondiente.
      */
     @Override
-    public void enableComponents() {
+    public void enableComponents(boolean cambioTurno) {
 
     }
 
