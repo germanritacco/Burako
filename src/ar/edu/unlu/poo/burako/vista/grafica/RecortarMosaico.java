@@ -3,6 +3,8 @@ package ar.edu.unlu.poo.burako.vista.grafica;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
@@ -38,7 +40,7 @@ public class RecortarMosaico extends JFrame implements Serializable {
         }
     }
 
-    public ImageIcon getImagenRecortadaIcon(int color, int numeroFicha, int nuevoAncho, int nuevoAlto) {
+    public ImageIcon getImagenRecortadaIcon(int color, int numeroFicha, int nuevoAncho, int nuevoAlto, double angulo) {
         // Recortar una región específica
         int x = TILE_SIZE * (numeroFicha);  // Coordenada X del inicio de la nueva imagen
         int y = TILE_SIZE * color;  // Coordenada Y del inicio de la nueva imagen
@@ -46,15 +48,22 @@ public class RecortarMosaico extends JFrame implements Serializable {
         if (originalTexture != null) {
             BufferedImage subimage = originalTexture.getSubimage(x, y, TILE_SIZE, TILE_SIZE);
 
+            // Rotar la imagen
+            AffineTransform at = new AffineTransform();
+            at.rotate(Math.toRadians(angulo), TILE_SIZE / 2.0, TILE_SIZE / 2.0);
+            AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+            subimage = op.filter(subimage, null);
+
             // Ajustar el tamaño de la imagen
             Image imagenRedimensionada = subimage.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
 
             // Crear un ImageIcon directamente con la imagen redimensionada
-            return new ImageIcon(subimage);
+            return new ImageIcon(imagenRedimensionada);
         } else {
             return null;
         }
     }
+
 
     // TODO Ejemplo de prueba, eliminar en la version final.
    /* public static void main(String[] args) {
