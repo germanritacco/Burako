@@ -322,13 +322,15 @@ public class VistaConsola implements IVista {
      * Habilita los componentes que permiten la entrada de texto por parte del usuario y asigna el flujo correspondiente.
      */
     @Override
-    public void enableComponents() {
+    public void enableComponents(boolean cambioTurno) {
         txtEntrada.setEnabled(true);
         txtEntrada.setVisible(true);
         btnEnter.setEnabled(true);
         btnEnter.setVisible(true);
-        flujoActual = new FlujoTomarFicha(this, controlador);
-        flujoActual.mostrarSiguienteTexto();
+        if (cambioTurno) {
+            flujoActual = new FlujoTomarFicha(this, controlador);
+            flujoActual.mostrarSiguienteTexto();
+        }
     }
 
 

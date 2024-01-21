@@ -95,7 +95,7 @@ public interface IVista {
     /**
      * Habilita los componentes que permiten la entrada de texto por parte del usuario y asigna el flujo correspondiente.
      */
-    void enableComponents();
+    void enableComponents(boolean cambioTurno);
 
     /**
      * Cambia al flujo correspondiente de mostrar el menu principal.

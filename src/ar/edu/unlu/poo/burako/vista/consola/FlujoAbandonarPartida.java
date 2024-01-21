@@ -27,7 +27,7 @@ public class FlujoAbandonarPartida extends Flujo {
         vista.appendColor("  El " + jugador + " ha terminado la partida.", ColorRGB.RED);
         vista.appendColor("  Volveras al menu principal", ColorRGB.ORANGE);
         vista.mostrarMenuPrincipal();
-        vista.enableComponents();
+        vista.enableComponents(false);
     }
 
 }

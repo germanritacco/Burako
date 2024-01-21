@@ -77,7 +77,7 @@ public class Controlador implements IControladorRemoto {
                         vista.mostrarTurno(jugadorActual);
                         vista.mostrarPozo(this.modelo.mostrarPozo());
                         vista.mostrarAtril(mostrarAtril());
-                        vista.enableComponents();
+                        vista.enableComponents(true);
                     }
                 }
                 case PUNTAJE -> {
