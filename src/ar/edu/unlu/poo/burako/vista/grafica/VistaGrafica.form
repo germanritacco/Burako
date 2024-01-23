@@ -10,16 +10,131 @@
     </properties>
     <border type="none"/>
     <children>
-      <tabbedpane id="f96cc" binding="tabPartida">
-        <constraints border-constraint="Center"/>
+      <grid id="7d907" class="javax.swing.JMenuBar" binding="mnbMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+        <constraints border-constraint="North"/>
         <properties>
-          <background color="-14605013"/>
+          <preferredSize width="61" height="20"/>
         </properties>
+        <border type="none"/>
+        <children>
+          <grid id="1d94b" class="javax.swing.JMenu" binding="mnuPartida" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints/>
+            <properties>
+              <preferredSize width="51" height="14"/>
+              <text value="Partida"/>
+              <verticalAlignment value="3"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="97bf0" class="javax.swing.JMenuItem" binding="mniAbandonarPartida">
+                <constraints/>
+                <properties>
+                  <text value="Abandonar Partida"/>
+                </properties>
+              </component>
+              <component id="21cbd" class="javax.swing.JMenuItem" binding="mniSalir">
+                <constraints/>
+                <properties>
+                  <text value="Salir"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="57c84" class="javax.swing.JMenu" binding="mnuOpciones" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints/>
+            <properties>
+              <preferredSize width="67" height="14"/>
+              <text value="Opciones"/>
+              <verticalAlignment value="3"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="b511" class="javax.swing.JMenuItem" binding="mniPanelTexto">
+                <constraints/>
+                <properties>
+                  <text value="Mostrar Panel Registro"/>
+                </properties>
+              </component>
+              <grid id="79ef8" class="javax.swing.JMenu" binding="mnuFondo" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints/>
+                <properties>
+                  <text value="Cambiar Fondo"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="5e929" class="javax.swing.JMenuItem" binding="mniFondoAzul">
+                    <constraints/>
+                    <properties>
+                      <text value="Azul"/>
+                    </properties>
+                  </component>
+                  <component id="779d" class="javax.swing.JMenuItem" binding="mniFondoRojo">
+                    <constraints/>
+                    <properties>
+                      <text value="Rojo"/>
+                    </properties>
+                  </component>
+                  <component id="decda" class="javax.swing.JMenuItem" binding="mniFondoVerde">
+                    <constraints/>
+                    <properties>
+                      <text value="Verde"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="a8c31" class="javax.swing.JMenu" binding="mnuAyuda" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+            <constraints/>
+            <properties>
+              <preferredSize width="47" height="14"/>
+              <text value="Ayuda"/>
+              <verticalAlignment value="3"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="4bfc8" class="javax.swing.JMenuItem" binding="mniReglas">
+                <constraints/>
+                <properties>
+                  <text value="Reglas de Juego"/>
+                </properties>
+              </component>
+              <component id="5de90" class="javax.swing.JMenuItem" binding="mniAcercaDe">
+                <constraints/>
+                <properties>
+                  <text value="Acerca de..."/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <scrollpane id="fd116" binding="scpRegistro">
+        <constraints border-constraint="East"/>
+        <properties>
+          <horizontalScrollBarPolicy value="31"/>
+          <preferredSize width="100" height="23"/>
+          <verticalScrollBarPolicy value="20"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="e4d6f" class="javax.swing.JTextPane" binding="txpRegistro">
+            <constraints/>
+            <properties>
+              <background color="-14605013"/>
+              <foreground color="-14605013"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <grid id="b0898" binding="pnlMenu" layout-manager="CardLayout" hgap="0" vgap="0">
+        <constraints border-constraint="Center"/>
+        <properties/>
         <border type="none"/>
         <children>
           <grid id="73f5c" binding="pnlPartida" layout-manager="BorderLayout" hgap="0" vgap="0">
             <constraints>
-              <tabbedpane title="Untitled"/>
+              <card name="Card2"/>
             </constraints>
             <properties>
               <background color="-14605013"/>
@@ -166,104 +281,80 @@
               </grid>
             </children>
           </grid>
-        </children>
-      </tabbedpane>
-      <grid id="7d907" class="javax.swing.JMenuBar" binding="mnbMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
-        <constraints border-constraint="North"/>
-        <properties>
-          <preferredSize width="61" height="20"/>
-        </properties>
-        <border type="none"/>
-        <children>
-          <grid id="1d94b" class="javax.swing.JMenu" binding="mnuPartida" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
-            <constraints/>
+          <grid id="cca97" binding="pnlMenuPrincipal" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <card name="Card1"/>
+            </constraints>
             <properties>
-              <preferredSize width="51" height="14"/>
-              <text value="Partida"/>
-              <verticalAlignment value="3"/>
+              <background color="-14605013"/>
             </properties>
             <border type="none"/>
             <children>
-              <component id="97bf0" class="javax.swing.JMenuItem" binding="mniAbandonarPartida">
-                <constraints/>
+              <grid id="7b56b" binding="pnlBotonesMenu" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                <margin top="0" left="0" bottom="0" right="0"/>
+                <constraints border-constraint="Center"/>
                 <properties>
-                  <text value="Abandonar Partida"/>
+                  <background color="-14605013"/>
+                  <foreground color="-5524801"/>
                 </properties>
-              </component>
-              <component id="21cbd" class="javax.swing.JMenuItem" binding="mniSalir">
-                <constraints/>
-                <properties>
-                  <text value="Salir"/>
-                </properties>
-              </component>
-            </children>
-          </grid>
-          <grid id="57c84" class="javax.swing.JMenu" binding="mnuOpciones" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
-            <constraints/>
-            <properties>
-              <preferredSize width="67" height="14"/>
-              <text value="Opciones"/>
-              <verticalAlignment value="3"/>
-            </properties>
-            <border type="none"/>
-            <children>
-              <component id="47c99" class="javax.swing.JMenuItem" binding="mniFondo">
-                <constraints/>
-                <properties>
-                  <text value="Cambiar Fondo"/>
-                </properties>
-              </component>
-              <component id="b511" class="javax.swing.JMenuItem" binding="mniPanelTexto">
-                <constraints/>
-                <properties>
-                  <text value="Mostrar Panel Registro"/>
-                </properties>
-              </component>
-            </children>
-          </grid>
-          <grid id="a8c31" class="javax.swing.JMenu" binding="mnuAyuda" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
-            <constraints/>
-            <properties>
-              <preferredSize width="47" height="14"/>
-              <text value="Ayuda"/>
-              <verticalAlignment value="3"/>
-            </properties>
-            <border type="none"/>
-            <children>
-              <component id="4bfc8" class="javax.swing.JMenuItem" binding="mniReglas">
-                <constraints/>
-                <properties>
-                  <text value="Reglas de Juego"/>
-                </properties>
-              </component>
-              <component id="5de90" class="javax.swing.JMenuItem" binding="mniAcercaDe">
-                <constraints/>
-                <properties>
-                  <text value="Acerca de..."/>
-                </properties>
-              </component>
+                <border type="none"/>
+                <children>
+                  <component id="1a5" class="javax.swing.JButton" binding="btnIniciarPartida">
+                    <constraints>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-12762549"/>
+                      <foreground color="-6248524"/>
+                      <text value="Iniciar Partida"/>
+                    </properties>
+                  </component>
+                  <component id="28909" class="javax.swing.JButton" binding="btnMostarJugadores">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-12762549"/>
+                      <foreground color="-6248524"/>
+                      <text value="Mostrar Jugadores Conectados"/>
+                    </properties>
+                  </component>
+                  <component id="e747c" class="javax.swing.JButton" binding="btnMejoresJugadores">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-12762549"/>
+                      <foreground color="-6248524"/>
+                      <text value="Mejores Jugadores"/>
+                    </properties>
+                  </component>
+                  <component id="18b39" class="javax.swing.JButton" binding="btnSalir">
+                    <constraints>
+                      <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-12762549"/>
+                      <foreground color="-6248524"/>
+                      <text value="Salir"/>
+                    </properties>
+                  </component>
+                  <hspacer id="4ff2e">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </hspacer>
+                  <hspacer id="3148e">
+                    <constraints>
+                      <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                  </hspacer>
+                </children>
+              </grid>
             </children>
           </grid>
         </children>
       </grid>
-      <scrollpane id="fd116" binding="scpRegistro">
-        <constraints border-constraint="East"/>
-        <properties>
-          <horizontalScrollBarPolicy value="31"/>
-          <preferredSize width="100" height="23"/>
-          <verticalScrollBarPolicy value="20"/>
-        </properties>
-        <border type="none"/>
-        <children>
-          <component id="e4d6f" class="javax.swing.JTextPane" binding="txpRegistro">
-            <constraints/>
-            <properties>
-              <background color="-14605013"/>
-              <foreground color="-14605013"/>
-            </properties>
-          </component>
-        </children>
-      </scrollpane>
     </children>
   </grid>
 </form>

@@ -7,16 +7,12 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
 
-public class JLabelFondo extends JLabel {
+public class JPanelFondo extends JPanel {
 
     private BufferedImage imagenFondo;
 
-    public JLabelFondo(String path) {
+    public JPanelFondo(String path) {
         cargarImagen(path);
-    }
-
-    public JLabelFondo() {
-
     }
 
     private void cargarImagen(String path) {
@@ -44,28 +40,18 @@ public class JLabelFondo extends JLabel {
         int imagenAlto = imagenFondo.getHeight(this);
 
         double escalaAncho = (double) ancho / imagenAncho;
+        double escalaAlto = (double) alto / imagenAlto;
 
-        // Ajustar la escala solo si el ancho de la imagen después de la escala
-        // es mayor que la altura disponible
-        if (imagenAlto * escalaAncho > alto) {
-            double escala = (double) alto / imagenAlto;
-            int nuevoAncho = (int) (imagenAncho * escala);
-            int nuevoAlto = (int) (imagenAlto * escala);
+        double escala = Math.max(escalaAncho, escalaAlto);
 
-            int x = (ancho - nuevoAncho) / 2;
-            int y = (alto - nuevoAlto) / 2;
+        int nuevoAncho = (int) (imagenAncho * escala);
+        int nuevoAlto = (int) (imagenAlto * escala);
 
-            g.drawImage(imagenFondo, x, y, nuevoAncho, nuevoAlto, this);
-        } else {
-            // La imagen cabe en el ancho, usar escalaAncho
-            int nuevoAncho = (int) (imagenAncho * escalaAncho);
-            int nuevoAlto = (int) (imagenAlto * escalaAncho);
+        int x = (ancho - nuevoAncho) / 2;
+        int y = (alto - nuevoAlto) / 2;
 
-            int x = (ancho - nuevoAncho) / 2;
-            int y = (alto - nuevoAlto) / 2;
-
-            g.drawImage(imagenFondo, x, y, nuevoAncho, nuevoAlto, this);
-        }
+        g.drawImage(imagenFondo, x, y, nuevoAncho, nuevoAlto, this);
     }
 
 }
+

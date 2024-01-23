@@ -4,14 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="Cambio colores pasteles en consola">
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/grafica/RecortarMosaico.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/grafica/VistaGrafica.form" afterDir="false" />
+    <list default="true" id="5b62223c-6174-4581-94f3-8513f2e69aed" name="Changes" comment="Add components to Palette">
+      <change afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/grafica/JPanelFondo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/ColorFicha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/modelo/ColorFicha.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/ColorRGB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/ColorRGB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/VistaGrafica.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/VistaGrafica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/grafica/VistaGrafica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Burako.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Burako.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/grafica/JLabelFondo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/grafica/JLabelFondo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/grafica/VistaGrafica.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/grafica/VistaGrafica.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/grafica/VistaGrafica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/grafica/VistaGrafica.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +47,7 @@
     <setting file="file://$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/controlador/Controlador.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -62,6 +61,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;Application.AppClienteConsola.executor&quot;: &quot;Run&quot;,
+    &quot;Application.AppServidor.executor&quot;: &quot;Run&quot;,
     &quot;Application.RecortarMosaico.executor&quot;: &quot;Run&quot;,
     &quot;Application.Test 1.executor&quot;: &quot;Run&quot;,
     &quot;Application.Test.executor&quot;: &quot;Run&quot;,
@@ -70,7 +70,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;363&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;359&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
@@ -81,7 +81,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Gerr/IdeaProjects/Burako/src/Main.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15429688&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Java&quot;,
@@ -98,14 +98,14 @@
       <recent name="C:\Users\Gerr\IdeaProjects\Burako\src\ar\edu\unlu\poo\burako\vista\consola" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
-      <recent name="ar.edu.unlu.poo.burako.vista.consola" />
       <recent name="ar.edu.unlu.poo.burako.modelo" />
+      <recent name="ar.edu.unlu.poo.burako.vista.consola" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ar.edu.unlu.poo.burako" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.VistaGrafica">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="AppClienteConsola" type="Application" factoryName="Application" singleton="false" temporary="true">
       <option name="MAIN_CLASS_NAME" value="ar.edu.unlu.poo.burako.AppClienteConsola" />
       <module name="Burako" />
@@ -125,6 +125,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="ar.edu.unlu.poo.burako.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RecortarMosaico" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ar.edu.unlu.poo.burako.vista.grafica.RecortarMosaico" />
+      <module name="Burako" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ar.edu.unlu.poo.burako.vista.grafica.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -160,15 +173,17 @@
     </configuration>
     <list>
       <item itemvalue="Application.Test" />
+      <item itemvalue="Application.RecortarMosaico" />
       <item itemvalue="Application.VistaGrafica" />
       <item itemvalue="Application.AppClienteConsola" />
       <item itemvalue="Application.AppServidor" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.AppServidor" />
+        <item itemvalue="Application.RecortarMosaico" />
         <item itemvalue="Application.VistaGrafica" />
         <item itemvalue="Application.AppClienteConsola" />
-        <item itemvalue="Application.AppServidor" />
       </list>
     </recent_temporary>
   </component>
@@ -249,47 +264,20 @@
       <workItem from="1705184939748" duration="3414000" />
       <workItem from="1705234087761" duration="12681000" />
       <workItem from="1705264242881" duration="15032000" />
-      <workItem from="1705355885652" duration="1511000" />
-    </task>
-    <task id="LOCAL-00001" summary="Primer commit">
-      <option name="closed" value="true" />
-      <created>1698527492155</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1698527492155</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Agregado clases y enumerados">
-      <option name="closed" value="true" />
-      <created>1698537932712</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1698537932712</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Clase ficha, seteo de valores de fichas, constructor">
-      <option name="closed" value="true" />
-      <created>1698621137697</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1698621137697</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Clase Ficha, seteo de valores de fichas, constructor">
-      <option name="closed" value="true" />
-      <created>1698621165386</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1698621165386</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Clase Pila, agregar fichas a la pila">
-      <option name="closed" value="true" />
-      <created>1698621208853</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1698621208853</updated>
+      <workItem from="1705355885652" duration="6143000" />
+      <workItem from="1705438384871" duration="16217000" />
+      <workItem from="1705463749960" duration="167000" />
+      <workItem from="1705525579729" duration="10139000" />
+      <workItem from="1705627070201" duration="4150000" />
+      <workItem from="1705631740148" duration="1034000" />
+      <workItem from="1705702692030" duration="3541000" />
+      <workItem from="1705711134851" duration="3347000" />
+      <workItem from="1705787889523" duration="7993000" />
+      <workItem from="1705796158876" duration="153000" />
+      <workItem from="1705796584269" duration="2699000" />
+      <workItem from="1705843698030" duration="10485000" />
+      <workItem from="1705871141792" duration="6623000" />
+      <workItem from="1705954338762" duration="2917000" />
     </task>
     <task id="LOCAL-00006" summary="Clase PilaDeMuerto">
       <option name="closed" value="true" />
@@ -587,7 +575,103 @@
       <option name="project" value="LOCAL" />
       <updated>1705113669276</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Implementado Clase con colores RGB">
+      <option name="closed" value="true" />
+      <created>1705357926078</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1705357926078</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Ordenamiento de enumerado">
+      <option name="closed" value="true" />
+      <created>1705357955909</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1705357955909</updated>
+    </task>
+    <task id="LOCAL-00045" summary="VistaGrafica avance diseño">
+      <option name="closed" value="true" />
+      <created>1705357974784</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1705357974784</updated>
+    </task>
+    <task id="LOCAL-00046" summary="AppCliente test VistaGrafica">
+      <option name="closed" value="true" />
+      <created>1705710693856</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1705710693856</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Implementado IFicha &amp; Fix">
+      <option name="closed" value="true" />
+      <created>1705710926068</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1705710926068</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Rename Comodin to FichaComodin">
+      <option name="closed" value="true" />
+      <created>1705710957764</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1705710957764</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Implementacion Vista grafica: Fondo y fichas">
+      <option name="closed" value="true" />
+      <created>1705711028606</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1705711028606</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Textures">
+      <option name="closed" value="true" />
+      <created>1705711069665</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1705711069665</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Fix AbandonarPartida">
+      <option name="closed" value="true" />
+      <created>1705800138036</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1705800138037</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Add rotar imagen">
+      <option name="closed" value="true" />
+      <created>1705800155466</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1705800155466</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Add componentes visuales">
+      <option name="closed" value="true" />
+      <created>1705800209475</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1705800209475</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Add components to Palette">
+      <option name="closed" value="true" />
+      <created>1705800303616</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1705800303616</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -605,18 +689,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Clase Pila: sacarFicha" />
-    <MESSAGE value="Clase Tablero: setters &amp; getters, esEscalera a optimizar" />
-    <MESSAGE value="intelliJ code" />
-    <MESSAGE value="Agregados metodos a Tablero" />
-    <MESSAGE value="tomarMuerto" />
-    <MESSAGE value="sacarMuerto, getMuerto" />
-    <MESSAGE value="getPilaDeMuerto" />
-    <MESSAGE value="esEscalera fix fichas iguales" />
-    <MESSAGE value="MVC &amp; Observer aplicado a modo de test" />
-    <MESSAGE value="RMI" />
-    <MESSAGE value="Flujos" />
-    <MESSAGE value="fix" />
     <MESSAGE value="fix Interfaces" />
     <MESSAGE value="Backup jugador manejado por String" />
     <MESSAGE value="cambio turno completo" />
@@ -630,7 +702,19 @@
     <MESSAGE value="Mejorado ejecucion de apps" />
     <MESSAGE value="Implementado partida terminada, contar puntos, top 5 jugadores" />
     <MESSAGE value="Cambio colores pasteles en consola" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cambio colores pasteles en consola" />
+    <MESSAGE value="Implementado Clase con colores RGB" />
+    <MESSAGE value="Ordenamiento de enumerado" />
+    <MESSAGE value="VistaGrafica avance diseño" />
+    <MESSAGE value="AppCliente test VistaGrafica" />
+    <MESSAGE value="Implementado IFicha &amp; Fix" />
+    <MESSAGE value="Rename Comodin to FichaComodin" />
+    <MESSAGE value="Implementacion Vista grafica: Fondo y fichas" />
+    <MESSAGE value="Textures" />
+    <MESSAGE value="Fix AbandonarPartida" />
+    <MESSAGE value="Add rotar imagen" />
+    <MESSAGE value="Add componentes visuales" />
+    <MESSAGE value="Add components to Palette" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add components to Palette" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -643,6 +727,20 @@
           <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.rmi.NoSuchObjectException" package="java.rmi" />
+          <option name="timeStamp" value="4" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/AppClienteConsola.java</url>
+          <line>66</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ar/edu/unlu/poo/burako/vista/grafica/VistaGrafica.java</url>
+          <line>82</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

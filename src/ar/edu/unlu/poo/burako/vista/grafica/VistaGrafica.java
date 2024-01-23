@@ -9,12 +9,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class VistaGrafica implements IVista, Serializable {
     private JPanel pnlMain;
-    private JTabbedPane tabPartida;
     private JPanel pnlPartida;
     private JList lstNorth;
     private JList lstWest;
@@ -40,13 +41,25 @@ public class VistaGrafica implements IVista, Serializable {
     private JMenu mnuAyuda;
     private JMenuItem mniAbandonarPartida;
     private JMenuItem mniSalir;
-    private JMenuItem mniFondo;
     private JMenuItem mniPanelTexto;
     private JMenuItem mniReglas;
     private JMenuItem mniAcercaDe;
     private JTextPane txpRegistro;
     private JScrollPane scpRegistro;
-    private JLabel lblFelt;
+    private JMenu mnuFondo;
+    private JMenuItem mniFondoAzul;
+    private JMenuItem mniFondoRojo;
+    private JMenuItem mniFondoVerde;
+    private JPanel pnlMenu;
+    private JPanel pnlMenuPrincipal;
+    private JLabelFondo lblBurako;
+    private JPanel pnlBotonesMenu;
+    private JButton btnIniciarPartida;
+    private JButton btnMostarJugadores;
+    private JButton btnMejoresJugadores;
+    private JButton btnSalir;
+    private JPanel burako;
+    private JPanelFondo lblFelt;
     private final JFrame frame;
 
     private Image imgTablero;
@@ -64,11 +77,22 @@ public class VistaGrafica implements IVista, Serializable {
         frame.setLocation(x, y);
         frame.pack();
 
-        // Cargar la imagen de fondo
-        lblFelt = new JLabelFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
-        pnlPartida.add(lblFelt, BorderLayout.CENTER);
-        frame.revalidate();
-        frame.repaint();
+
+        // TODO aca va
+
+        lblBurako = new JLabelFondo("/ar/edu/unlu/poo/burako/texture/titulo.png");
+        lblBurako.setPreferredSize(new Dimension(600, 300));
+        lblBurako.setMinimumSize(new Dimension(0, 0));
+        lblBurako.setMaximumSize(new Dimension(800, 400));
+        pnlMenuPrincipal.add(lblBurako, BorderLayout.NORTH);
+        pnlMenuPrincipal.revalidate();
+        pnlMenuPrincipal.repaint();
+
+        pnlMenu.removeAll();
+        pnlMenu.add(pnlMenuPrincipal);
+        pnlMenu.revalidate();
+        pnlMenu.repaint();
+
 
         listaModeloAbajo = new DefaultListModel<>();
         lstSouth.setModel(listaModeloAbajo);
@@ -106,6 +130,77 @@ public class VistaGrafica implements IVista, Serializable {
             }
         });
 
+        mniFondoAzul.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lblFelt.setImagenFondo("/ar/edu/unlu/poo/burako/texture/blueFeltTexture.png");
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+
+        mniFondoRojo.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lblFelt.setImagenFondo("/ar/edu/unlu/poo/burako/texture/redFeltTexture.png");
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+
+        mniFondoVerde.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lblFelt.setImagenFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+
+        frame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                int nuevoAncho = e.getComponent().getWidth();
+                int nuevoAlto = e.getComponent().getHeight();
+
+                // Ajustar el tamaño preferido del JLabelFondo
+                lblBurako.setPreferredSize(new Dimension(nuevoAncho, nuevoAlto / 4));
+
+                // Revalidar y repintar para que los cambios surtan efecto
+                lblBurako.revalidate();
+                lblBurako.repaint();
+            }
+        });
+
+        btnIniciarPartida.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pnlMenu.removeAll();
+                pnlMenu.add(pnlPartida);
+                pnlMenu.revalidate();
+                pnlMenu.repaint();
+            }
+        });
     }
 
     /**
@@ -190,6 +285,27 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void iniciarPartida(ArrayList<IFicha> atril, ArrayList<IFicha> pozo) {
+// TODO AGREGAR TODO ESTO DONDE CORRESPONDA
+        // Cargar la imagen de fondo
+        lblFelt = new JPanelFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
+
+
+        lblFelt = new JPanelFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
+        lblFelt.setOpaque(false);
+        lblFelt.setLayout(new BorderLayout());
+        pnlPartida.remove(pnlCenter);
+        lblFelt.add(pnlCenter, BorderLayout.CENTER);  // Agregar pnlCenter al lblFelt
+
+// Agregar lblFelt al pnlPartida
+        pnlPartida.add(lblFelt, BorderLayout.CENTER);
+
+// Revalidar y repintar el pnlPartida
+        pnlPartida.revalidate();
+        pnlPartida.repaint();
+
+        // TODO HASTA ACA!!!
+
+
         RecortarMosaico cut = new RecortarMosaico();
         int color;
         int numero;

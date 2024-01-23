@@ -7,6 +7,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="LibreriaRMIMVC" level="project" />
+    <orderEntry type="library" exported="" name="LibreriaRMIMVC" level="project" />
   </component>
 </module>
