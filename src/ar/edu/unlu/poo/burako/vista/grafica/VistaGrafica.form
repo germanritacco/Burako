@@ -52,7 +52,8 @@
               <component id="b511" class="javax.swing.JMenuItem" binding="mniPanelTexto">
                 <constraints/>
                 <properties>
-                  <text value="Mostrar Panel Registro"/>
+                  <actionCommand value="Ocultar Panel Registro"/>
+                  <text value="Ocultar Panel Registro"/>
                 </properties>
               </component>
               <grid id="79ef8" class="javax.swing.JMenu" binding="mnuFondo" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
@@ -117,11 +118,11 @@
           <text value="Label"/>
         </properties>
       </component>
-      <splitpane id="2ca2f">
+      <splitpane id="2ca2f" binding="splRegistro">
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-14605013"/>
-          <dividerSize value="5"/>
+          <dividerSize value="3"/>
           <foreground color="-5524801"/>
           <resizeWeight value="0.8"/>
         </properties>

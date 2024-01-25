@@ -15,6 +15,8 @@ public interface IBurako extends IObservableRemoto {
      */
     String getMensajeSistema() throws RemoteException;
 
+    boolean getEstadoMensajeSistema() throws RemoteException;
+
     /**
      * Cierra la conexión de un jugador con el servidor remoto.
      *

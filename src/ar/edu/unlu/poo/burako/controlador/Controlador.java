@@ -52,13 +52,13 @@ public class Controlador implements IControladorRemoto {
         if (cambio instanceof Eventos) {
             switch ((Eventos) cambio) {
                 case NUEVO_MENSAJE -> {
-                    vista.mostrarTexto(this.modelo.getMensajeSistema() + "\n");
+                    vista.mostrarTexto(this.modelo.getMensajeSistema() + "\n", this.modelo.getEstadoMensajeSistema());
                 }
                 case ABANDONAR_PARTIDA -> {
                     vista.abandonarPartida(jugador.getNombre());
                 }
                 case MOSTRAR_JUGADORES -> {
-                    vista.mostrarTexto(this.modelo.getJugadores());
+                    vista.mostrarTexto(this.modelo.getJugadores(), false);
                 }
                 case PARTIDA -> {
                     ArrayList<IFicha> atril = this.modelo.getFichas(jugador.getId());
@@ -273,5 +273,9 @@ public class Controlador implements IControladorRemoto {
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public String getJugador() {
+        return jugador.getNombre();
     }
 }

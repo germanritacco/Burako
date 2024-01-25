@@ -102,8 +102,12 @@ public class VistaConsola implements IVista {
      * @param txt Texto a mostrar.
      */
     @Override
-    public void mostrarTexto(String txt) {
-        appendColorPosicion(txt, ColorRGB.GREEN, 0);
+    public void mostrarTexto(String txt, boolean critico) {
+        if (critico) {
+            appendColorPosicion(txt, ColorRGB.RED, 0);
+        } else {
+            appendColorPosicion(txt, ColorRGB.GREEN, 0);
+        }
     }
 
     /**

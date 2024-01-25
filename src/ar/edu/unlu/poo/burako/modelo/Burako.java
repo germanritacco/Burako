@@ -14,6 +14,7 @@ public class Burako extends ObservableRemoto implements IBurako {
     private Pozo pozo;
     private final ArrayList<Jugador> jugadores;
     private String mensajeSistema;
+    private boolean estadoMensajeSistema;
     private final Tablero tableroEquipo1;
     private final Tablero tableroEquipo2;
 
@@ -41,6 +42,11 @@ public class Burako extends ObservableRemoto implements IBurako {
         return mensajeSistema;
     }
 
+    @Override
+    public boolean getEstadoMensajeSistema() throws RemoteException {
+        return estadoMensajeSistema;
+    }
+
     /**
      * Cierra la conexión de un jugador con el servidor remoto.
      *
@@ -61,7 +67,7 @@ public class Burako extends ObservableRemoto implements IBurako {
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
     private void desconectarUsuario(Jugador jugador) throws RemoteException {
-        this.enviarMensajeDelSistema("El jugador " + jugador.getNombre() + " se ha retirado de la partida");
+        this.enviarMensajeDelSistema("El jugador " + jugador.getNombre() + " se ha retirado de la partida", true);
         jugadores.remove(jugador);
     }
 
@@ -110,7 +116,7 @@ public class Burako extends ObservableRemoto implements IBurako {
             case 1, 3 -> this.tableroEquipo1.agregarJugadores(nuegoJugador);
             case 2, 4 -> this.tableroEquipo2.agregarJugadores(nuegoJugador);
         }
-        this.enviarMensajeDelSistema("El jugador " + nombre + " se ha unido a la partida");
+        this.enviarMensajeDelSistema("El jugador " + nombre + " se ha unido a la partida", false);
         return nuegoJugador;
     }
 
@@ -120,8 +126,9 @@ public class Burako extends ObservableRemoto implements IBurako {
      * @param mensaje Mensaje a mostrar en las vistas.
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
-    private void enviarMensajeDelSistema(String mensaje) throws RemoteException {
+    private void enviarMensajeDelSistema(String mensaje, boolean critico) throws RemoteException {
         this.mensajeSistema = mensaje;
+        this.estadoMensajeSistema = critico;
         this.notificarObservadores(Eventos.NUEVO_MENSAJE);
     }
 
@@ -168,7 +175,7 @@ public class Burako extends ObservableRemoto implements IBurako {
             jugadores.getFirst().setTurno(true);
             this.notificarObservadores(Eventos.PARTIDA);
         } else {
-            this.enviarMensajeDelSistema("La partida no puede comenzar, ya que faltan jugadores en la partida");
+            this.enviarMensajeDelSistema("La partida no puede comenzar, ya que faltan jugadores en la partida", true);
         }
     }
 

@@ -20,7 +20,7 @@ public interface IVista {
      *
      * @param txt Texto a mostrar.
      */
-    void mostrarTexto(String txt);
+    void mostrarTexto(String txt, boolean critico);
 
     /**
      * Cambia el flujo cuando un jugador abandona la partida.

@@ -72,6 +72,7 @@ public class VistaGrafica implements IVista, Serializable {
     private JLabel lblBienvenida;
     private JLabel lblNombreJugador;
     private JLabel lblMensajes;
+    private JSplitPane splRegistro;
     private JPanel burako;
     private JPanelFondo pnlFelt;
     private JFrame frame;
@@ -122,10 +123,11 @@ public class VistaGrafica implements IVista, Serializable {
                     public void actionPerformed(ActionEvent e) {
                         if (scpRegistro.isVisible()) {
                             scpRegistro.setVisible(false);
-                            mniPanelTexto.setText("Ocultar Panel Registro");
+                            mniPanelTexto.setText("Mostrar Panel Registro");
                         } else {
                             scpRegistro.setVisible(true);
-                            mniPanelTexto.setText("Mostrar Panel Registro");
+                            splRegistro.setDividerLocation(0.8);
+                            mniPanelTexto.setText("Ocultar Panel Registro");
                         }
                         // Revalidar y repintar el panel
                         pnlMain.revalidate();
@@ -279,10 +281,16 @@ public class VistaGrafica implements IVista, Serializable {
      * @param txt Texto a mostrar.
      */
     @Override
-    public void mostrarTexto(String txt) {
-        lblMensajes.setForeground(ColorRGB.RED);
+    public void mostrarTexto(String txt, boolean critico) {
+        Color color;
+        if (critico) {
+            color = ColorRGB.RED;
+        } else {
+            color = ColorRGB.GREEN;
+        }
+        lblMensajes.setForeground(color);
         lblMensajes.setText((txt.toUpperCase()));
-        mostrarRegistro(txt, ColorRGB.RED);
+        mostrarRegistro(txt, color);
         Timer timer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -380,6 +388,8 @@ public class VistaGrafica implements IVista, Serializable {
         pnlCardPartida.revalidate();
         pnlCardPartida.repaint();
         cambiarVista(pnlCardPartida);
+        lblSouth.setForeground(ColorRGB.CYAN);
+        lblSouth.setText(" " + controlador.getJugador().toUpperCase() + " ");
 
         RecortarMosaico cut = new RecortarMosaico();
         for (IFicha ficha : atril) {
