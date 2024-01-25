@@ -7,12 +7,18 @@ import ar.edu.unlu.poo.burako.vista.ColorRGB;
 import ar.edu.unlu.poo.burako.vista.IVista;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class VistaGrafica implements IVista, Serializable {
@@ -275,7 +281,8 @@ public class VistaGrafica implements IVista, Serializable {
     @Override
     public void mostrarTexto(String txt) {
         lblMensajes.setForeground(ColorRGB.RED);
-        lblMensajes.setText(txt);
+        lblMensajes.setText((txt.toUpperCase()));
+        mostrarRegistro(txt, ColorRGB.RED);
         Timer timer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -284,6 +291,13 @@ public class VistaGrafica implements IVista, Serializable {
         });
         timer.setRepeats(false); // No se repite, ejecuta la tarea una vez
         timer.start();
+    }
+
+    private void mostrarRegistro(String txt, Color color) {
+        String texto = "";
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:MM:ss: ");
+        appendColor(LocalDateTime.now().format(format), ColorRGB.BLUE);
+        appendColor(txt, color);
     }
 
     /**
@@ -304,7 +318,15 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void appendColor(String texto, Color color) {
-
+        StyledDocument doc = txpRegistro.getStyledDocument();
+        Style style = txpRegistro.addStyle("Style", null);
+        StyleConstants.setForeground(style, color);
+        try {
+            doc.insertString(doc.getLength(), texto, style);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        txpRegistro.setCaretPosition(txpRegistro.getDocument().getLength()); // Ajusta la posición del cursor al final del documento
     }
 
     /**
