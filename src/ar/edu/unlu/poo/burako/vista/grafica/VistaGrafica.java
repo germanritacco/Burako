@@ -3,6 +3,7 @@ package ar.edu.unlu.poo.burako.vista.grafica;
 import ar.edu.unlu.poo.burako.controlador.Controlador;
 import ar.edu.unlu.poo.burako.modelo.FichaComodin;
 import ar.edu.unlu.poo.burako.modelo.IFicha;
+import ar.edu.unlu.poo.burako.vista.ColorRGB;
 import ar.edu.unlu.poo.burako.vista.IVista;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class VistaGrafica implements IVista, Serializable {
     private JPanel pnlMain;
-    private JPanel pnlPartida;
+    private JPanel pnlCardPartida;
     private JList lstNorth;
     private JList lstWest;
     private JList lstEast;
@@ -51,16 +52,23 @@ public class VistaGrafica implements IVista, Serializable {
     private JMenuItem mniFondoRojo;
     private JMenuItem mniFondoVerde;
     private JPanel pnlMenu;
-    private JPanel pnlMenuPrincipal;
+    private JPanel pnlCardMenuPrincipal;
     private JLabelFondo lblBurako;
     private JPanel pnlBotonesMenu;
     private JButton btnIniciarPartida;
     private JButton btnMostarJugadores;
     private JButton btnMejoresJugadores;
     private JButton btnSalir;
+    private JTextField txtNombreJugador;
+    private JButton btnAceptarJugador;
+    private JPanel pnlJugadorCenter;
+    private JPanel pnlCardJugador;
+    private JLabel lblBienvenida;
+    private JLabel lblNombreJugador;
+    private JLabel lblMensajes;
     private JPanel burako;
-    private JPanelFondo lblFelt;
-    private final JFrame frame;
+    private JPanelFondo pnlFelt;
+    private JFrame frame;
 
     private Image imgTablero;
     private Controlador controlador;
@@ -71,136 +79,182 @@ public class VistaGrafica implements IVista, Serializable {
     private DefaultListModel<ImageIcon> listaModeloArriba;
 
     public VistaGrafica(int x, int y) {
-        frame = new JFrame("Burako Grafico");
-        frame.setContentPane(pnlMain);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocation(x, y);
-        frame.pack();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                frame = new JFrame("Burako Grafico");
+                frame.setContentPane(pnlMain);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setMinimumSize(new Dimension(500, 500));
+                frame.setPreferredSize(new Dimension(600, 600));
+                frame.setLocation(x, y);
+                frame.setVisible(true);
 
+                listaModeloAbajo = new DefaultListModel<>();
+                lstSouth.setModel(listaModeloAbajo);
+                lstSouth.setVisibleRowCount(1);
 
-        // TODO aca va
+                listaModeloIzquierda = new DefaultListModel<>();
+                lstWest.setModel(listaModeloIzquierda);
+                lstWest.setVisibleRowCount(0);
 
+                listaModeloDerecha = new DefaultListModel<>();
+                lstEast.setModel(listaModeloDerecha);
+                lstEast.setVisibleRowCount(0);
+
+                listaModeloArriba = new DefaultListModel<>();
+                lstNorth.setModel(listaModeloArriba);
+                lstNorth.setVisibleRowCount(1);
+
+                mniPanelTexto.addActionListener(new ActionListener() {
+                    /**
+                     * Invoked when an action occurs.
+                     *
+                     * @param e the event to be processed
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (scpRegistro.isVisible()) {
+                            scpRegistro.setVisible(false);
+                            mniPanelTexto.setText("Ocultar Panel Registro");
+                        } else {
+                            scpRegistro.setVisible(true);
+                            mniPanelTexto.setText("Mostrar Panel Registro");
+                        }
+                        // Revalidar y repintar el panel
+                        pnlMain.revalidate();
+                        pnlMain.repaint();
+                    }
+                });
+
+                mniFondoAzul.addActionListener(new ActionListener() {
+                    /**
+                     * Invoked when an action occurs.
+                     *
+                     * @param e the event to be processed
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pnlFelt.setImagenFondo("/ar/edu/unlu/poo/burako/texture/blueFeltTexture.png");
+                        // Revalidar y repintar el panel
+                        frame.revalidate();
+                        frame.repaint();
+                    }
+                });
+
+                mniFondoRojo.addActionListener(new ActionListener() {
+                    /**
+                     * Invoked when an action occurs.
+                     *
+                     * @param e the event to be processed
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pnlFelt.setImagenFondo("/ar/edu/unlu/poo/burako/texture/redFeltTexture.png");
+                        // Revalidar y repintar el panel
+                        frame.revalidate();
+                        frame.repaint();
+                    }
+                });
+
+                mniFondoVerde.addActionListener(new ActionListener() {
+                    /**
+                     * Invoked when an action occurs.
+                     *
+                     * @param e the event to be processed
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pnlFelt.setImagenFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
+                        // Revalidar y repintar el panel
+                        frame.revalidate();
+                        frame.repaint();
+                    }
+                });
+
+                frame.addComponentListener(new ComponentAdapter() {
+                    @Override
+                    public void componentResized(ComponentEvent e) {
+                        int ancho = e.getComponent().getWidth();
+                        int alto = e.getComponent().getHeight();
+                        ajustarTamanioTitulo(ancho, alto);
+                        // TODO testear bien
+                        Dimension newSize = frame.getSize();
+                        int minWidth = 400;
+                        int minHeight = 400;
+                        // Limitar el tamaño mínimo
+                        if (newSize.width < minWidth || newSize.height < minHeight) {
+                            frame.setSize(
+                                    Math.max(newSize.width, minWidth),
+                                    Math.max(newSize.height, minHeight)
+                            );
+                        }
+                    }
+                });
+
+                btnIniciarPartida.addActionListener(new ActionListener() {
+                    /**
+                     * Invoked when an action occurs.
+                     *
+                     * @param e the event to be processed
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        controlador.iniciarPartida();
+                    }
+                });
+                btnAceptarJugador.addActionListener(new ActionListener() {
+                    /**
+                     * Invoked when an action occurs.
+                     *
+                     * @param e the event to be processed
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (!txtNombreJugador.getText().isEmpty()) {
+                            controlador.nuevoJugador(txtNombreJugador.getText());
+                            colocarTituloFondo(pnlCardMenuPrincipal);
+                            ajustarTamanioTitulo(frame.getWidth(), frame.getHeight());
+                            cambiarVista(pnlCardMenuPrincipal);
+                        } else {
+                            JOptionPane.showMessageDialog(pnlJugadorCenter, "Por favor ingrese un nombre de jugador",
+                                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+                        }
+                    }
+                });
+
+            }
+        });
+
+    }
+
+    private void colocarTituloFondo(JPanel panel) {
         lblBurako = new JLabelFondo("/ar/edu/unlu/poo/burako/texture/titulo.png");
         lblBurako.setPreferredSize(new Dimension(600, 300));
         lblBurako.setMinimumSize(new Dimension(0, 0));
         lblBurako.setMaximumSize(new Dimension(800, 400));
-        pnlMenuPrincipal.add(lblBurako, BorderLayout.NORTH);
-        pnlMenuPrincipal.revalidate();
-        pnlMenuPrincipal.repaint();
+        panel.add(lblBurako, BorderLayout.NORTH);
+        // Revalidar y repintar el panel
+        panel.revalidate();
+        panel.repaint();
+    }
 
+    private void ajustarTamanioTitulo(int ancho, int alto) {
+        int nuevoAncho = frame.getWidth();
+        int nuevoAlto = frame.getHeight();
+        // Ajustar el tamaño preferido del JLabelFondo
+        lblBurako.setPreferredSize(new Dimension(nuevoAncho, nuevoAlto / 4));
+        // Revalidar y repintar el panel
+        lblBurako.revalidate();
+        lblBurako.repaint();
+    }
+
+    private void cambiarVista(JPanel panelCard) {
         pnlMenu.removeAll();
-        pnlMenu.add(pnlMenuPrincipal);
+        pnlMenu.add(panelCard);
+        // Revalidar y repintar el panel
         pnlMenu.revalidate();
         pnlMenu.repaint();
-
-
-        listaModeloAbajo = new DefaultListModel<>();
-        lstSouth.setModel(listaModeloAbajo);
-        lstSouth.setVisibleRowCount(1);
-
-        listaModeloIzquierda = new DefaultListModel<>();
-        lstWest.setModel(listaModeloIzquierda);
-        lstWest.setVisibleRowCount(0);
-
-        listaModeloDerecha = new DefaultListModel<>();
-        lstEast.setModel(listaModeloDerecha);
-        lstEast.setVisibleRowCount(0);
-
-        listaModeloArriba = new DefaultListModel<>();
-        lstNorth.setModel(listaModeloArriba);
-        lstNorth.setVisibleRowCount(1);
-
-        mniPanelTexto.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (scpRegistro.isVisible()) {
-                    scpRegistro.setVisible(false);
-                    mniPanelTexto.setText("Ocultar Panel Registro");
-                } else {
-                    scpRegistro.setVisible(true);
-                    mniPanelTexto.setText("Mostrar Panel Registro");
-                }
-                pnlMain.revalidate();
-                pnlMain.repaint();
-            }
-        });
-
-        mniFondoAzul.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                lblFelt.setImagenFondo("/ar/edu/unlu/poo/burako/texture/blueFeltTexture.png");
-                frame.revalidate();
-                frame.repaint();
-            }
-        });
-
-        mniFondoRojo.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                lblFelt.setImagenFondo("/ar/edu/unlu/poo/burako/texture/redFeltTexture.png");
-                frame.revalidate();
-                frame.repaint();
-            }
-        });
-
-        mniFondoVerde.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                lblFelt.setImagenFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
-                frame.revalidate();
-                frame.repaint();
-            }
-        });
-
-        frame.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                int nuevoAncho = e.getComponent().getWidth();
-                int nuevoAlto = e.getComponent().getHeight();
-
-                // Ajustar el tamaño preferido del JLabelFondo
-                lblBurako.setPreferredSize(new Dimension(nuevoAncho, nuevoAlto / 4));
-
-                // Revalidar y repintar para que los cambios surtan efecto
-                lblBurako.revalidate();
-                lblBurako.repaint();
-            }
-        });
-
-        btnIniciarPartida.addActionListener(new ActionListener() {
-            /**
-             * Invoked when an action occurs.
-             *
-             * @param e the event to be processed
-             */
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pnlMenu.removeAll();
-                pnlMenu.add(pnlPartida);
-                pnlMenu.revalidate();
-                pnlMenu.repaint();
-            }
-        });
     }
 
     /**
@@ -220,7 +274,16 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void mostrarTexto(String txt) {
-        System.out.println(txt);
+        lblMensajes.setForeground(ColorRGB.RED);
+        lblMensajes.setText(txt);
+        Timer timer = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lblMensajes.setText(" "); // Borra el texto después de 3000 milisegundos (3 segundos)
+            }
+        });
+        timer.setRepeats(false); // No se repite, ejecuta la tarea una vez
+        timer.start();
     }
 
     /**
@@ -261,10 +324,9 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void nuevoJugador() {
-        frame.setVisible(true);
-
-        controlador.nuevoJugador("string");
-        controlador.iniciarPartida();
+        colocarTituloFondo(pnlCardJugador);
+        cambiarVista(pnlCardJugador);
+        // frame.setVisible(true);
     }
 
     /**
@@ -285,32 +347,22 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void iniciarPartida(ArrayList<IFicha> atril, ArrayList<IFicha> pozo) {
-// TODO AGREGAR TODO ESTO DONDE CORRESPONDA
-        // Cargar la imagen de fondo
-        lblFelt = new JPanelFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
-
-
-        lblFelt = new JPanelFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
-        lblFelt.setOpaque(false);
-        lblFelt.setLayout(new BorderLayout());
-        pnlPartida.remove(pnlCenter);
-        lblFelt.add(pnlCenter, BorderLayout.CENTER);  // Agregar pnlCenter al lblFelt
-
-// Agregar lblFelt al pnlPartida
-        pnlPartida.add(lblFelt, BorderLayout.CENTER);
-
-// Revalidar y repintar el pnlPartida
-        pnlPartida.revalidate();
-        pnlPartida.repaint();
-
-        // TODO HASTA ACA!!!
-
+        // Coloca la textura de fondo
+        pnlFelt = new JPanelFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
+        pnlFelt.setOpaque(false); // Hace que sea visible los componentes sobre él
+        pnlFelt.setLayout(new BorderLayout());
+        pnlCardPartida.remove(pnlCenter);
+        pnlFelt.add(pnlCenter, BorderLayout.CENTER);  // Agregar pnlCenter al pnlFelt
+        pnlCardPartida.add(pnlFelt, BorderLayout.CENTER); // Agregar pnlFelt al pnlCardPartida
+        // Revalidar y repintar el panel
+        pnlCardPartida.revalidate();
+        pnlCardPartida.repaint();
+        cambiarVista(pnlCardPartida);
 
         RecortarMosaico cut = new RecortarMosaico();
-        int color;
-        int numero;
-        ImageIcon imagen;
         for (IFicha ficha : atril) {
+            int color;
+            int numero;
             if (ficha instanceof FichaComodin) {
                 color = 4;
                 numero = ficha.getNumeroFicha();
@@ -321,7 +373,7 @@ public class VistaGrafica implements IVista, Serializable {
             }
             System.out.println("color " + color);
             System.out.println("numero " + numero);
-            imagen = cut.getImagenRecortadaIcon(color, numero, 100, 100, 0);
+            ImageIcon imagen = cut.getImagenRecortadaIcon(color, numero, 100, 100, 0);
             listaModeloAbajo.addElement(imagen);
             // Ficha contrincante
             imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 90);
@@ -336,14 +388,12 @@ public class VistaGrafica implements IVista, Serializable {
             imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 0);
             listaModeloArriba.addElement(imagen);
 
-
             scpEast.setPreferredSize(new Dimension(lstEast.getPreferredSize().width + 18, lstEast.getPreferredSize().height));
             scpWest.setPreferredSize(new Dimension(lstWest.getPreferredSize().width + 18, lstWest.getPreferredSize().height));
             scpNorth.setPreferredSize(new Dimension(lstNorth.getPreferredSize().width, lstNorth.getPreferredSize().height + 18));
             scpSouth.setPreferredSize(new Dimension(lstSouth.getPreferredSize().width, lstSouth.getPreferredSize().height + 18));
-
         }
-        frame.pack();
+        // Revalidar y repintar el panel
         pnlNorth.revalidate();
         pnlNorth.repaint();
     }
