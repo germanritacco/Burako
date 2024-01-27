@@ -1,9 +1,6 @@
 package ar.edu.unlu.poo.burako.controlador;
 
-import ar.edu.unlu.poo.burako.modelo.Eventos;
-import ar.edu.unlu.poo.burako.modelo.IBurako;
-import ar.edu.unlu.poo.burako.modelo.IFicha;
-import ar.edu.unlu.poo.burako.modelo.Jugador;
+import ar.edu.unlu.poo.burako.modelo.*;
 import ar.edu.unlu.poo.burako.vista.IVista;
 import ar.edu.unlu.rmimvc.cliente.IControladorRemoto;
 import ar.edu.unlu.rmimvc.observer.IObservableRemoto;
@@ -15,7 +12,7 @@ public class Controlador implements IControladorRemoto {
 
     private final IVista vista;
     private IBurako modelo;
-    private Jugador jugador;
+    private IJugador jugador;
 
 
     /**

@@ -3,7 +3,7 @@ package ar.edu.unlu.poo.burako.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Jugador implements Serializable {
+public class Jugador implements IJugador {
 
     private final String nombre;
     private Integer puntos;
@@ -21,6 +21,7 @@ public class Jugador implements Serializable {
      *
      * @return <li>TRUE: Si el jugador posee el turno.</li><li>FALSE: Si el jugador no posee el turno.</li>
      */
+    @Override
     public boolean isTurno() {
         return turno;
     }
@@ -30,6 +31,7 @@ public class Jugador implements Serializable {
      *
      * @param estado <li>TRUE: Si el jugador posee el turno.</li><li>FALSE: Si el jugador no posee el turno.</li>
      */
+    @Override
     public void setTurno(boolean estado) {
         this.turno = estado;
     }
@@ -39,6 +41,7 @@ public class Jugador implements Serializable {
      *
      * @return N° de ID del jugador.
      */
+    @Override
     public int getId() {
         return id;
     }
@@ -65,6 +68,7 @@ public class Jugador implements Serializable {
     /**
      * Resetea los puntos a 0.
      */
+    @Override
     public void reset() {
         puntos = 0;
     }
@@ -74,6 +78,7 @@ public class Jugador implements Serializable {
      *
      * @return Nombre del jugador.
      */
+    @Override
     public String getNombre() {
         return nombre;
     }
@@ -83,10 +88,12 @@ public class Jugador implements Serializable {
      *
      * @return Puntos.
      */
+    @Override
     public Integer getPuntos() {
         return puntos;
     }
 
+    @Override
     public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
@@ -96,6 +103,7 @@ public class Jugador implements Serializable {
      *
      * @return Lista de fichas.
      */
+    @Override
     public ArrayList<Ficha> getAtril() {
         return atril;
     }
@@ -105,6 +113,7 @@ public class Jugador implements Serializable {
      *
      * @param atril Lista de fichas.
      */
+    @Override
     public void addAtril(ArrayList<Ficha> atril) {
         this.atril.addAll(atril);
     }
@@ -114,6 +123,7 @@ public class Jugador implements Serializable {
      *
      * @param ficha Ficha.
      */
+    @Override
     public void addFichaAtril(Ficha ficha) {
         this.atril.add(ficha);
     }
@@ -124,22 +134,27 @@ public class Jugador implements Serializable {
      * @param posicion Posicion de la ficha.
      * @return Ficha eliminada del atril.
      */
+    @Override
     public Ficha removeFichaAtril(int posicion) {
         return this.atril.remove(posicion);
     }
 
+    @Override
     public boolean atrilIsEmpty() {
         return this.atril.isEmpty();
     }
 
+    @Override
     public boolean isTomoMuerto() {
         return tomoMuerto;
     }
 
+    @Override
     public void setTomoMuerto(boolean tomoMuerto) {
         this.tomoMuerto = tomoMuerto;
     }
 
+    @Override
     public void calcularPuntosAtril() {
         int suma = 0;
         for (Ficha ficha : atril) {
@@ -148,10 +163,12 @@ public class Jugador implements Serializable {
         this.puntos = suma;
     }
 
+    @Override
     public int getCompanieroId() {
         return companieroId;
     }
 
+    @Override
     public void setCompanieroId(int companieroId) {
         this.companieroId = companieroId;
     }

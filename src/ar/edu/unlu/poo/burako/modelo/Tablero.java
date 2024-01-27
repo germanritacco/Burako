@@ -6,7 +6,7 @@ import java.util.Comparator;
 public class Tablero implements ITablero {
 
     private final ArrayList<ArrayList<Ficha>> jugadaEnMesa;
-    private final ArrayList<Jugador> jugadores;
+    private final ArrayList<IJugador> jugadores;
 
     private int puntosEquipos;
 
@@ -46,7 +46,7 @@ public class Tablero implements ITablero {
      * @return Lista de Jugador.
      */
     @Override
-    public ArrayList<Jugador> getJugadores() {
+    public ArrayList<IJugador> getJugadores() {
         return jugadores;
     }
 
@@ -56,7 +56,7 @@ public class Tablero implements ITablero {
      * @param jugador Instancia de jugador.
      */
     @Override
-    public void agregarJugadores(Jugador jugador) {
+    public void agregarJugadores(IJugador jugador) {
         jugadores.add(jugador);
     }
 
@@ -306,7 +306,7 @@ public class Tablero implements ITablero {
 
     public String mostrarPuntajeJugadores() {
         String jugadoresTablero = " • ";
-        for (Jugador jugador : jugadores) {
+        for (IJugador jugador : jugadores) {
             jugadoresTablero += jugador.getNombre() + ", ";
 
         }

@@ -50,7 +50,7 @@ public interface IBurako extends IObservableRemoto {
      * @return Instancia de jugador.
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
-    Jugador setJugador(String nombre) throws RemoteException;
+    IJugador setJugador(String nombre) throws RemoteException;
 
     /**
      * Agrega al atril del jugador las fichas de la pila de muertos.

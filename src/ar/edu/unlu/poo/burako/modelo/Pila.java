@@ -2,17 +2,9 @@ package ar.edu.unlu.poo.burako.modelo;
 
 import java.util.ArrayList;
 
-public class Pila {
+public abstract class Pila {
 
     protected ArrayList<Ficha> pila;
-
-    /**
-     * Constructor de clase.
-     * <li>Instancia de pila.</li>
-     */
-    public Pila() {
-        pila = new ArrayList<>();
-    }
 
     /**
      * Agrega una ficha a la pila.
@@ -21,19 +13,6 @@ public class Pila {
      */
     public void agregarFicha(Ficha ficha) {
         pila.add(ficha);
-    }
-
-    /**
-     * Remueve y retorna una ficha de la pila.
-     *
-     * @return Ficha.
-     */
-    public Ficha sacarFicha() {
-        if (!pila.isEmpty()) {
-            return pila.remove(pila.size() - 1);
-        } else {
-            return null;
-        }
     }
 
     /**

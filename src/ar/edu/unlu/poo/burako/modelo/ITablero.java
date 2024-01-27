@@ -23,14 +23,14 @@ public interface ITablero {
      *
      * @return Lista de Jugador.
      */
-    ArrayList<Jugador> getJugadores();
+    ArrayList<IJugador> getJugadores();
 
     /**
      * Asigna un jugador a la instancia de tablero.
      *
      * @param jugador Instancia de jugador.
      */
-    void agregarJugadores(Jugador jugador);
+    void agregarJugadores(IJugador jugador);
 
     /**
      * Verifica si la lista de fichas posee una escalera o pierna.

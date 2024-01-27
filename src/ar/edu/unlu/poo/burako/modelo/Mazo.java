@@ -6,7 +6,7 @@ import static java.lang.Math.random;
 
 public class Mazo {
 
-    private final Pila mazo;
+    private final PilaEstandar mazo;
     private final ArrayList<PilaDeMuerto> muerto; // 2 pilas de 11 fichas c/u
 
     public ArrayList<Ficha> sacarMuerto() {
@@ -26,9 +26,9 @@ public class Mazo {
      * @param jugador1 Jugador N°1
      * @param jugador2 Jugador N°2
      */
-    public Mazo(Jugador jugador1, Jugador jugador2) {
+    public Mazo(IJugador jugador1, IJugador jugador2) {
         ArrayList<Ficha> fichasSinRepartir = crearFichas();
-        this.mazo = new Pila();
+        this.mazo = new PilaEstandar();
         this.muerto = new ArrayList<>(2);
         jugador1.addAtril(repartirAtril(fichasSinRepartir));
         jugador2.addAtril(repartirAtril(fichasSinRepartir));
@@ -47,9 +47,9 @@ public class Mazo {
      * @param jugador3 Jugador N°3 (pareja de Jugador N°1)
      * @param jugador4 Jugador N°4 (pareja de Jugador N°2)
      */
-    public Mazo(Jugador jugador1, Jugador jugador2, Jugador jugador3, Jugador jugador4) {
+    public Mazo(IJugador jugador1, IJugador jugador2, IJugador jugador3, IJugador jugador4) {
         ArrayList<Ficha> fichasSinRepartir = crearFichas();
-        this.mazo = new Pila();
+        this.mazo = new PilaEstandar();
         this.muerto = new ArrayList<>(2);
         jugador1.addAtril(repartirAtril(fichasSinRepartir));
         jugador2.addAtril(repartirAtril(fichasSinRepartir));
