@@ -2,17 +2,14 @@ package ar.edu.unlu.poo.burako;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
 import ar.edu.unlu.poo.burako.vista.IVista;
-import ar.edu.unlu.poo.burako.vista.consola.VistaConsola;
 import ar.edu.unlu.poo.burako.vista.grafica.VistaGrafica;
 import ar.edu.unlu.rmimvc.RMIMVCException;
-import ar.edu.unlu.rmimvc.Util;
 import ar.edu.unlu.rmimvc.cliente.Cliente;
 
 import javax.swing.*;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
-public class AppClienteConsola {
+public class AppCliente {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -63,7 +60,6 @@ public class AppClienteConsola {
                 //IVista vista = new VistaConsola(x, y);
                 IVista vista = new VistaGrafica(x,y);
                 Controlador controlador = new Controlador(vista);
-
                 Cliente c = new Cliente(ip, Integer.parseInt(port), ipServidor, Integer.parseInt(portServidor));
 
                 try {
