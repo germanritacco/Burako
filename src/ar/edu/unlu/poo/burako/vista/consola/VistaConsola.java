@@ -2,6 +2,7 @@ package ar.edu.unlu.poo.burako.vista.consola;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
 import ar.edu.unlu.poo.burako.modelo.ColorFicha;
+import ar.edu.unlu.poo.burako.modelo.FichaComodin;
 import ar.edu.unlu.poo.burako.modelo.IFicha;
 import ar.edu.unlu.poo.burako.vista.ColorRGB;
 import ar.edu.unlu.poo.burako.vista.IVista;
@@ -150,12 +151,16 @@ public class VistaConsola implements IVista {
      */
     private void colorFicha(IFicha ficha) {
         Color colorRGB;
-        switch (ficha.getColor()) {
-            case NEGRO -> colorRGB = Color.WHITE;
-            case AZUL -> colorRGB = ColorRGB.BLUE;
-            case AMARILLO -> colorRGB = ColorRGB.YELLOW;
-            case ROJO -> colorRGB = ColorRGB.RED;
-            default -> colorRGB = ColorRGB.MAGENTA; // Comodin
+        if (ficha instanceof FichaComodin) {
+            colorRGB = ColorRGB.MAGENTA;
+        } else {
+            switch (ficha.getColor()) {
+                case NEGRO -> colorRGB = Color.WHITE;
+                case AZUL -> colorRGB = ColorRGB.BLUE;
+                case AMARILLO -> colorRGB = ColorRGB.YELLOW;
+                case ROJO -> colorRGB = ColorRGB.RED;
+                default -> colorRGB = ColorRGB.GRAY;
+            }
         }
         appendColor(ficha.toString(), colorRGB);
     }
