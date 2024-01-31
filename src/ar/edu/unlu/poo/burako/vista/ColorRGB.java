@@ -1,5 +1,10 @@
 package ar.edu.unlu.poo.burako.vista;
 
+import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 
 public class ColorRGB {
@@ -16,5 +21,18 @@ public class ColorRGB {
 
     private ColorRGB() {
         // Constructor privado para evitar instanciación
+    }
+
+    // Método estático para realizar la operación de apendizado de texto con color
+    public static void appendColor(JTextPane textPane, String texto, Color color) {
+        StyledDocument doc = textPane.getStyledDocument();
+        Style style = textPane.addStyle("Style", null);
+        StyleConstants.setForeground(style, color);
+        try {
+            doc.insertString(doc.getLength(), texto, style);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        textPane.setCaretPosition(doc.getLength()); // Ajusta la posición del cursor al final del documento
     }
 }
