@@ -7,19 +7,14 @@ import ar.edu.unlu.poo.burako.vista.ColorRGB;
 import ar.edu.unlu.poo.burako.vista.IVista;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Style;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class VistaGrafica implements IVista, Serializable {
     private JPanel pnlMain;
@@ -73,6 +68,12 @@ public class VistaGrafica implements IVista, Serializable {
     private JLabel lblNombreJugador;
     private JLabel lblMensajes;
     private JSplitPane splRegistro;
+    private JPanel pnlJugadasOponente;
+    private JPanel pnlPilaFichas;
+    private JPanel pnlJugadas;
+    private JLayeredPane lypPilaMuertos;
+    private JLayeredPane lypMazo;
+    private JLayeredPane lypPozo;
     private JPanel burako;
     private JPanelFondo pnlFelt;
     private JFrame frame;
@@ -95,7 +96,6 @@ public class VistaGrafica implements IVista, Serializable {
                 frame.setMinimumSize(new Dimension(500, 500));
                 frame.setPreferredSize(new Dimension(600, 600));
                 frame.setLocation(x, y);
-                frame.setVisible(true);
 
                 listaModeloAbajo = new DefaultListModel<>();
                 lstSouth.setModel(listaModeloAbajo);
@@ -180,13 +180,38 @@ public class VistaGrafica implements IVista, Serializable {
                     }
                 });
 
+                mniAbandonarPartida.addActionListener(new ActionListener() {
+                    /**
+                     * Invoked when an action occurs.
+                     *
+                     * @param e the event to be processed
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // TODO Revisar metodo para que retorne void
+                        controlador.abandonarPartida();
+                    }
+                });
+
+                mniSalir.addActionListener(new ActionListener() {
+                    /**
+                     * Invoked when an action occurs.
+                     *
+                     * @param e the event to be processed
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        controlador.cerrarApp();
+                    }
+                });
+
                 frame.addComponentListener(new ComponentAdapter() {
                     @Override
                     public void componentResized(ComponentEvent e) {
                         int ancho = e.getComponent().getWidth();
                         int alto = e.getComponent().getHeight();
                         ajustarTamanioTitulo(ancho, alto);
-                        // TODO testear bien
+                        // TODO Testear bien
                         Dimension newSize = frame.getSize();
                         int minWidth = 400;
                         int minHeight = 400;
@@ -225,15 +250,49 @@ public class VistaGrafica implements IVista, Serializable {
                             ajustarTamanioTitulo(frame.getWidth(), frame.getHeight());
                             cambiarVista(pnlCardMenuPrincipal);
                         } else {
-                            JOptionPane.showMessageDialog(pnlJugadorCenter, "Por favor ingrese un nombre de jugador",
-                                    "Advertencia", JOptionPane.WARNING_MESSAGE);
+                            mostrarPopUp("Por favor ingrese un nombre de jugador", ColorRGB.RED, pnlCardJugador);
                         }
                     }
                 });
 
+                pnlJugadas.addMouseListener(new MouseAdapter() {
+                    /**
+                     * {@inheritDoc}
+                     *
+                     * @param e
+                     */
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        super.mouseClicked(e);
+                        // TODO Borrar
+                        mostrarTexto("Colocando jugada en mesa...\n", false);
+                        int[] fichasSeleccionadas = lstSouth.getSelectedIndices();
+                        // TODO Cambiar que el metodo reciba un Array de int
+                        String[] stringFichas = new String[fichasSeleccionadas.length];
+                        if (fichasSeleccionadas.length > 0) {
+                            for (int i = 0; i < fichasSeleccionadas.length; i++) {
+                                stringFichas[i] = String.valueOf(fichasSeleccionadas[i] + 1);
+                            }
+                        }
+                        controlador.agregarNuevaJugada(stringFichas);
+                        mostrarJuegosMesa(controlador.mostrarJuegosEnMesa());
+                        mostrarAtril(controlador.mostrarAtril());
+                    }
+                });
+
+                btnSalir.addActionListener(new ActionListener() {
+                    /**
+                     * Invoked when an action occurs.
+                     *
+                     * @param e the event to be processed
+                     */
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        controlador.cerrarApp();
+                    }
+                });
             }
         });
-
     }
 
     private void colocarTituloFondo(JPanel panel) {
@@ -291,6 +350,7 @@ public class VistaGrafica implements IVista, Serializable {
         lblMensajes.setForeground(color);
         lblMensajes.setText((txt.toUpperCase()));
         mostrarRegistro(txt, color);
+        mostrarPopUp(txt, color, frame);
         Timer timer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -304,8 +364,8 @@ public class VistaGrafica implements IVista, Serializable {
     private void mostrarRegistro(String txt, Color color) {
         String texto = "";
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:MM:ss: ");
-        appendColor(LocalDateTime.now().format(format), ColorRGB.BLUE);
-        appendColor(txt, color);
+        ColorRGB.appendColor(txpRegistro, LocalDateTime.now().format(format), ColorRGB.BLUE);
+        ColorRGB.appendColor(txpRegistro, txt, color);
     }
 
     /**
@@ -315,7 +375,12 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void abandonarPartida(String nombre) {
-
+        if (!controlador.isJugadorTurno()) {
+            mostrarTexto("¡PARTIDA TERMINADA! El jugador " + nombre + " ha terminado la partida. Volveras al menu principal.", true);
+        } else {
+            mostrarTexto("¡PARTIDA TERMINADA! Volveras al menu principal.", true);
+        }
+        cambiarVista(pnlCardMenuPrincipal);
     }
 
     /**
@@ -326,15 +391,7 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void appendColor(String texto, Color color) {
-        StyledDocument doc = txpRegistro.getStyledDocument();
-        Style style = txpRegistro.addStyle("Style", null);
-        StyleConstants.setForeground(style, color);
-        try {
-            doc.insertString(doc.getLength(), texto, style);
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
-        txpRegistro.setCaretPosition(txpRegistro.getDocument().getLength()); // Ajusta la posición del cursor al final del documento
+
     }
 
     /**
@@ -354,9 +411,14 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void nuevoJugador() {
-        colocarTituloFondo(pnlCardJugador);
-        cambiarVista(pnlCardJugador);
-        // frame.setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                colocarTituloFondo(pnlCardJugador);
+                cambiarVista(pnlCardJugador);
+                frame.setVisible(true);
+            }
+        });
     }
 
     /**
@@ -366,7 +428,40 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void mostrarTurno(String jugador) {
+        mostrarPopUp("Es el turno de " + jugador.toUpperCase(), ColorRGB.GREEN, pnlCenter);
+    }
 
+    private void mostrarPopUp(String texto, Color color, Component centrarPopUpA) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // Crear el mensaje emergente como un JWindow
+                JWindow popUp = new JWindow();
+                popUp.setLayout(new BorderLayout());
+                popUp.setSize(300, 100);
+                popUp.setLocationRelativeTo(centrarPopUpA); // Centrar en la pantalla
+                popUp.setBackground(new Color(33, 37, 43, 250)); // alfa aplica transparencia
+                JLabel label = new JLabel(texto);
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+                label.setForeground(color);
+                popUp.add(label, BorderLayout.CENTER);
+                // Configurar temporizador para cerrar el mensaje emergente después de 3 segundos
+                Timer timer = new Timer(3000, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                popUp.dispose(); // Cerrar el mensaje emergente después de 3 segundos
+                            }
+                        });
+                    }
+                });
+                timer.setRepeats(false); // El temporizador solo se ejecutará una vez
+                timer.start();
+                popUp.setVisible(true);
+            }
+        });
     }
 
     /**
@@ -377,6 +472,8 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void iniciarPartida(ArrayList<IFicha> atril, ArrayList<IFicha> pozo) {
+        pnlJugadasOponente.setBackground(new Color(224, 108, 117, 150));
+        pnlJugadas.setBackground(new Color(97, 175, 239, 150));
         // Coloca la textura de fondo
         pnlFelt = new JPanelFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
         pnlFelt.setOpaque(false); // Hace que sea visible los componentes sobre él
@@ -390,45 +487,111 @@ public class VistaGrafica implements IVista, Serializable {
         cambiarVista(pnlCardPartida);
         lblSouth.setForeground(ColorRGB.CYAN);
         lblSouth.setText(" " + controlador.getJugador().toUpperCase() + " ");
-
         RecortarMosaico cut = new RecortarMosaico();
-        for (IFicha ficha : atril) {
-            int color;
-            int numero;
-            if (ficha instanceof FichaComodin) {
-                color = 4;
-                numero = ficha.getNumeroFicha();
-            } else {
-                color = ficha.getColor().ordinal();
-                numero = ficha.getNumeroFicha() - 1;
+        mostrarAtril(atril);
+        // Ficha contrincante
+        ImageIcon imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 90);
+        listaModeloIzquierda.addElement(imagen);
 
-            }
-            System.out.println("color " + color);
-            System.out.println("numero " + numero);
-            ImageIcon imagen = cut.getImagenRecortadaIcon(color, numero, 100, 100, 0);
-            listaModeloAbajo.addElement(imagen);
-            // Ficha contrincante
-            imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 90);
-            listaModeloIzquierda.addElement(imagen);
+        imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 90);
+        listaModeloDerecha.addElement(imagen);
 
-            imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 90);
-            listaModeloDerecha.addElement(imagen);
+        imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 0);
+        listaModeloArriba.addElement(imagen);
 
-            imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 0);
-            listaModeloArriba.addElement(imagen);
-
-            imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 0);
-            listaModeloArriba.addElement(imagen);
-
-            scpEast.setPreferredSize(new Dimension(lstEast.getPreferredSize().width + 18, lstEast.getPreferredSize().height));
-            scpWest.setPreferredSize(new Dimension(lstWest.getPreferredSize().width + 18, lstWest.getPreferredSize().height));
-            scpNorth.setPreferredSize(new Dimension(lstNorth.getPreferredSize().width, lstNorth.getPreferredSize().height + 18));
-            scpSouth.setPreferredSize(new Dimension(lstSouth.getPreferredSize().width, lstSouth.getPreferredSize().height + 18));
-        }
+        scpEast.setPreferredSize(new Dimension(lstEast.getPreferredSize().width + 18, lstEast.getPreferredSize().height));
+        scpWest.setPreferredSize(new Dimension(lstWest.getPreferredSize().width + 18, lstWest.getPreferredSize().height));
+        scpNorth.setPreferredSize(new Dimension(lstNorth.getPreferredSize().width, lstNorth.getPreferredSize().height + 18));
         // Revalidar y repintar el panel
         pnlNorth.revalidate();
         pnlNorth.repaint();
+        mostrarTurno(controlador.nombreJugadorTurno());
+        setLypPilaMuertos();
+        setLypMazo();
+        setLypPozo();
+
     }
+
+    private void setLypPilaMuertos() {
+        lypPilaMuertos.setLayout(null);
+        RecortarMosaico cut = new RecortarMosaico();
+
+        ImageIcon imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 0);
+        JLabel lblImgV1 = new JLabel(imagen);
+        lblImgV1.setBounds(0, 0, 75, 75);
+
+        imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 6);
+        JLabel lblImgV2 = new JLabel(imagen);
+        lblImgV2.setBounds(2, 2, 75, 75);
+
+        imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 90);
+        JLabel lblImgH1 = new JLabel(imagen);
+        lblImgH1.setBounds(0, 0, 75, 75);
+
+        imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 96);
+        JLabel lblImgH2 = new JLabel(imagen);
+        lblImgH2.setBounds(2, 2, 75, 75);
+
+        lypPilaMuertos.add(lblImgV1, Integer.valueOf(0));
+        lypPilaMuertos.add(lblImgV2, Integer.valueOf(1));
+        lypPilaMuertos.add(lblImgH1, Integer.valueOf(2));
+        lypPilaMuertos.add(lblImgH2, Integer.valueOf(3));
+        lypPilaMuertos.setPreferredSize(new Dimension(75, 75));
+        lypPilaMuertos.revalidate();
+        lypPilaMuertos.repaint();
+    }
+
+    private void setLypMazo() {
+        lypMazo.setLayout(null);
+        RecortarMosaico cut = new RecortarMosaico();
+
+        ImageIcon imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 0);
+        JLabel lblImgV1 = new JLabel(imagen);
+        lblImgV1.setBounds(0, -2, 75, 75);
+
+        imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, -3);
+        JLabel lblImgV2 = new JLabel(imagen);
+        lblImgV2.setBounds(-2, 2, 75, 75);
+
+        imagen = cut.getImagenRecortadaIcon(4, 1, 75, 75, 2);
+        JLabel lblImgV3 = new JLabel(imagen);
+        lblImgV3.setBounds(3, -1, 75, 75);
+
+        lypMazo.add(lblImgV1, Integer.valueOf(0));
+        lypMazo.add(lblImgV2, Integer.valueOf(1));
+        lypMazo.add(lblImgV3, Integer.valueOf(2));
+
+        JLabel lblPozoSize = new JLabel();
+        lblPozoSize.setText("56"); // TODO implementar metodo que retorne cantidad de fichas en mazo
+        lblPozoSize.setForeground(ColorRGB.YELLOW);
+        Font font = lblPozoSize.getFont();
+        lblPozoSize.setFont(new Font(font.getName(), font.getStyle(), 15)); // Tamaño de fuente deseado
+        Dimension size = lblPozoSize.getPreferredSize(); // Obtener el tamaño preferido del JLabel lblPozoSize
+        lblPozoSize.setBounds(0, 48, size.width, size.height);
+        lypMazo.add(lblPozoSize, Integer.valueOf(3));
+
+        lypMazo.setPreferredSize(new Dimension(75, 75));
+        lypMazo.revalidate();
+        lypMazo.repaint();
+    }
+
+    private void setLypPozo() {
+        lypPozo.setLayout(null);
+        RecortarMosaico cut = new RecortarMosaico();
+      /*  // TODO Borrar
+        int x = -16;
+        int y = -8;
+        ImageIcon imagen = cut.getImagenRecortadaIcon(3, 2, 75, 75, 0);
+        JLabel lblImg = new JLabel(imagen);
+        lblImg.setBounds(x, y, 75, 75);
+        lypPozo.add(lblImg, Integer.valueOf(0));*/
+
+        lypPozo.setBorder(new LineBorder(ColorRGB.YELLOW, 4));
+        lypPozo.setPreferredSize(new Dimension(43, 59));
+        lypPozo.revalidate();
+        lypPozo.repaint();
+    }
+// TODO REVISAR DESDE ACA
 
     /**
      * Muestra por pantalla los juegos que posee un jugador.
@@ -437,6 +600,77 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void mostrarJuegosMesa(ArrayList<ArrayList<IFicha>> juegosMesa) {
+        if (juegosMesa == null || juegosMesa.isEmpty()) {
+            mostrarTurno("No hay juegos en mesa");
+
+            // TODO fix
+        } else {
+
+            pnlJugadas.removeAll();
+            int cantidadFichas;
+            for (ArrayList<IFicha> juego : juegosMesa) {
+                JLayeredPane pnlTest = new JLayeredPane();
+
+                pnlJugadas.add(pnlTest);
+                cantidadFichas = juego.size() - 1;
+                int prioridad = 0;
+                DefaultListModel<ImageIcon> listModel = new DefaultListModel<>();
+                RecortarMosaico cut = new RecortarMosaico();
+                int x = -20;
+                int y = -10;
+                for (IFicha ficha : juego) {
+                    int color;
+                    int numero;
+                    if (ficha instanceof FichaComodin) {
+                        color = 4;
+                        numero = ficha.getNumeroFicha();
+                    } else {
+                        color = ficha.getColor().ordinal();
+                        numero = ficha.getNumeroFicha() - 1;
+
+                    }
+                    System.out.println("color " + color);
+                    System.out.println("numero " + numero);
+                    ImageIcon imagen = cut.getImagenRecortadaIcon(color, numero, 100, 100, 0);
+
+                    JLabel lblImg = new JLabel(imagen);
+                    lblImg.setBounds(x, y, 100, 100);
+                    x += 40;
+                    pnlTest.add(lblImg, Integer.valueOf(prioridad));
+                    prioridad++;
+
+                    //listModel.addElement(imagen);
+                }
+                int ancho = 100 + (40 * (cantidadFichas - 1));
+                pnlTest.setPreferredSize(new Dimension(ancho, 80));
+                // pnlTest.setBackground(Color.GREEN);
+                pnlTest.setOpaque(false);
+              /*  JList<ImageIcon> jList = new JList<>(listModel);
+                pnlJugadas.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10)); // Ajusta el espaciado entre componentes
+                JScrollPane scrollPane = new JScrollPane(jList, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                jList.setOpaque(false);
+                jList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+                jList.setVisibleRowCount(1);
+                pnlJugadas.add(scrollPane);
+                pnlJugadas.revalidate();
+                pnlJugadas.repaint();*/
+                pnlTest.revalidate();
+                pnlTest.repaint();
+                pnlJugadas.revalidate();
+                pnlJugadas.repaint();
+                pnlCenter.revalidate();
+                pnlCenter.repaint();
+
+                // Suponiendo que "componente" es el componente del que deseas conocer el LayoutManager
+                LayoutManager layoutManager = pnlTest.getLayout();
+                if (layoutManager != null) {
+                    System.out.println("El componente está utilizando el siguiente LayoutManager: " + layoutManager.getClass().getSimpleName());
+                } else {
+                    System.out.println("El componente no tiene un LayoutManager asociado.");
+                }
+
+            }
+        }
 
     }
 
@@ -457,7 +691,26 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void mostrarAtril(ArrayList<IFicha> atril) {
+        RecortarMosaico cut = new RecortarMosaico();
+        listaModeloAbajo.removeAllElements();
+        for (IFicha ficha : atril) {
+            int color;
+            int numero;
+            if (ficha instanceof FichaComodin) {
+                color = 4;
+                numero = ficha.getNumeroFicha();
+            } else {
+                color = ficha.getColor().ordinal();
+                numero = ficha.getNumeroFicha() - 1;
 
+            }
+            ImageIcon imagen = cut.getImagenRecortadaIcon(color, numero, 100, 100, 0);
+            listaModeloAbajo.addElement(imagen);
+        }
+        scpSouth.setPreferredSize(new Dimension(lstSouth.getPreferredSize().width, lstSouth.getPreferredSize().height + 18));
+        // Revalidar y repintar el panel
+        pnlSouth.revalidate();
+        pnlSouth.repaint();
     }
 
     /**
@@ -481,7 +734,7 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void mostrarMenuPrincipal() {
-
+        cambiarVista(pnlCardMenuPrincipal);
     }
 
     /**

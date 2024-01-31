@@ -268,20 +268,80 @@
                               <background color="-14605013"/>
                               <focusTraversalPolicyProvider value="false"/>
                               <layoutOrientation value="2"/>
+                              <selectionMode value="2"/>
                             </properties>
                           </component>
                         </children>
                       </scrollpane>
                     </children>
                   </grid>
-                  <grid id="1bdad" binding="pnlCenter" layout-manager="BorderLayout" hgap="0" vgap="0">
+                  <grid id="1bdad" binding="pnlCenter" layout-manager="GridBagLayout">
                     <constraints border-constraint="Center"/>
                     <properties>
                       <background color="-14605013"/>
                       <opaque value="false"/>
                     </properties>
                     <border type="none"/>
-                    <children/>
+                    <children>
+                      <grid id="6977d" binding="pnlJugadasOponente" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                          <gridbag top="10" left="10" bottom="10" right="10" weightx="1.0" weighty="0.4"/>
+                        </constraints>
+                        <properties>
+                          <background color="-3224316"/>
+                        </properties>
+                        <border type="none"/>
+                        <children/>
+                      </grid>
+                      <grid id="e7d4e" binding="pnlPilaFichas" layout-manager="FlowLayout" hgap="5" vgap="0" flow-align="0">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                          <gridbag weightx="1.0" weighty="0.0"/>
+                        </constraints>
+                        <properties>
+                          <opaque value="false"/>
+                          <preferredSize width="92" height="75"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <grid id="1c85f" class="javax.swing.JLayeredPane" binding="lypPilaMuertos" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints/>
+                            <properties/>
+                            <border type="none"/>
+                            <children/>
+                          </grid>
+                          <grid id="38392" class="javax.swing.JLayeredPane" binding="lypMazo" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints/>
+                            <properties/>
+                            <border type="none"/>
+                            <children/>
+                          </grid>
+                          <grid id="de542" class="javax.swing.JLayeredPane" binding="lypPozo" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints/>
+                            <properties/>
+                            <border type="none">
+                              <color color="-13697234"/>
+                            </border>
+                            <children/>
+                          </grid>
+                        </children>
+                      </grid>
+                      <grid id="fb187" binding="pnlJugadas" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
+                        <constraints>
+                          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                          <gridbag top="10" left="10" bottom="10" right="10" weightx="1.0" weighty="0.4"/>
+                        </constraints>
+                        <properties>
+                          <background color="-3224316"/>
+                        </properties>
+                        <border type="none"/>
+                        <children/>
+                      </grid>
+                    </children>
                   </grid>
                 </children>
               </grid>
