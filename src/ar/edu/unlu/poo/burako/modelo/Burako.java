@@ -6,6 +6,7 @@ import ar.edu.unlu.rmimvc.observer.ObservableRemoto;
 import java.io.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class Burako extends ObservableRemoto implements IBurako {
@@ -382,8 +383,11 @@ public class Burako extends ObservableRemoto implements IBurako {
     private void borrarJugadaAtril(int jugadorId, String[] seleccion) {
         IJugador jugador = jugadores.get(jugadorId);
         int incremento = 0;
+        Arrays.sort(seleccion);
+        System.out.println("incremento: " + incremento);
         for (String numero : seleccion) {
             int posicion = Integer.parseInt(numero) - incremento;
+            System.out.println("posicion :" + posicion);
             jugador.removeFichaAtril(posicion - 1);
             incremento++;
         }
