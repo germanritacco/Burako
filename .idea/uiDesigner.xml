@@ -11,6 +11,9 @@
       <item class="javax.swing.JPanel" icon="/com/intellij/uiDesigner/icons/panel.svg" removable="false" auto-create-binding="false" can-attach-label="false">
         <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3" />
       </item>
+      <item class="javax.swing.JLayeredPane" icon="/com/intellij/uiDesigner/icons/panel.svg" removable="true" auto-create-binding="true" can-attach-label="false" is-container="true">
+        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="0" />
+      </item>
       <item class="javax.swing.JScrollPane" icon="/com/intellij/uiDesigner/icons/scrollPane.svg" removable="false" auto-create-binding="false" can-attach-label="true">
         <default-constraints vsize-policy="7" hsize-policy="7" anchor="0" fill="3" />
       </item>
@@ -119,13 +122,13 @@
       <item class="javax.swing.JScrollBar" icon="/com/intellij/uiDesigner/icons/scrollbar.svg" removable="false" auto-create-binding="true" can-attach-label="false">
         <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
       </item>
-      <item class="javax.swing.JMenuBar" icon="" removable="true" auto-create-binding="false" can-attach-label="false" is-container="true">
+      <item class="javax.swing.JMenuBar" icon="" removable="true" auto-create-binding="true" can-attach-label="false" is-container="true">
         <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="0" />
       </item>
-      <item class="javax.swing.JMenu" icon="" removable="true" auto-create-binding="false" can-attach-label="false" is-container="true">
+      <item class="javax.swing.JMenu" icon="" removable="true" auto-create-binding="true" can-attach-label="false" is-container="true">
         <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="0" />
       </item>
-      <item class="javax.swing.JMenuItem" icon="" removable="true" auto-create-binding="false" can-attach-label="false">
+      <item class="javax.swing.JMenuItem" icon="" removable="true" auto-create-binding="true" can-attach-label="false">
         <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="0" />
       </item>
     </group>
