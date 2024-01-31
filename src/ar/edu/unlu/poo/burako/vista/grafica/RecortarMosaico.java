@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
 
-public class RecortarMosaico extends JFrame implements Serializable {
+public class RecortarMosaico implements Serializable {
 
     private final BufferedImage originalTexture;
 
@@ -56,31 +56,10 @@ public class RecortarMosaico extends JFrame implements Serializable {
 
             // Ajustar el tamaño de la imagen
             Image imagenRedimensionada = subimage.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
-
             // Crear un ImageIcon directamente con la imagen redimensionada
             return new ImageIcon(imagenRedimensionada);
         } else {
             return null;
         }
     }
-
-
-    // TODO Ejemplo de prueba, eliminar en la version final.
-   /* public static void main(String[] args) {
-        RecortarMosaico recortador = new RecortarMosaico();
-        // Obtener la imagen recortada
-        int color = 3;
-        int numeroFicha = 5;
-        BufferedImage imagenRecortada = recortador.getImagenRecortada(color, numeroFicha);
-        // Puedes hacer algo con la imagen recortada, por ejemplo, mostrarla en un JLabel
-        if (imagenRecortada != null) {
-            JFrame frame = new JFrame();
-            JLabel label = new JLabel(new ImageIcon(imagenRecortada));
-            frame.getContentPane().add(label);
-            frame.setSize(TILE_SIZE, TILE_SIZE);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setVisible(true);
-        }
-    }*/
-
 }
