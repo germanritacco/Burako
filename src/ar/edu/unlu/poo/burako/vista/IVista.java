@@ -102,6 +102,9 @@ public interface IVista {
      */
     void mostrarMenuPrincipal();
 
-    void mostrarPuntos(String puntaje);
+    void mostrarPuntos(Integer puntaje);
 
+    void mostrarPuntosOponente(Integer puntaje);
+
+    void mostrarJuegosMesaOponente(ArrayList<ArrayList<IFicha>> juegosMesa);
 }

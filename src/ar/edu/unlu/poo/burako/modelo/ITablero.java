@@ -9,6 +9,8 @@ public interface ITablero {
      *
      * @return Lista de listas de Fichas.
      */
+    ArrayList<ArrayList<IFicha>> getJugadaEnMesaIFicha();
+
     ArrayList<ArrayList<Ficha>> getJugadaEnMesa();
 
     /**
