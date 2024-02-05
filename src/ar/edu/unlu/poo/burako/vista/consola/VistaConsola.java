@@ -356,11 +356,27 @@ public class VistaConsola implements IVista {
      *
      */
     @Override
-    public void mostrarPuntos(String puntaje) {
+    public void mostrarPuntos(Integer puntaje) {
         appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
         appendColor("\n", ColorRGB.CYAN);
         appendColor("  PARTIDA TERMINA!\n", ColorRGB.CYAN);
-        appendColor(puntaje, ColorRGB.GREEN);
+        appendColor(puntaje.toString(), ColorRGB.GREEN);
         mostrarMenuPrincipal();
+    }
+
+    /**
+     * @param puntaje
+     */
+    @Override
+    public void mostrarPuntosOponente(Integer puntaje) {
+
+    }
+
+    /**
+     * @param juegosMesa
+     */
+    @Override
+    public void mostrarJuegosMesaOponente(ArrayList<ArrayList<IFicha>> juegosMesa) {
+
     }
 }
