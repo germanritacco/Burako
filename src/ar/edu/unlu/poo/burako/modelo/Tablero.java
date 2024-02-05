@@ -26,9 +26,29 @@ public class Tablero implements ITablero {
      * @return Lista de listas de Fichas.
      */
     @Override
+    public ArrayList<ArrayList<IFicha>> getJugadaEnMesaIFicha() {
+        ArrayList<ArrayList<IFicha>> fichasIFicha = new ArrayList<>();
+
+        for (ArrayList<Ficha> sublista : jugadaEnMesa) {
+            // Aquí debes realizar la conversión de Ficha a IFicha
+            // Supongamos que existe un método convertir a IFicha en la clase Ficha
+            ArrayList<IFicha> sublistaIFicha = new ArrayList<>(sublista);
+            fichasIFicha.add(sublistaIFicha);
+        }
+
+        return fichasIFicha;
+    }
+
+    /**
+     * Retorna una lista de listas de Fichas, que posee los juegos en pesa.
+     *
+     * @return Lista de listas de Fichas.
+     */
+    @Override
     public ArrayList<ArrayList<Ficha>> getJugadaEnMesa() {
         return jugadaEnMesa;
     }
+
 
     /**
      * Verifica si hay juegos en mesa.
@@ -91,6 +111,7 @@ public class Tablero implements ITablero {
         // Verifica si todas las cartas son del mismo color y si hay comodines
         ColorFicha color = copiaJuego.get(0).getColor();
         for (Ficha ficha : copiaJuego) {
+            // TODO pincha aca!
             if (!ficha.getColor().equals(color) && !(ficha instanceof FichaComodin)) { // con comodin
                 return false;
             }
@@ -290,6 +311,22 @@ public class Tablero implements ITablero {
         } else {
             this.puntosEquipos -= suma;
         }
+    }
+
+    public void puntosEnMesaParcial() {
+        int suma = 0;
+        for (ArrayList<Ficha> juego : jugadaEnMesa) {
+            for (Ficha ficha : juego) {
+                suma += ficha.getValorFicha();
+            }
+            if (isCanastaPura(juego)) {
+                suma += 100;
+            }
+            if (isCanastaImpura(juego)) {
+                suma += 200;
+            }
+        }
+        this.puntosEquipos = suma;
     }
 
     public int getPuntosEquipos() {
