@@ -87,6 +87,11 @@ public class Burako extends ObservableRemoto implements IBurako {
         return texto.toString();
     }
 
+    public String getJugadorOponente(int jugadorId) throws RemoteException {
+        int indice = (jugadorId + 1) % jugadores.size(); // Recorrido circular del ArrayList
+        return jugadores.get(indice).getNombre();
+    }
+
     /**
      * Retorna el listado de fichas de un jugador.
      *
@@ -229,19 +234,20 @@ public class Burako extends ObservableRemoto implements IBurako {
      */
     @Override
     public ArrayList<ArrayList<IFicha>> mostrarJuegosEnMesa(int jugadorId) throws RemoteException {
+        ArrayList<ArrayList<IFicha>> jugadas = new ArrayList<>();
         switch (jugadorId) {
             case 0, 2 -> {
-                return this.tableroEquipo1.mostrarJuegosEnMesa();
+                jugadas = this.tableroEquipo1.mostrarJuegosEnMesa();
             }
             case 1, 3 -> {
-                return this.tableroEquipo2.mostrarJuegosEnMesa();
+                jugadas = this.tableroEquipo2.mostrarJuegosEnMesa();
             }
             default -> {
                 return null;
             }
         }
-
-
+        this.notificarObservadores(Eventos.CAMBIO_JUGADAS_OPONENTE);
+        return jugadas;
     }
 
     /**
@@ -354,6 +360,10 @@ public class Burako extends ObservableRemoto implements IBurako {
                 }
             }
         }
+        if (estado) {
+            calcularPuntosParciales();
+            this.notificarObservadores(Eventos.PUNTAJE);
+        }
         return estado;
     }
 
@@ -435,9 +445,10 @@ public class Burako extends ObservableRemoto implements IBurako {
     @Override
     public void agregarFichaPozo(int jugadorId, int posicion) throws RemoteException {
         IJugador jugador = jugadores.get(jugadorId);
-        Ficha ficha = jugador.removeFichaAtril(posicion - 1);
+        Ficha ficha = jugador.removeFichaAtril(posicion);
         this.pozo.agregarAlPozo(ficha);
         jugador.setTurno(false);
+        cambiarTurno(jugadorId);
         this.notificarObservadores(Eventos.CAMBIO_TURNO);
     }
 
@@ -572,6 +583,45 @@ public class Burako extends ObservableRemoto implements IBurako {
         puntos = "\n";
         puntos = tableroEquipo2.mostrarPuntajeJugadores();
         return puntos;
+    }
+
+    public int mostrarPuntosParciales(int jugadorId) throws RemoteException {
+        int puntos = 0;
+        switch (jugadorId) {
+            case 0, 2 -> {
+                puntos = this.tableroEquipo1.getPuntosEquipos();
+            }
+            case 1, 3 -> {
+                puntos = this.tableroEquipo2.getPuntosEquipos();
+            }
+        }
+        return puntos;
+    }
+
+    public ArrayList<ArrayList<IFicha>> mostrarJuegosMesa(int jugadorId) throws RemoteException {
+        ArrayList<ArrayList<IFicha>> jugadas = new ArrayList<>();
+        switch (jugadorId) {
+            case 0, 2 -> {
+                jugadas = this.tableroEquipo1.getJugadaEnMesaIFicha();
+            }
+            case 1, 3 -> {
+                jugadas = this.tableroEquipo2.getJugadaEnMesaIFicha();
+            }
+        }
+        return jugadas;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public int cantidadJugadores() throws RemoteException {
+        return jugadores.size();
+    }
+
+    private void calcularPuntosParciales() {
+        tableroEquipo1.puntosEnMesaParcial();
+        tableroEquipo2.puntosEnMesaParcial();
     }
 
     private void puntosMuerto() {

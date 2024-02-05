@@ -8,5 +8,6 @@ public enum Eventos {
     CAMBIO_TURNO,
     CAMBIO_FICHAS_ATRIL,
     PUNTAJE,
+    CAMBIO_JUGADAS_OPONENTE,
     PARTIDA
 }

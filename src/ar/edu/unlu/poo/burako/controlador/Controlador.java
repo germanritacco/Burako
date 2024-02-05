@@ -63,22 +63,34 @@ public class Controlador implements IControladorRemoto {
                     this.vista.iniciarPartida(atril, pozo);
                 }
                 case CAMBIO_TURNO -> {
-                    if (isJugadorTurno()) {
+                    vista.mostrarPozo(this.modelo.mostrarPozo());
+                    if (!isJugadorTurno()) {
                         vista.mostrarAtril(mostrarAtril());
                         vista.disableComponents();
                     }
-                    this.modelo.cambiarTurno(jugador.getId());
+                    //this.modelo.cambiarTurno(jugador.getId());
                     // Siguiente jugador
                     if (isJugadorTurno()) {
                         String jugadorActual = this.modelo.mostrarTurno(jugador.getId());
                         vista.mostrarTurno(jugadorActual);
-                        vista.mostrarPozo(this.modelo.mostrarPozo());
+                        // vista.mostrarPozo(this.modelo.mostrarPozo());
                         vista.mostrarAtril(mostrarAtril());
                         vista.enableComponents(true);
                     }
                 }
                 case PUNTAJE -> {
-                    vista.mostrarPuntos(this.modelo.mostrarPuntos());
+                    //vista.mostrarPuntos(this.modelo.mostrarPuntos());
+                    vista.mostrarPuntos(this.modelo.mostrarPuntosParciales(jugador.getId()));
+                    int cantidadJugadores = this.modelo.cantidadJugadores();
+                    int oponente = (jugador.getId() + 1) % cantidadJugadores;
+                    vista.mostrarPuntosOponente(this.modelo.mostrarPuntosParciales(oponente));
+                }
+                case CAMBIO_JUGADAS_OPONENTE -> {
+                    if (!isJugadorTurno()) {
+                        int cantidadJugadores = this.modelo.cantidadJugadores();
+                        int oponente = (jugador.getId() + 1) % cantidadJugadores;
+                        vista.mostrarJuegosMesaOponente(this.modelo.mostrarJuegosMesa(oponente));
+                    }
                 }
             }
         }
@@ -274,5 +286,13 @@ public class Controlador implements IControladorRemoto {
 
     public String getJugador() {
         return jugador.getNombre();
+    }
+
+    public String getOponente() {
+        try {
+            return modelo.getJugadorOponente(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
