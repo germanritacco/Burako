@@ -19,7 +19,7 @@ public class FlujoPozo extends Flujo {
             }
             int opcion = Integer.parseInt(string);
             if (opcion >= 1 && opcion <= controlador.cantidadFichasAtril()) {
-                controlador.agregarFichaPozo(opcion);
+                controlador.agregarFichaPozo(opcion - 1);
                 if (controlador.atrilVacio() && !controlador.tomoMuerto()) {
                     controlador.tomarMuerto();
                     vista.appendColor(" Atril Vacío. Se ha tomado el muerto.", ColorRGB.GREEN);
