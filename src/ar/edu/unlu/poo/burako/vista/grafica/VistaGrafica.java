@@ -17,8 +17,6 @@ import java.util.ArrayList;
 public class VistaGrafica implements IVista, Serializable {
     private JPanel pnlMain;
     private JPanel pnlCardPartida;
-    private JList lstWest;
-    private JList lstEast;
     private JList lstSouth;
     private JPanel pnlCenter;
     private JLabel lblJugadorNorth;
@@ -29,8 +27,6 @@ public class VistaGrafica implements IVista, Serializable {
     private JPanel pnlWest;
     private JPanel pnlEast;
     private JPanel pnlSouth;
-    private JScrollPane scpWest;
-    private JScrollPane scpEast;
     private JScrollPane scpSouth;
     private JMenuBar mnbMenu;
     private JMenu mnuPartida;
@@ -62,7 +58,7 @@ public class VistaGrafica implements IVista, Serializable {
     private JLabel lblBienvenida;
     private JLabel lblNombreJugador;
     private JLabel lblMensajes;
-    private JSplitPane splRegistro;
+    private JSplitPane splMain;
     private JPanel pnlJugadasOponente;
     private JPanel pnlPilaFichas;
     private JPanel pnlJugadas;
@@ -75,11 +71,14 @@ public class VistaGrafica implements IVista, Serializable {
     private JLabel lblPuntajeOponente;
     private JLayeredPane lypJugadorNorth;
     private JPanel pnlJugadorNorth;
+    private JPanel pnlMensajes;
     private JPanelFondo pnlFelt;
-    private JFrame frame;
-    private JPanel areaPozo;
+    private final JFrame frame;
+    private final JPanel areaPozo;
     private Controlador controlador;
-    private DefaultListModel<ImageIcon> listaModeloAbajo;
+    private final DefaultListModel<ImageIcon> listaModeloAbajo;
+    private final JLabel lblFichasAtrilNorth;
+    private JLabel lblMazoSize;
 
     public VistaGrafica(int x, int y) {
         // Ajustes del JFrame
@@ -94,11 +93,18 @@ public class VistaGrafica implements IVista, Serializable {
         pnlPuntajeJugador.setBackground(new Color(97, 175, 239, 150));
         // Crea JPanel para representar el área de descarte del pozo
         areaPozo = new JPanel();
+        // Crea JLabel que índica la cantidad que fichas que posee el atril el jugador en la zona norte
+        lblFichasAtrilNorth = new JLabel();
+        // Crea JLabel que índica la cantidad que fichas que posee el mazo
+        lblMazoSize = new JLabel();
         // Crea el listModel necesario para mostrar las fichas del atril
         listaModeloAbajo = new DefaultListModel<>();
         lstSouth.setModel(listaModeloAbajo);
         lstSouth.setBackground(new Color(0, 0, 0, 0)); // Setea el color en transparente
         lstSouth.setVisibleRowCount(1);
+
+        // Cambiar el color del divisor horizontal (índice 0) a rojo
+
 
         mniPanelTexto.addActionListener(new ActionListener() {
             /**
@@ -113,7 +119,7 @@ public class VistaGrafica implements IVista, Serializable {
                     mniPanelTexto.setText("Mostrar Panel Registro");
                 } else {
                     scpRegistro.setVisible(true);
-                    splRegistro.setDividerLocation(0.8);
+                    splMain.setDividerLocation(0.8);
                     mniPanelTexto.setText("Ocultar Panel Registro");
                 }
                 // Revalidar y repintar el panel
@@ -195,9 +201,7 @@ public class VistaGrafica implements IVista, Serializable {
         frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                int ancho = e.getComponent().getWidth();
-                int alto = e.getComponent().getHeight();
-                ajustarTamanioTitulo(ancho, alto);
+                ajustarTamanioTitulo();
                 // TODO Testear bien
                 Dimension newSize = frame.getSize();
                 int minWidth = 400;
@@ -234,7 +238,7 @@ public class VistaGrafica implements IVista, Serializable {
                 if (!txtNombreJugador.getText().isEmpty()) {
                     controlador.nuevoJugador(txtNombreJugador.getText());
                     colocarTituloFondo(pnlCardMenuPrincipal);
-                    ajustarTamanioTitulo(frame.getWidth(), frame.getHeight());
+                    ajustarTamanioTitulo();
                     cambiarVista(pnlCardMenuPrincipal);
                 } else {
                     mostrarPopUp("Por favor ingrese un nombre de jugador", ColorRGB.RED, pnlCardJugador);
@@ -324,11 +328,11 @@ public class VistaGrafica implements IVista, Serializable {
         panel.repaint();
     }
 
-    private void ajustarTamanioTitulo(int ancho, int alto) {
-        int nuevoAncho = frame.getWidth();
-        int nuevoAlto = frame.getHeight();
+    private void ajustarTamanioTitulo() {
+        int ancho = frame.getWidth();
+        int alto = frame.getHeight();
         // Ajustar el tamaño preferido del JLabelFondo
-        lblBurako.setPreferredSize(new Dimension(nuevoAncho, nuevoAlto / 4));
+        lblBurako.setPreferredSize(new Dimension(ancho, alto / 4));
         // Revalidar y repintar el panel
         lblBurako.revalidate();
         lblBurako.repaint();
@@ -380,8 +384,7 @@ public class VistaGrafica implements IVista, Serializable {
     }
 
     private void mostrarRegistro(String txt, Color color) {
-        String texto = "";
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/YYYY HH:MM:ss: ");
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss: ");
         ColorRGB.appendColor(txpRegistro, LocalDateTime.now().format(format), ColorRGB.BLUE);
         ColorRGB.appendColor(txpRegistro, txt, color);
     }
@@ -429,14 +432,9 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void nuevoJugador() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                colocarTituloFondo(pnlCardJugador);
-                cambiarVista(pnlCardJugador);
-                frame.setVisible(true);
-            }
-        });
+        colocarTituloFondo(pnlCardJugador);
+        cambiarVista(pnlCardJugador);
+        frame.setVisible(true);
     }
 
     /**
@@ -446,7 +444,7 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void mostrarTurno(String jugador) {
-        mostrarTexto("Es el turno de " + jugador.toUpperCase(), false);
+        mostrarTexto("Es el turno de " + jugador.toUpperCase() + "\n", false);
     }
 
     private void mostrarPopUp(String texto, Color color, Component centrarPopUpA) {
@@ -465,12 +463,7 @@ public class VistaGrafica implements IVista, Serializable {
         Timer timer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        popUp.dispose(); // Cerrar el mensaje emergente después de 3 segundos
-                    }
-                });
+                popUp.dispose(); // Cerrar el mensaje emergente después de 3 segundos
             }
         });
         timer.setRepeats(false); // El temporizador solo se ejecutará una vez
@@ -489,11 +482,11 @@ public class VistaGrafica implements IVista, Serializable {
         pnlEast.setVisible(false);
         pnlWest.setVisible(false);
         // Controla que solo quien tenga el turno pueda ejecutar los eventos
-        if (controlador.isJugadorTurno()) {
+       /* if (controlador.isJugadorTurno()) {
             enableComponents(true);
         } else {
             disableComponents();
-        }
+        }*/
         // Setea los colores de los paneles con transparencia
         pnlJugadasOponente.setBackground(new Color(33, 37, 43, 150));
         pnlJugadas.setBackground(new Color(33, 37, 43, 150));
@@ -504,9 +497,9 @@ public class VistaGrafica implements IVista, Serializable {
         pnlFelt.setOpaque(false); // Hace que sea visible los componentes sobre él
         pnlFelt.setLayout(new BorderLayout());
         // Ajusta la jerarquía de paneles
-        splRegistro.remove(pnlMenu);
+        splMain.remove(pnlMenu);
         pnlFelt.add(pnlMenu, BorderLayout.CENTER);
-        splRegistro.setLeftComponent(pnlFelt);
+        splMain.setLeftComponent(pnlFelt);
         // Setea en transparente para que vea el color asignado en la lista de fichas
         scpSouth.getViewport().setOpaque(false);
         // Cambia a la vista principal de Partida
@@ -517,9 +510,6 @@ public class VistaGrafica implements IVista, Serializable {
         lblJugadorNorth.setForeground(ColorRGB.RED);
         lblJugadorNorth.setText(controlador.getOponente().toUpperCase());
         mostrarAtril(atril); // Muestra las fichas del atril
-        /* // Ajusta las dimensiones de los paneles
-        scpEast.setPreferredSize(new Dimension(lstEast.getPreferredSize().width + 18, lstEast.getPreferredSize().height));
-        scpWest.setPreferredSize(new Dimension(lstWest.getPreferredSize().width + 18, lstWest.getPreferredSize().height));*/
         // Ajusta los paneles de Pila de Muertos, Mazo y Pozo
         setLypPilaMuertos();
         setLypMazo();
@@ -544,18 +534,8 @@ public class VistaGrafica implements IVista, Serializable {
         lypJugadorNorth.add(lblImgV1, Integer.valueOf(0));
         lypJugadorNorth.add(lblImgV2, Integer.valueOf(1));
 
-        JLabel lblFichasAtrilNorth = new JLabel();
-        lblFichasAtrilNorth.setText("56"); // TODO implementar metodo que retorne cantidad de fichas en mazo
-        lblFichasAtrilNorth.setForeground(ColorRGB.YELLOW);
-        Font font = lblFichasAtrilNorth.getFont();
-        lblFichasAtrilNorth.setFont(new Font(font.getName(), font.getStyle(), 15)); // Tamaño de fuente deseado
-        Dimension size = lblFichasAtrilNorth.getPreferredSize(); // Obtener el tamaño preferido del JLabel lblPozoSize
-        lblFichasAtrilNorth.setBounds(0, 41, size.width, size.height);
-        lypJugadorNorth.add(lblFichasAtrilNorth, Integer.valueOf(3));
-
-        lypJugadorNorth.setPreferredSize(new Dimension(60, 60));
-        lypJugadorNorth.revalidate();
-        lypJugadorNorth.repaint();
+        lblFichasAtrilNorth.setText(String.valueOf(controlador.cantidadFichasAtril()));
+        setLabelCantidadFichas(lypJugadorNorth, lblFichasAtrilNorth);
     }
 
     private void setLypPilaMuertos() {
@@ -608,23 +588,24 @@ public class VistaGrafica implements IVista, Serializable {
         lypMazo.add(lblImgV2, Integer.valueOf(1));
         lypMazo.add(lblImgV3, Integer.valueOf(2));
 
-        JLabel lblPozoSize = new JLabel();
-        lblPozoSize.setText("58"); // TODO implementar metodo que retorne cantidad de fichas en mazo
-        lblPozoSize.setForeground(ColorRGB.YELLOW);
-        Font font = lblPozoSize.getFont();
-        lblPozoSize.setFont(new Font(font.getName(), font.getStyle(), 15)); // Tamaño de fuente deseado
-        Dimension size = lblPozoSize.getPreferredSize(); // Obtener el tamaño preferido del JLabel lblPozoSize
-        lblPozoSize.setBounds(0, 41, size.width, size.height);
-        lypMazo.add(lblPozoSize, Integer.valueOf(3));
+        lblMazoSize.setText(String.valueOf(controlador.cantidadFichasMazo()));
+        setLabelCantidadFichas(lypMazo, lblMazoSize);
+    }
 
-        lypMazo.setPreferredSize(new Dimension(60, 60));
-        lypMazo.revalidate();
-        lypMazo.repaint();
+    private void setLabelCantidadFichas(JComponent contenedor, JLabel labelCantidadFichas) {
+        labelCantidadFichas.setForeground(ColorRGB.YELLOW);
+        Font font = labelCantidadFichas.getFont();
+        labelCantidadFichas.setFont(new Font(font.getName(), font.getStyle(), 15)); // Tamaño de fuente deseado
+        Dimension size = labelCantidadFichas.getPreferredSize(); // Obtener el tamaño preferido del JLabel lblPozoSize
+        labelCantidadFichas.setBounds(0, 41, size.width, size.height);
+        contenedor.add(labelCantidadFichas, Integer.valueOf(3));
+        contenedor.setPreferredSize(new Dimension(60, 60));
+        contenedor.revalidate();
+        contenedor.repaint();
     }
 
     private void setLypPozo() {
         lypPozo.setLayout(null);
-        RecortarMosaico cut = new RecortarMosaico();
 
         areaPozo.setOpaque(true);
         areaPozo.setBackground(new Color(33, 37, 43, 150));
@@ -651,7 +632,7 @@ public class VistaGrafica implements IVista, Serializable {
 
     private void mostrarJuegosFichas(ArrayList<ArrayList<IFicha>> juegosMesa, JPanel panel) {
         if (juegosMesa == null || juegosMesa.isEmpty()) {
-            mostrarTexto("No hay juegos en mesa", true);
+            mostrarTexto("No hay juegos en mesa\n", true);
         } else {
             panel.removeAll();
             int cantidadFichas;
@@ -671,17 +652,7 @@ public class VistaGrafica implements IVista, Serializable {
                 int x = 0;
                 int y = 0;
                 for (IFicha ficha : juego) {
-                    int color;
-                    int numero;
-                    if (ficha instanceof FichaComodin) {
-                        color = 4;
-                        numero = ficha.getNumeroFicha();
-                    } else {
-                        color = ficha.getColor().ordinal();
-                        numero = ficha.getNumeroFicha() - 1;
-                    }
-                    ImageIcon imagen = cut.getImagenRecortadaIcon(color, numero, 45, 60, 0);
-                    JLabel lblImg = new JLabel(imagen);
+                    JLabel lblImg = new JLabel(fichaRecortada(ficha, cut));
                     lblImg.setBounds(x, y, 45, 60);
                     x += 30;
                     lypJuegoMesa.add(lblImg, Integer.valueOf(prioridad));
@@ -708,6 +679,19 @@ public class VistaGrafica implements IVista, Serializable {
         }
     }
 
+    private ImageIcon fichaRecortada(IFicha ficha, RecortarMosaico cut) {
+        int color;
+        int numero;
+        if (ficha instanceof FichaComodin) {
+            color = 4;
+            numero = ficha.getNumeroFicha();
+        } else {
+            color = ficha.getColor().ordinal();
+            numero = ficha.getNumeroFicha() - 1;
+        }
+        return cut.getImagenRecortadaIcon(color, numero, 45, 60, 0);
+    }
+
     /**
      * Muestra por pantalla el pozo.
      *
@@ -722,17 +706,7 @@ public class VistaGrafica implements IVista, Serializable {
         int y = 0;
         RecortarMosaico cut = new RecortarMosaico();
         for (IFicha ficha : pozo) {
-            int color;
-            int numero;
-            if (ficha instanceof FichaComodin) {
-                color = 4;
-                numero = ficha.getNumeroFicha();
-            } else {
-                color = ficha.getColor().ordinal();
-                numero = ficha.getNumeroFicha() - 1;
-            }
-            ImageIcon imagen = cut.getImagenRecortadaIcon(color, numero, 45, 60, 0);
-            JLabel lblImg = new JLabel(imagen);
+            JLabel lblImg = new JLabel(fichaRecortada(ficha, cut));
             lblImg.setBounds(x, y, 45, 60);
             x += 30;
             lypPozo.add(lblImg, Integer.valueOf(prioridad));
@@ -757,7 +731,6 @@ public class VistaGrafica implements IVista, Serializable {
         pnlCenter.repaint();
     }
 
-
     /**
      * Muestra por pantalla el atril del jugador.
      *
@@ -781,9 +754,10 @@ public class VistaGrafica implements IVista, Serializable {
             listaModeloAbajo.addElement(imagen);
         }
         scpSouth.setPreferredSize(new Dimension(lstSouth.getPreferredSize().width, lstSouth.getPreferredSize().height + 18));
-        // Revalidar y repintar el panel
         scpSouth.revalidate();
         scpSouth.repaint();
+        scpSouth.getViewport().revalidate();
+        scpSouth.getViewport().repaint();
         frame.revalidate();
         frame.repaint();
     }
@@ -818,14 +792,16 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void mostrarPuntos(Integer puntaje) {
-        lblPuntajeJugador.setText(String.valueOf(puntaje));
+        String puntajeFormateado = String.format("%04d", puntaje);
+        lblPuntajeJugador.setText(puntajeFormateado);
         pnlMenu.revalidate();
         pnlMenu.repaint();
     }
 
     @Override
     public void mostrarPuntosOponente(Integer puntaje) {
-        lblPuntajeOponente.setText(String.valueOf(puntaje));
+        String puntajeFormateado = String.format("%04d", puntaje);
+        lblPuntajeOponente.setText(puntajeFormateado);
         pnlMenu.revalidate();
         pnlMenu.repaint();
     }
@@ -841,12 +817,12 @@ public class VistaGrafica implements IVista, Serializable {
     private void agregarFichaPozo() {
         int opcion = lstSouth.getSelectedIndex();
         if (opcion == -1) {
-            mostrarTexto("No se ha seleccionado ninguna ficha para descartar", true);
+            mostrarTexto("No se ha seleccionado ninguna ficha para descartar\n", true);
         } else {
             controlador.agregarFichaPozo(opcion);
             if (controlador.atrilVacio() && !controlador.tomoMuerto()) {
                 controlador.tomarMuerto();
-                mostrarTexto(" Atril Vacío. Se ha tomado el muerto.", false);
+                mostrarTexto(" Atril Vacío. Se ha tomado el muerto.\n", false);
             }
             if (controlador.isCanasta() && controlador.tomoMuerto() && controlador.atrilVacio()) {
                 // TODO partida terminada
@@ -864,6 +840,22 @@ public class VistaGrafica implements IVista, Serializable {
         // Revalidar y repintar el JLayeredPane después de eliminar los componentes
         layeredPane.revalidate();
         layeredPane.repaint();
+    }
+
+    public void mostrarCantidadFichasAtril(int cantidadFichas) {
+        lblFichasAtrilNorth.setText(String.valueOf(cantidadFichas));
+        pnlJugadorNorth.revalidate();
+        pnlJugadorNorth.repaint();
+    }
+
+    /**
+     * @param cantidadFichas
+     */
+    @Override
+    public void mostrarCantidadFichasMazo(int cantidadFichas) {
+        lblMazoSize.setText(String.valueOf(cantidadFichas));
+        lypMazo.revalidate();
+        lypMazo.repaint();
     }
 
 }

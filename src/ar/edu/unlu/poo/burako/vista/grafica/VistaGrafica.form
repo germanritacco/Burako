@@ -8,33 +8,43 @@
       <background color="-14605013"/>
       <minimumSize width="400" height="400"/>
     </properties>
-    <border type="none"/>
+    <border type="line"/>
     <children>
       <grid id="7d907" class="javax.swing.JMenuBar" binding="mnbMenu" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
         <constraints border-constraint="North"/>
         <properties>
+          <background color="-14605013"/>
+          <foreground color="-5524801"/>
           <preferredSize width="61" height="20"/>
         </properties>
-        <border type="none"/>
+        <border type="line"/>
         <children>
           <grid id="1d94b" class="javax.swing.JMenu" binding="mnuPartida" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints/>
             <properties>
+              <background color="-14605013"/>
+              <borderPainted value="true"/>
+              <foreground color="-5524801"/>
               <preferredSize width="51" height="14"/>
               <text value="Partida"/>
               <verticalAlignment value="3"/>
             </properties>
-            <border type="none"/>
+            <border type="empty"/>
             <children>
               <component id="97bf0" class="javax.swing.JMenuItem" binding="mniAbandonarPartida">
                 <constraints/>
                 <properties>
+                  <background color="-14605013"/>
+                  <borderPainted value="true"/>
+                  <foreground color="-5524801"/>
                   <text value="Abandonar Partida"/>
                 </properties>
               </component>
               <component id="21cbd" class="javax.swing.JMenuItem" binding="mniSalir">
                 <constraints/>
                 <properties>
+                  <background color="-14605013"/>
+                  <foreground color="-5524801"/>
                   <text value="Salir"/>
                 </properties>
               </component>
@@ -43,41 +53,55 @@
           <grid id="57c84" class="javax.swing.JMenu" binding="mnuOpciones" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints/>
             <properties>
+              <background color="-14605013"/>
+              <foreground color="-5524801"/>
+              <opaque value="true"/>
               <preferredSize width="67" height="14"/>
               <text value="Opciones"/>
               <verticalAlignment value="3"/>
             </properties>
-            <border type="none"/>
+            <border type="empty"/>
             <children>
               <component id="b511" class="javax.swing.JMenuItem" binding="mniPanelTexto">
                 <constraints/>
                 <properties>
                   <actionCommand value="Ocultar Panel Registro"/>
+                  <background color="-14605013"/>
+                  <foreground color="-5524801"/>
                   <text value="Ocultar Panel Registro"/>
                 </properties>
               </component>
               <grid id="79ef8" class="javax.swing.JMenu" binding="mnuFondo" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                 <constraints/>
                 <properties>
+                  <background color="-14605013"/>
+                  <foreground color="-5524801"/>
+                  <opaque value="true"/>
                   <text value="Cambiar Fondo"/>
                 </properties>
-                <border type="none"/>
+                <border type="empty"/>
                 <children>
                   <component id="5e929" class="javax.swing.JMenuItem" binding="mniFondoAzul">
                     <constraints/>
                     <properties>
+                      <background color="-14605013"/>
+                      <foreground color="-5524801"/>
                       <text value="Azul"/>
                     </properties>
                   </component>
                   <component id="779d" class="javax.swing.JMenuItem" binding="mniFondoRojo">
                     <constraints/>
                     <properties>
+                      <background color="-14605013"/>
+                      <foreground color="-5524801"/>
                       <text value="Rojo"/>
                     </properties>
                   </component>
                   <component id="decda" class="javax.swing.JMenuItem" binding="mniFondoVerde">
                     <constraints/>
                     <properties>
+                      <background color="-14605013"/>
+                      <foreground color="-5524801"/>
                       <text value="Verde"/>
                     </properties>
                   </component>
@@ -88,21 +112,27 @@
           <grid id="a8c31" class="javax.swing.JMenu" binding="mnuAyuda" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
             <constraints/>
             <properties>
+              <background color="-14605013"/>
+              <foreground color="-5524801"/>
               <preferredSize width="47" height="14"/>
               <text value="Ayuda"/>
               <verticalAlignment value="3"/>
             </properties>
-            <border type="none"/>
+            <border type="empty"/>
             <children>
               <component id="4bfc8" class="javax.swing.JMenuItem" binding="mniReglas">
                 <constraints/>
                 <properties>
+                  <background color="-14605013"/>
+                  <foreground color="-5524801"/>
                   <text value="Reglas de Juego"/>
                 </properties>
               </component>
               <component id="5de90" class="javax.swing.JMenuItem" binding="mniAcercaDe">
                 <constraints/>
                 <properties>
+                  <background color="-14605013"/>
+                  <foreground color="-5524801"/>
                   <text value="Acerca de..."/>
                 </properties>
               </component>
@@ -110,15 +140,7 @@
           </grid>
         </children>
       </grid>
-      <component id="3e044" class="javax.swing.JLabel" binding="lblMensajes">
-        <constraints border-constraint="South"/>
-        <properties>
-          <horizontalAlignment value="0"/>
-          <horizontalTextPosition value="0"/>
-          <text value="Label"/>
-        </properties>
-      </component>
-      <splitpane id="2ca2f" binding="splRegistro">
+      <splitpane id="2ca2f" binding="splMain">
         <constraints border-constraint="Center"/>
         <properties>
           <background color="-14605013"/>
@@ -126,7 +148,7 @@
           <foreground color="-5524801"/>
           <resizeWeight value="0.8"/>
         </properties>
-        <border type="none"/>
+        <border type="empty"/>
         <children>
           <grid id="b0898" binding="pnlMenu" layout-manager="CardLayout" hgap="0" vgap="0">
             <constraints>
@@ -135,7 +157,7 @@
             <properties>
               <opaque value="false"/>
             </properties>
-            <border type="none"/>
+            <border type="line"/>
             <children>
               <grid id="73f5c" binding="pnlCardPartida" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints>
@@ -145,117 +167,108 @@
                   <background color="-14605013"/>
                   <opaque value="false"/>
                 </properties>
-                <border type="none"/>
+                <border type="empty"/>
                 <children>
-                  <grid id="e8632" binding="pnlNorth" layout-manager="BorderLayout" hgap="0" vgap="0">
+                  <grid id="e8632" binding="pnlNorth" layout-manager="GridLayoutManager" row-count="1" column-count="8" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="10" left="0" bottom="0" right="0"/>
                     <constraints border-constraint="North"/>
                     <properties>
                       <background color="-14605013"/>
                       <opaque value="false"/>
                     </properties>
-                    <border type="none"/>
+                    <border type="empty"/>
                     <children>
-                      <grid id="5313f" layout-manager="GridLayoutManager" row-count="1" column-count="9" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="10" left="0" bottom="0" right="0"/>
-                        <constraints border-constraint="Center"/>
+                      <grid id="9f9fb" binding="pnlPuntajeJugador" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                            <preferred-size width="-1" height="60"/>
+                          </grid>
+                        </constraints>
                         <properties>
-                          <opaque value="false"/>
+                          <opaque value="true"/>
+                          <preferredSize width="200" height="24"/>
                         </properties>
-                        <border type="none"/>
+                        <border type="empty"/>
                         <children>
-                          <grid id="9f9fb" binding="pnlPuntajeJugador" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                          <component id="32a86" class="javax.swing.JLabel" binding="lblPuntajeJugador">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <font size="22"/>
+                              <text value="0000"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </grid>
+                      <grid id="bf1c7" binding="pnlJugadorNorth" layout-manager="FlowLayout" hgap="20" vgap="5" flow-align="1">
+                        <constraints>
+                          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <opaque value="true"/>
+                        </properties>
+                        <border type="empty"/>
+                        <children>
+                          <component id="89553" class="javax.swing.JLabel" binding="lblJugadorNorth">
+                            <constraints/>
+                            <properties>
+                              <background color="-14605013"/>
+                              <text value="Label"/>
+                            </properties>
+                          </component>
+                          <grid id="9ea0f" class="javax.swing.JLayeredPane" binding="lypJugadorNorth" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                             <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints/>
+                            <properties/>
+                            <border type="empty"/>
+                            <children/>
+                          </grid>
+                        </children>
+                      </grid>
+                      <hspacer id="d40b0">
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <hspacer id="f38dc">
+                        <constraints>
+                          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <hspacer id="aa55f">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <hspacer id="23991">
+                        <constraints>
+                          <grid row="0" column="7" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </hspacer>
+                      <grid id="853dd" binding="pnlPuntajeOponente" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <constraints>
+                          <grid row="0" column="5" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                            <preferred-size width="-1" height="60"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <opaque value="true"/>
+                          <preferredSize width="200" height="24"/>
+                        </properties>
+                        <border type="empty"/>
+                        <children>
+                          <component id="140c0" class="javax.swing.JLabel" binding="lblPuntajeOponente">
                             <constraints>
-                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                                <preferred-size width="-1" height="60"/>
-                              </grid>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <opaque value="true"/>
-                              <preferredSize width="200" height="24"/>
+                              <font size="22"/>
+                              <text value="0000"/>
                             </properties>
-                            <border type="none"/>
-                            <children>
-                              <component id="32a86" class="javax.swing.JLabel" binding="lblPuntajeJugador">
-                                <constraints>
-                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                                </constraints>
-                                <properties>
-                                  <font size="22"/>
-                                  <text value="0000"/>
-                                </properties>
-                              </component>
-                            </children>
-                          </grid>
-                          <grid id="bf1c7" binding="pnlJugadorNorth" layout-manager="FlowLayout" hgap="20" vgap="5" flow-align="1">
-                            <constraints>
-                              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <opaque value="true"/>
-                            </properties>
-                            <border type="none"/>
-                            <children>
-                              <component id="89553" class="javax.swing.JLabel" binding="lblJugadorNorth">
-                                <constraints/>
-                                <properties>
-                                  <background color="-14605013"/>
-                                  <text value="Label"/>
-                                </properties>
-                              </component>
-                              <grid id="9ea0f" class="javax.swing.JLayeredPane" binding="lypJugadorNorth" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                                <margin top="0" left="0" bottom="0" right="0"/>
-                                <constraints/>
-                                <properties/>
-                                <border type="none"/>
-                                <children/>
-                              </grid>
-                            </children>
-                          </grid>
-                          <hspacer id="e5c5b">
-                            <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                          </hspacer>
-                          <hspacer id="b3838">
-                            <constraints>
-                              <grid row="0" column="7" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                          </hspacer>
-                          <grid id="853dd" binding="pnlPuntajeOponente" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                            <margin top="0" left="0" bottom="0" right="0"/>
-                            <constraints>
-                              <grid row="0" column="5" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                                <preferred-size width="-1" height="60"/>
-                              </grid>
-                            </constraints>
-                            <properties>
-                              <opaque value="true"/>
-                              <preferredSize width="200" height="24"/>
-                            </properties>
-                            <border type="none"/>
-                            <children>
-                              <component id="140c0" class="javax.swing.JLabel" binding="lblPuntajeOponente">
-                                <constraints>
-                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                                </constraints>
-                                <properties>
-                                  <font size="22"/>
-                                  <text value="0000"/>
-                                </properties>
-                              </component>
-                            </children>
-                          </grid>
-                          <hspacer id="21d77">
-                            <constraints>
-                              <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                          </hspacer>
-                          <hspacer id="ae532">
-                            <constraints>
-                              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                          </hspacer>
+                          </component>
                         </children>
                       </grid>
                     </children>
@@ -265,7 +278,7 @@
                     <properties>
                       <background color="-14605013"/>
                     </properties>
-                    <border type="none"/>
+                    <border type="empty"/>
                     <children>
                       <component id="ed4a5" class="javax.swing.JLabel" binding="lblJugadorWest">
                         <constraints border-constraint="North"/>
@@ -273,23 +286,6 @@
                           <text value="Label"/>
                         </properties>
                       </component>
-                      <scrollpane id="2d201" binding="scpWest">
-                        <constraints border-constraint="Center"/>
-                        <properties>
-                          <horizontalScrollBarPolicy value="31"/>
-                          <preferredSize width="0" height="0"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="44733" class="javax.swing.JList" binding="lstWest">
-                            <constraints/>
-                            <properties>
-                              <background color="-14605013"/>
-                              <layoutOrientation value="0"/>
-                            </properties>
-                          </component>
-                        </children>
-                      </scrollpane>
                     </children>
                   </grid>
                   <grid id="b6fa0" binding="pnlEast" layout-manager="BorderLayout" hgap="0" vgap="0">
@@ -297,7 +293,7 @@
                     <properties>
                       <background color="-14605013"/>
                     </properties>
-                    <border type="none"/>
+                    <border type="empty"/>
                     <children>
                       <component id="20a4c" class="javax.swing.JLabel" binding="lblEast">
                         <constraints border-constraint="South"/>
@@ -306,22 +302,6 @@
                           <text value="Label"/>
                         </properties>
                       </component>
-                      <scrollpane id="23cf6" binding="scpEast">
-                        <constraints border-constraint="Center"/>
-                        <properties>
-                          <horizontalScrollBarPolicy value="31"/>
-                          <preferredSize width="0" height="0"/>
-                        </properties>
-                        <border type="none"/>
-                        <children>
-                          <component id="618ef" class="javax.swing.JList" binding="lstEast">
-                            <constraints/>
-                            <properties>
-                              <background color="-14605013"/>
-                            </properties>
-                          </component>
-                        </children>
-                      </scrollpane>
                     </children>
                   </grid>
                   <grid id="f59d1" binding="pnlSouth" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -330,7 +310,7 @@
                     <properties>
                       <background color="-14605013"/>
                     </properties>
-                    <border type="none"/>
+                    <border type="empty"/>
                     <children>
                       <component id="423f" class="javax.swing.JLabel" binding="lblSouth">
                         <constraints>
@@ -372,7 +352,7 @@
                       <background color="-14605013"/>
                       <opaque value="false"/>
                     </properties>
-                    <border type="none"/>
+                    <border type="empty"/>
                     <children>
                       <grid id="6977d" binding="pnlJugadasOponente" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="0">
                         <constraints>
@@ -380,9 +360,9 @@
                           <gridbag top="10" left="10" bottom="10" right="10" weightx="1.0" weighty="1.0"/>
                         </constraints>
                         <properties>
-                          <background color="-3224316"/>
+                          <background color="-14144460"/>
                         </properties>
-                        <border type="none"/>
+                        <border type="empty"/>
                         <children/>
                       </grid>
                       <grid id="e7d4e" binding="pnlPilaFichas" layout-manager="FlowLayout" hgap="30" vgap="0" flow-align="0">
@@ -394,7 +374,7 @@
                           <opaque value="false"/>
                           <preferredSize width="92" height="60"/>
                         </properties>
-                        <border type="none">
+                        <border type="empty">
                           <title-color color="-5524801"/>
                         </border>
                         <children>
@@ -402,21 +382,21 @@
                             <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints/>
                             <properties/>
-                            <border type="none"/>
+                            <border type="empty"/>
                             <children/>
                           </grid>
                           <grid id="38392" class="javax.swing.JLayeredPane" binding="lypMazo" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                             <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints/>
                             <properties/>
-                            <border type="none"/>
+                            <border type="empty"/>
                             <children/>
                           </grid>
                           <grid id="de542" class="javax.swing.JLayeredPane" binding="lypPozo" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                             <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints/>
                             <properties/>
-                            <border type="none">
+                            <border type="empty">
                               <color color="-13697234"/>
                             </border>
                             <children/>
@@ -429,9 +409,9 @@
                           <gridbag top="10" left="10" bottom="10" right="10" weightx="1.0" weighty="1.0"/>
                         </constraints>
                         <properties>
-                          <background color="-3224316"/>
+                          <background color="-14144460"/>
                         </properties>
-                        <border type="none"/>
+                        <border type="empty"/>
                         <children/>
                       </grid>
                     </children>
@@ -445,7 +425,7 @@
                 <properties>
                   <background color="-14605013"/>
                 </properties>
-                <border type="none"/>
+                <border type="empty"/>
                 <children>
                   <grid id="7b56b" binding="pnlBotonesMenu" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
@@ -454,7 +434,7 @@
                       <background color="-14605013"/>
                       <foreground color="-5524801"/>
                     </properties>
-                    <border type="none"/>
+                    <border type="empty"/>
                     <children>
                       <component id="1a5" class="javax.swing.JButton" binding="btnIniciarPartida">
                         <constraints>
@@ -517,7 +497,7 @@
                 <properties>
                   <background color="-14605013"/>
                 </properties>
-                <border type="none"/>
+                <border type="empty"/>
                 <children>
                   <grid id="b342c" binding="pnlJugadorCenter" layout-manager="GridLayoutManager" row-count="6" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
@@ -525,7 +505,7 @@
                     <properties>
                       <background color="-14605013"/>
                     </properties>
-                    <border type="none"/>
+                    <border type="empty"/>
                     <children>
                       <component id="4375" class="javax.swing.JLabel" binding="lblBienvenida">
                         <constraints>
@@ -533,7 +513,7 @@
                         </constraints>
                         <properties>
                           <foreground color="-5524801"/>
-                          <text value="¡¡Bienvenido a Burako! El clásico juego de mesa"/>
+                          <text value="¡Bienvenido a Burako! El clásico juego de mesa"/>
                         </properties>
                       </component>
                       <vspacer id="be6b1">
@@ -608,7 +588,9 @@
               <preferredSize width="100" height="23"/>
               <verticalScrollBarPolicy value="20"/>
             </properties>
-            <border type="none"/>
+            <border type="empty">
+              <color color="-14803166"/>
+            </border>
             <children>
               <component id="e4d6f" class="javax.swing.JTextPane" binding="txpRegistro">
                 <constraints/>
@@ -621,6 +603,23 @@
           </scrollpane>
         </children>
       </splitpane>
+      <grid id="d7f93" binding="pnlMensajes" layout-manager="BorderLayout" hgap="0" vgap="0">
+        <constraints border-constraint="South"/>
+        <properties>
+          <opaque value="false"/>
+        </properties>
+        <border type="line"/>
+        <children>
+          <component id="3e044" class="javax.swing.JLabel" binding="lblMensajes">
+            <constraints border-constraint="Center"/>
+            <properties>
+              <horizontalAlignment value="0"/>
+              <horizontalTextPosition value="0"/>
+              <text value="  "/>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>
