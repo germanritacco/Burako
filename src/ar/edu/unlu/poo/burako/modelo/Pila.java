@@ -24,4 +24,8 @@ public abstract class Pila {
         return pila.isEmpty();
     }
 
+    public int size() {
+        return pila.size();
+    }
+
 }

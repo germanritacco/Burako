@@ -64,17 +64,18 @@ public class Controlador implements IControladorRemoto {
                 }
                 case CAMBIO_TURNO -> {
                     vista.mostrarPozo(this.modelo.mostrarPozo());
+                    vista.mostrarAtril(mostrarAtril());
+                    String jugadorActual = this.modelo.mostrarTurno(jugador.getId());
+                    vista.mostrarTurno(jugadorActual);
                     if (!isJugadorTurno()) {
-                        vista.mostrarAtril(mostrarAtril());
+                        //vista.mostrarAtril(mostrarAtril());
                         vista.disableComponents();
                     }
                     //this.modelo.cambiarTurno(jugador.getId());
                     // Siguiente jugador
                     if (isJugadorTurno()) {
-                        String jugadorActual = this.modelo.mostrarTurno(jugador.getId());
-                        vista.mostrarTurno(jugadorActual);
                         // vista.mostrarPozo(this.modelo.mostrarPozo());
-                        vista.mostrarAtril(mostrarAtril());
+                        //vista.mostrarAtril(mostrarAtril());
                         vista.enableComponents(true);
                     }
                 }
@@ -91,6 +92,16 @@ public class Controlador implements IControladorRemoto {
                         int oponente = (jugador.getId() + 1) % cantidadJugadores;
                         vista.mostrarJuegosMesaOponente(this.modelo.mostrarJuegosMesa(oponente));
                     }
+                }
+                case CANTIDAD_FICHAS_ATRIL -> {
+                    if (!isJugadorTurno()) {
+                        int cantidadJugadores = this.modelo.cantidadJugadores();
+                        int oponente = (jugador.getId() + 1) % cantidadJugadores;
+                        vista.mostrarCantidadFichasAtril(this.modelo.cantidadFichasAtril(oponente));
+                    }
+                }
+                case CANTIDAD_FICHAS_MAZO -> {
+                    vista.mostrarCantidadFichasMazo(this.modelo.cantidadFichasMazo());
                 }
             }
         }
@@ -134,6 +145,14 @@ public class Controlador implements IControladorRemoto {
     public Integer cantidadFichasAtril() {
         try {
             return modelo.cantidadFichasAtril(jugador.getId());
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Integer cantidadFichasMazo() {
+        try {
+            return modelo.cantidadFichasMazo();
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }

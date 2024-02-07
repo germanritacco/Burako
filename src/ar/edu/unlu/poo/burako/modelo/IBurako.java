@@ -227,4 +227,6 @@ public interface IBurako extends IObservableRemoto {
     ArrayList<ArrayList<IFicha>> mostrarJuegosMesa(int jugadorId) throws RemoteException;
 
     String getJugadorOponente(int jugadorId) throws RemoteException;
+
+    Integer cantidadFichasMazo() throws RemoteException;
 }

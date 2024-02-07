@@ -114,6 +114,8 @@ public class Mazo {
      */
     public ArrayList<Ficha> repartirAtril(ArrayList<Ficha> fichasSinRepartir) {
         ArrayList<Ficha> fichasAtrilAux = new ArrayList<>();
+        //TODO BORRAR
+        fichasAtrilAux.add(new FichaComodin());
         for (int j = 1; j <= 11; j++) {
             Ficha fichaAux = fichasSinRepartir.remove((int) (random() * fichasSinRepartir.size()));
             fichasAtrilAux.add(fichaAux);
@@ -134,4 +136,7 @@ public class Mazo {
         }
     }
 
+    public int size() {
+        return mazo.size();
+    }
 }

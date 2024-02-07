@@ -379,4 +379,20 @@ public class VistaConsola implements IVista {
     public void mostrarJuegosMesaOponente(ArrayList<ArrayList<IFicha>> juegosMesa) {
 
     }
+
+    /**
+     * @param cantidadFichas
+     */
+    @Override
+    public void mostrarCantidadFichasAtril(int cantidadFichas) {
+
+    }
+
+    /**
+     * @param cantidadFichas
+     */
+    @Override
+    public void mostrarCantidadFichasMazo(int cantidadFichas) {
+
+    }
 }

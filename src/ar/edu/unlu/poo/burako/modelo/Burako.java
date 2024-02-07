@@ -163,6 +163,7 @@ public class Burako extends ObservableRemoto implements IBurako {
             jugador.addAtril(mazo.sacarMuerto());
             jugador.setTomoMuerto(true);
         }
+        this.notificarObservadores(Eventos.CANTIDAD_FICHAS_ATRIL);
     }
 
     /**
@@ -207,6 +208,7 @@ public class Burako extends ObservableRemoto implements IBurako {
         IJugador jugador = jugadores.get(jugadorId);
         jugador.addAtril(pozo.recogerPozo());
         this.notificarObservadores(Eventos.CAMBIO_FICHAS_ATRIL);
+        this.notificarObservadores(Eventos.CANTIDAD_FICHAS_ATRIL);
     }
 
     /**
@@ -285,6 +287,8 @@ public class Burako extends ObservableRemoto implements IBurako {
         IJugador jugador = jugadores.get(jugadorId);
         jugador.addFichaAtril(mazo.recogerFichaMazo());
         this.notificarObservadores(Eventos.CAMBIO_FICHAS_ATRIL);
+        this.notificarObservadores(Eventos.CANTIDAD_FICHAS_ATRIL);
+        this.notificarObservadores(Eventos.CANTIDAD_FICHAS_MAZO);
     }
 
     /**
@@ -298,6 +302,11 @@ public class Burako extends ObservableRemoto implements IBurako {
     public Integer cantidadFichasAtril(int jugadorId) throws RemoteException {
         IJugador jugador = jugadores.get(jugadorId);
         return jugador.getAtril().size();
+    }
+
+    @Override
+    public Integer cantidadFichasMazo() throws RemoteException {
+        return mazo.size();
     }
 
     /**
@@ -390,7 +399,7 @@ public class Burako extends ObservableRemoto implements IBurako {
      * @param jugadorId N° de ID del jugador.
      * @param seleccion Arreglo de las posiciones de fichas que forman un posible juego.
      */
-    private void borrarJugadaAtril(int jugadorId, String[] seleccion) {
+    private void borrarJugadaAtril(int jugadorId, String[] seleccion) throws RemoteException {
         IJugador jugador = jugadores.get(jugadorId);
         int incremento = 0;
         Arrays.sort(seleccion);
@@ -401,6 +410,7 @@ public class Burako extends ObservableRemoto implements IBurako {
             jugador.removeFichaAtril(posicion - 1);
             incremento++;
         }
+        this.notificarObservadores(Eventos.CANTIDAD_FICHAS_ATRIL);
     }
 
     /**
@@ -446,9 +456,11 @@ public class Burako extends ObservableRemoto implements IBurako {
     public void agregarFichaPozo(int jugadorId, int posicion) throws RemoteException {
         IJugador jugador = jugadores.get(jugadorId);
         Ficha ficha = jugador.removeFichaAtril(posicion);
+        this.notificarObservadores(Eventos.CANTIDAD_FICHAS_ATRIL);
         this.pozo.agregarAlPozo(ficha);
         jugador.setTurno(false);
         cambiarTurno(jugadorId);
+
         this.notificarObservadores(Eventos.CAMBIO_TURNO);
     }
 
