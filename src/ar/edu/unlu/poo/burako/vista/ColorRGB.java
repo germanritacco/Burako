@@ -16,7 +16,6 @@ public class ColorRGB {
     public static final Color YELLOW = new Color(229, 192, 123);
     public static final Color GREEN = new Color(152, 195, 121);
     public static final Color ORANGE = new Color(209, 154, 102);
-    public static final Color PINK = new Color(152, 195, 121);
     public static final Color GRAY = new Color(100, 106, 115);
 
     private ColorRGB() {
