@@ -40,6 +40,15 @@
                   <text value="Abandonar Partida"/>
                 </properties>
               </component>
+              <component id="70daa" class="javax.swing.JMenuItem" binding="mniGuardar">
+                <constraints/>
+                <properties>
+                  <actionCommand value="Guardar Partida"/>
+                  <background color="-14605013"/>
+                  <foreground color="-5524801"/>
+                  <label value="Guardar Partida"/>
+                </properties>
+              </component>
               <component id="21cbd" class="javax.swing.JMenuItem" binding="mniSalir">
                 <constraints/>
                 <properties>
@@ -186,6 +195,7 @@
                           </grid>
                         </constraints>
                         <properties>
+                          <background color="-14144460"/>
                           <opaque value="true"/>
                           <preferredSize width="200" height="24"/>
                         </properties>
@@ -255,6 +265,7 @@
                           </grid>
                         </constraints>
                         <properties>
+                          <background color="-14144460"/>
                           <opaque value="true"/>
                           <preferredSize width="200" height="24"/>
                         </properties>
@@ -273,35 +284,112 @@
                       </grid>
                     </children>
                   </grid>
-                  <grid id="2a3b7" binding="pnlWest" layout-manager="BorderLayout" hgap="0" vgap="0">
+                  <grid id="2a3b7" binding="pnlWest" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="5" bottom="0" right="0"/>
                     <constraints border-constraint="West"/>
                     <properties>
                       <background color="-14605013"/>
+                      <opaque value="false"/>
                     </properties>
                     <border type="empty"/>
                     <children>
-                      <component id="ed4a5" class="javax.swing.JLabel" binding="lblJugadorWest">
-                        <constraints border-constraint="North"/>
+                      <grid id="a114f" binding="pnlJugadorWest" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
                         <properties>
-                          <text value="Label"/>
+                          <opaque value="true"/>
                         </properties>
-                      </component>
+                        <border type="empty">
+                          <size top="20" left="5" bottom="20" right="5"/>
+                        </border>
+                        <children>
+                          <component id="59607" class="javax.swing.JLabel" binding="lblJugadorWest">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-14605013"/>
+                              <text value="Label"/>
+                            </properties>
+                          </component>
+                          <grid id="158c0" class="javax.swing.JLayeredPane" binding="lypJugadorWest" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints>
+                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties/>
+                            <border type="empty"/>
+                            <children/>
+                          </grid>
+                        </children>
+                      </grid>
+                      <vspacer id="aa305">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </vspacer>
+                      <vspacer id="98573">
+                        <constraints>
+                          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </vspacer>
                     </children>
                   </grid>
-                  <grid id="b6fa0" binding="pnlEast" layout-manager="BorderLayout" hgap="0" vgap="0">
+                  <grid id="b6fa0" binding="pnlEast" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints border-constraint="East"/>
                     <properties>
                       <background color="-14605013"/>
+                      <opaque value="false"/>
                     </properties>
-                    <border type="empty"/>
+                    <border type="empty">
+                      <size top="0" left="0" bottom="0" right="5"/>
+                    </border>
                     <children>
-                      <component id="20a4c" class="javax.swing.JLabel" binding="lblEast">
-                        <constraints border-constraint="South"/>
+                      <grid id="b485e" binding="pnlJugadorEast" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
                         <properties>
-                          <background color="-14605013"/>
-                          <text value="Label"/>
+                          <opaque value="true"/>
                         </properties>
-                      </component>
+                        <border type="empty">
+                          <size top="20" left="5" bottom="20" right="5"/>
+                        </border>
+                        <children>
+                          <component id="20a4c" class="javax.swing.JLabel" binding="lblJugadorEast">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <background color="-14605013"/>
+                              <text value="Label"/>
+                            </properties>
+                          </component>
+                          <grid id="27fec" class="javax.swing.JLayeredPane" binding="lypJugadorEast" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints>
+                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties/>
+                            <border type="empty"/>
+                            <children/>
+                          </grid>
+                        </children>
+                      </grid>
+                      <vspacer id="6608f">
+                        <constraints>
+                          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </vspacer>
+                      <vspacer id="1df0c">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </vspacer>
                     </children>
                   </grid>
                   <grid id="f59d1" binding="pnlSouth" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -309,6 +397,7 @@
                     <constraints border-constraint="South"/>
                     <properties>
                       <background color="-14605013"/>
+                      <opaque value="true"/>
                     </properties>
                     <border type="empty"/>
                     <children>
@@ -326,7 +415,8 @@
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <background color="-13697234"/>
+                          <background color="-14144460"/>
+                          <foreground color="-2069387"/>
                           <opaque value="false"/>
                           <verticalScrollBarPolicy value="21"/>
                         </properties>
@@ -337,8 +427,10 @@
                             <properties>
                               <background color="-2069387"/>
                               <focusTraversalPolicyProvider value="false"/>
+                              <foreground color="-14144460"/>
                               <layoutOrientation value="2"/>
                               <opaque value="false"/>
+                              <selectionForeground color="-2069387"/>
                               <selectionMode value="2"/>
                             </properties>
                           </component>
@@ -427,7 +519,7 @@
                 </properties>
                 <border type="empty"/>
                 <children>
-                  <grid id="7b56b" binding="pnlBotonesMenu" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="7b56b" binding="pnlBotonesMenu" layout-manager="GridLayoutManager" row-count="6" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints border-constraint="Center"/>
                     <properties>
@@ -436,19 +528,19 @@
                     </properties>
                     <border type="empty"/>
                     <children>
-                      <component id="1a5" class="javax.swing.JButton" binding="btnIniciarPartida">
+                      <component id="1a5" class="javax.swing.JButton" binding="btnIniciarPartidaDos">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <background color="-12762549"/>
                           <foreground color="-6248524"/>
-                          <text value="Iniciar Partida"/>
+                          <text value="Iniciar Partida 2 Jugadores"/>
                         </properties>
                       </component>
                       <component id="28909" class="javax.swing.JButton" binding="btnMostarJugadores">
                         <constraints>
-                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <background color="-12762549"/>
@@ -458,7 +550,7 @@
                       </component>
                       <component id="e747c" class="javax.swing.JButton" binding="btnMejoresJugadores">
                         <constraints>
-                          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <background color="-12762549"/>
@@ -468,7 +560,7 @@
                       </component>
                       <component id="18b39" class="javax.swing.JButton" binding="btnSalir">
                         <constraints>
-                          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <background color="-12762549"/>
@@ -486,6 +578,27 @@
                           <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
                       </hspacer>
+                      <component id="aab4e" class="javax.swing.JButton" binding="btnIniciarPartidaCuatro">
+                        <constraints>
+                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-12762549"/>
+                          <foreground color="-6248524"/>
+                          <text value="Iniciar Partida 4 Jugadores"/>
+                        </properties>
+                      </component>
+                      <component id="724dd" class="javax.swing.JButton" binding="btnCargarPartida">
+                        <constraints>
+                          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-12762549"/>
+                          <foreground color="-6248524"/>
+                          <label value="Cargar Partida"/>
+                          <text value="Cargar Partida"/>
+                        </properties>
+                      </component>
                     </children>
                   </grid>
                 </children>
@@ -572,6 +685,45 @@
                           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                         </constraints>
                       </vspacer>
+                    </children>
+                  </grid>
+                </children>
+              </grid>
+              <grid id="974aa" binding="pnlCardTopJugadores" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints>
+                  <card name="Card4"/>
+                </constraints>
+                <properties>
+                  <background color="-14605013"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <grid id="27310" binding="pnlTopJugadores" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <background color="-14605013"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="65934" class="javax.swing.JTextPane" binding="txtTopJugadores">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-14605013"/>
+                          <font size="16" style="1"/>
+                        </properties>
+                      </component>
+                      <component id="ec500" class="javax.swing.JLabel" binding="lblDescripcionMenu">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="22"/>
+                          <text value="Label"/>
+                        </properties>
+                      </component>
                     </children>
                   </grid>
                 </children>

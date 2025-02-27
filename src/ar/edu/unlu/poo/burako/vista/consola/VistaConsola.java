@@ -1,7 +1,6 @@
 package ar.edu.unlu.poo.burako.vista.consola;
 
 import ar.edu.unlu.poo.burako.controlador.Controlador;
-import ar.edu.unlu.poo.burako.modelo.ColorFicha;
 import ar.edu.unlu.poo.burako.modelo.FichaComodin;
 import ar.edu.unlu.poo.burako.modelo.IFicha;
 import ar.edu.unlu.poo.burako.vista.ColorRGB;
@@ -23,12 +22,20 @@ public class VistaConsola implements IVista {
     private Controlador controlador;
     private Flujo flujoActual;
 
-    public VistaConsola(int x, int y) {
+    public VistaConsola(int x, int y, int width, int height) {
         frame = new JFrame("Burako Consola");
         frame.setContentPane(frmPrincipal);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setLocation(x, y);
+        frame.setMinimumSize(new Dimension(width, height));
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                controlador.cerrarApp();
+            }
+        });
 
         btnEnter.addActionListener(new ActionListener() {
             @Override
@@ -47,7 +54,7 @@ public class VistaConsola implements IVista {
             }
         });
 
-        // Cuando el botón tenga el foco y se presione "Enter", se activará automáticamente el ActionListener asociado al botón.
+        // Remueve el jugador del controlador y de la lista al cerrar con la cruz.
         frame.getRootPane().setDefaultButton(btnEnter);
 
         frame.addWindowListener(new WindowAdapter() {
@@ -244,7 +251,6 @@ public class VistaConsola implements IVista {
         appendColor(jugador + "\n", ColorRGB.RED);
     }
 
-
     /**
      * Muestra por pantalla lo necesario para iniciar la partida.
      *
@@ -268,7 +274,6 @@ public class VistaConsola implements IVista {
         }
     }
 
-
     /**
      * Muestra por pantalla los juegos que posee un jugador.
      *
@@ -280,17 +285,16 @@ public class VistaConsola implements IVista {
         if (juegosMesa == null || juegosMesa.isEmpty()) {
             appendColor(" No hay juegos en mesa\n", ColorRGB.RED);
         } else {
-            appendColor(" Juegos en mesa: \n", ColorRGB.PINK);
+            appendColor(" Juegos en mesa: \n", ColorRGB.GREEN);
             int numeroJuego = 1;
             for (ArrayList<IFicha> juego : juegosMesa) {
-                appendColor("N°" + numeroJuego + ": ", ColorRGB.PINK);
+                appendColor("N°" + numeroJuego + ": ", ColorRGB.GREEN);
                 mostrarFichas(juego, " | ");
                 appendColor("\n", ColorRGB.CYAN);
                 numeroJuego++;
             }
         }
     }
-
 
     /**
      * Muestra por pantalla el pozo.
@@ -300,7 +304,7 @@ public class VistaConsola implements IVista {
     @Override
     public void mostrarPozo(ArrayList<IFicha> pozo) {
         appendColor("\n ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
-        appendColor(" Fichas en Pozo: ", ColorRGB.PINK);
+        appendColor(" Fichas en Pozo: ", ColorRGB.GREEN);
         mostrarFichas(pozo, " | ");
     }
 
@@ -312,8 +316,12 @@ public class VistaConsola implements IVista {
     @Override
     public void mostrarAtril(ArrayList<IFicha> atril) {
         appendColor("\n ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
-        appendColor(" Atril: \n", ColorRGB.PINK);
-        mostrarFichasIndice(atril, "\n");
+        appendColor(" Atril: \n", ColorRGB.GREEN);
+        if (atril == null || atril.isEmpty()) {
+            appendColor(" No hay fichas\n", ColorRGB.RED);
+        } else {
+            mostrarFichasIndice(atril, "\n");
+        }
     }
 
     /**
@@ -342,7 +350,6 @@ public class VistaConsola implements IVista {
         }
     }
 
-
     /**
      * Cambia al flujo correspondiente de mostrar el menu principal.
      */
@@ -358,10 +365,8 @@ public class VistaConsola implements IVista {
     @Override
     public void mostrarPuntos(Integer puntaje) {
         appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
-        appendColor("\n", ColorRGB.CYAN);
-        appendColor("  PARTIDA TERMINA!\n", ColorRGB.CYAN);
-        appendColor(puntaje.toString(), ColorRGB.GREEN);
-        mostrarMenuPrincipal();
+        appendColor(" Puntos: ", ColorRGB.GREEN);
+        appendColor(puntaje.toString() + "\n", ColorRGB.ORANGE);
     }
 
     /**
@@ -369,7 +374,9 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void mostrarPuntosOponente(Integer puntaje) {
-
+        appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        appendColor(" Puntos Oponente: ", ColorRGB.GREEN);
+        appendColor(puntaje.toString() + "\n", ColorRGB.ORANGE);
     }
 
     /**
@@ -381,10 +388,10 @@ public class VistaConsola implements IVista {
     }
 
     /**
-     * @param cantidadFichas
+     *
      */
     @Override
-    public void mostrarCantidadFichasAtril(int cantidadFichas) {
+    public void mostrarCantidadFichasAtril() {
 
     }
 
@@ -395,4 +402,13 @@ public class VistaConsola implements IVista {
     public void mostrarCantidadFichasMazo(int cantidadFichas) {
 
     }
+
+    /**
+     *
+     */
+    @Override
+    public void tomarMuerto() {
+
+    }
+
 }

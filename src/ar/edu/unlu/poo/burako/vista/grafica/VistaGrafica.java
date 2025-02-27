@@ -20,8 +20,7 @@ public class VistaGrafica implements IVista, Serializable {
     private JList lstSouth;
     private JPanel pnlCenter;
     private JLabel lblJugadorNorth;
-    private JLabel lblJugadorWest;
-    private JLabel lblEast;
+    private JLabel lblJugadorEast;
     private JLabel lblSouth;
     private JPanel pnlNorth;
     private JPanel pnlWest;
@@ -47,7 +46,7 @@ public class VistaGrafica implements IVista, Serializable {
     private JPanel pnlCardMenuPrincipal;
     private JLabelFondo lblBurako;
     private JPanel pnlBotonesMenu;
-    private JButton btnIniciarPartida;
+    private JButton btnIniciarPartidaDos;
     private JButton btnMostarJugadores;
     private JButton btnMejoresJugadores;
     private JButton btnSalir;
@@ -72,20 +71,37 @@ public class VistaGrafica implements IVista, Serializable {
     private JLayeredPane lypJugadorNorth;
     private JPanel pnlJugadorNorth;
     private JPanel pnlMensajes;
+    private JPanel pnlCardTopJugadores;
+    private JTextPane txtTopJugadores;
+    private JPanel pnlTopJugadores;
+    private JLayeredPane lypJugadorWest;
+    private JPanel pnlJugadorWest;
+    private JPanel pnlJugadorEast;
+    private JLabel lblJugadorWest;
+    private JLayeredPane lypJugadorEast;
+    private JButton btnIniciarPartidaCuatro;
+    private JLabel lblDescripcionMenu;
+    private JMenuItem mniGuardar;
+    private JButton btnCargarPartida;
     private JPanelFondo pnlFelt;
     private final JFrame frame;
     private final JPanel areaPozo;
     private Controlador controlador;
     private final DefaultListModel<ImageIcon> listaModeloAbajo;
     private final JLabel lblFichasAtrilNorth;
+    private final JLabel lblFichasAtrilWest;
+    private final JLabel lblFichasAtrilEast;
     private JLabel lblMazoSize;
+    private boolean fichaRecogida = false;
+    private boolean tomarMuerto = false;
 
-    public VistaGrafica(int x, int y) {
+    public VistaGrafica(int x, int y, int width, int height) {
         // Ajustes del JFrame
         frame = new JFrame("Burako Grafico");
         frame.setContentPane(pnlMain);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(500, 500));
+
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setMinimumSize(new Dimension(width, height));
         frame.setPreferredSize(new Dimension(600, 600));
         frame.setLocation(x, y);
         // Ajusta el color de las áreas de juego con transparencia
@@ -95,6 +111,8 @@ public class VistaGrafica implements IVista, Serializable {
         areaPozo = new JPanel();
         // Crea JLabel que índica la cantidad que fichas que posee el atril el jugador en la zona norte
         lblFichasAtrilNorth = new JLabel();
+        lblFichasAtrilWest = new JLabel();
+        lblFichasAtrilEast = new JLabel();
         // Crea JLabel que índica la cantidad que fichas que posee el mazo
         lblMazoSize = new JLabel();
         // Crea el listModel necesario para mostrar las fichas del atril
@@ -103,8 +121,13 @@ public class VistaGrafica implements IVista, Serializable {
         lstSouth.setBackground(new Color(0, 0, 0, 0)); // Setea el color en transparente
         lstSouth.setVisibleRowCount(1);
 
-        // Cambiar el color del divisor horizontal (índice 0) a rojo
-
+        // Agregar un WindowListener para ejecutar un método al cerrar
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                controlador.cerrarApp(); // Llama al método que deseas ejecutar
+            }
+        });
 
         mniPanelTexto.addActionListener(new ActionListener() {
             /**
@@ -181,7 +204,8 @@ public class VistaGrafica implements IVista, Serializable {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Revisar metodo para que retorne void
+                // TODO Revisar metodo para que retorne void.
+                controlador.finalizarPartida();
                 controlador.abandonarPartida();
             }
         });
@@ -195,6 +219,43 @@ public class VistaGrafica implements IVista, Serializable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.cerrarApp();
+                frame.dispose();
+            }
+        });
+
+        mniGuardar.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controlador.guardarPartida();
+            }
+        });
+
+        mniReglas.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ReglasJuego reglasJuego = new ReglasJuego(pnlMenu);
+            }
+        });
+
+        mniAcercaDe.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO colocar Acerca De si hay tiempo
             }
         });
 
@@ -216,7 +277,7 @@ public class VistaGrafica implements IVista, Serializable {
             }
         });
 
-        btnIniciarPartida.addActionListener(new ActionListener() {
+        btnIniciarPartidaDos.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
              *
@@ -224,9 +285,30 @@ public class VistaGrafica implements IVista, Serializable {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                controlador.iniciarPartida();
+                if (controlador.getCantidadJugadores() >= 2) {
+                    controlador.iniciarPartida();
+                } else {
+                    mostrarPopUp("La partida no puede comenzar, ya que faltan jugadores en la partida", ColorRGB.RED, pnlCardMenuPrincipal);
+                }
             }
         });
+
+        btnIniciarPartidaCuatro.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (controlador.getCantidadJugadores() >= 4) {
+                    controlador.iniciarPartida();
+                } else {
+                    mostrarPopUp("La partida no puede comenzar, ya que faltan jugadores en la partida", ColorRGB.RED, pnlCardMenuPrincipal);
+                }
+            }
+        });
+
         btnAceptarJugador.addActionListener(new ActionListener() {
             /**
              * Invoked when an action occurs.
@@ -236,7 +318,7 @@ public class VistaGrafica implements IVista, Serializable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!txtNombreJugador.getText().isEmpty()) {
-                    controlador.nuevoJugador(txtNombreJugador.getText());
+                    controlador.nuevoJugador(txtNombreJugador.getText().toUpperCase());
                     colocarTituloFondo(pnlCardMenuPrincipal);
                     ajustarTamanioTitulo();
                     cambiarVista(pnlCardMenuPrincipal);
@@ -253,19 +335,23 @@ public class VistaGrafica implements IVista, Serializable {
              * @param e
              */
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                int[] fichasSeleccionadas = lstSouth.getSelectedIndices();
-                // TODO Cambiar que el metodo reciba un Array de int
-                String[] stringFichas = new String[fichasSeleccionadas.length];
-                if (fichasSeleccionadas.length > 0) {
-                    for (int i = 0; i < fichasSeleccionadas.length; i++) {
-                        stringFichas[i] = String.valueOf(fichasSeleccionadas[i] + 1);
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if (controlador.isJugadorTurno()) {
+                    int[] fichasSeleccionadas = lstSouth.getSelectedIndices();
+                    // TODO Cambiar que el metodo reciba un Array de int
+                    String[] stringFichas = new String[fichasSeleccionadas.length];
+                    if (fichasSeleccionadas.length > 0) {
+                        for (int i = 0; i < fichasSeleccionadas.length; i++) {
+                            stringFichas[i] = String.valueOf(fichasSeleccionadas[i] + 1);
+                        }
                     }
+                    controlador.agregarNuevaJugada(stringFichas);
+                    mostrarJuegosMesa(controlador.mostrarJuegosEnMesa());
+                    mostrarAtril(controlador.mostrarAtril());
+                } else {
+                    mostrarPopUp("Aguarde su turno", ColorRGB.RED, pnlCardPartida);
                 }
-                controlador.agregarNuevaJugada(stringFichas);
-                mostrarJuegosMesa(controlador.mostrarJuegosEnMesa());
-                mostrarAtril(controlador.mostrarAtril());
             }
         });
 
@@ -278,6 +364,7 @@ public class VistaGrafica implements IVista, Serializable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controlador.cerrarApp();
+                frame.dispose();
             }
         });
 
@@ -288,8 +375,8 @@ public class VistaGrafica implements IVista, Serializable {
              * @param e
              */
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
                 eventoFichaPozo();
             }
         });
@@ -301,17 +388,109 @@ public class VistaGrafica implements IVista, Serializable {
              * @param e
              */
             @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
                 eventoFichaPozo();
             }
         });
+
+        btnMejoresJugadores.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lblDescripcionMenu.setForeground(ColorRGB.BLUE);
+                lblDescripcionMenu.setText("Top 5 Mejores Jugadores");
+                txtTopJugadores.setText("");
+                ColorRGB.appendColor(txtTopJugadores, controlador.deserializar(), ColorRGB.ORANGE);
+                colocarTituloFondo(pnlCardTopJugadores);
+                ajustarTamanioTitulo();
+                cambiarVista(pnlCardTopJugadores);
+            }
+        });
+
+        btnMostarJugadores.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                lblDescripcionMenu.setForeground(ColorRGB.BLUE);
+                lblDescripcionMenu.setText("Jugadores Conectados");
+                txtTopJugadores.setText("");
+                ColorRGB.appendColor(txtTopJugadores, controlador.mostrarJugadores(), ColorRGB.GREEN);
+                colocarTituloFondo(pnlCardTopJugadores);
+                ajustarTamanioTitulo();
+                cambiarVista(pnlCardTopJugadores);
+            }
+        });
+
+        btnCargarPartida.addActionListener(new ActionListener() {
+            /**
+             * Invoked when an action occurs.
+             *
+             * @param e the event to be processed
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!controlador.cargarPartida()) {
+                    mostrarTexto("No hay partida guardada para cargar.", true);
+                }
+            }
+        });
+
+        pnlTopJugadores.addMouseListener(new MouseAdapter() {
+            /**
+             * {@inheritDoc}
+             *
+             * @param e
+             */
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                mostrarMenuPrincipal();
+            }
+        });
+
     }
 
     private void eventoFichaPozo() {
         if (controlador.isJugadorTurno()) {
             agregarFichaPozo();
             mostrarAtril(controlador.mostrarAtril());
+        } else {
+            mostrarPopUp("Aguarde su turno", ColorRGB.RED, pnlCardPartida);
+        }
+    }
+
+    private void eventoTomarPozo() {
+        if (controlador.isJugadorTurno()) {
+            if (!fichaRecogida) {
+                fichaRecogida = true;
+                tomarFichaPozo();
+                mostrarAtril(controlador.mostrarAtril());
+            } else {
+                mostrarPopUp("No puedes volver a tomar el pozo o tomar una ficha del mazo durante este turno", ColorRGB.RED, pnlCardPartida);
+            }
+        } else {
+            mostrarPopUp("Aguarde su turno", ColorRGB.RED, pnlCardPartida);
+        }
+    }
+
+    private void eventoTomarFichaMazo() {
+        if (controlador.isJugadorTurno()) {
+            if (!fichaRecogida) {
+                fichaRecogida = true;
+                tomarFichaMazo();
+                mostrarAtril(controlador.mostrarAtril());
+            } else {
+                mostrarPopUp("No puedes volver a tomar una ficha del mazo o tomar el pozo durante este turno", ColorRGB.RED, pnlCardPartida);
+            }
         } else {
             mostrarPopUp("Aguarde su turno", ColorRGB.RED, pnlCardPartida);
         }
@@ -434,6 +613,7 @@ public class VistaGrafica implements IVista, Serializable {
     public void nuevoJugador() {
         colocarTituloFondo(pnlCardJugador);
         cambiarVista(pnlCardJugador);
+        controlador.deserializar();
         frame.setVisible(true);
     }
 
@@ -479,19 +659,22 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void iniciarPartida(ArrayList<IFicha> atril, ArrayList<IFicha> pozo) {
-        pnlEast.setVisible(false);
-        pnlWest.setVisible(false);
-        // Controla que solo quien tenga el turno pueda ejecutar los eventos
-       /* if (controlador.isJugadorTurno()) {
-            enableComponents(true);
+        if (controlador.getCantidadJugadores() >= 4) {
+            pnlEast.setVisible(true);
+            pnlWest.setVisible(true);
+            lblJugadorEast.setText(controlador.getOponente(1).toUpperCase());
+            lblJugadorWest.setText(controlador.getOponente(2).toUpperCase());
         } else {
-            disableComponents();
-        }*/
+            pnlEast.setVisible(false);
+            pnlWest.setVisible(false);
+        }
         // Setea los colores de los paneles con transparencia
         pnlJugadasOponente.setBackground(new Color(33, 37, 43, 150));
         pnlJugadas.setBackground(new Color(33, 37, 43, 150));
         pnlSouth.setBackground(new Color(33, 37, 43, 240));
         pnlJugadorNorth.setBackground(new Color(33, 37, 43, 240));
+        pnlJugadorWest.setBackground(new Color(33, 37, 43, 240));
+        pnlJugadorEast.setBackground(new Color(33, 37, 43, 240));
         // Coloca la textura de fondo
         pnlFelt = new JPanelFondo("/ar/edu/unlu/poo/burako/texture/greenFeltTexture.png");
         pnlFelt.setOpaque(false); // Hace que sea visible los componentes sobre él
@@ -508,19 +691,28 @@ public class VistaGrafica implements IVista, Serializable {
         lblSouth.setForeground(ColorRGB.CYAN);
         lblSouth.setText(" " + controlador.getJugador().toUpperCase() + " ");
         lblJugadorNorth.setForeground(ColorRGB.RED);
-        lblJugadorNorth.setText(controlador.getOponente().toUpperCase());
+        lblJugadorNorth.setText(controlador.getOponente(0).toUpperCase());
+        // TODO Implementar cambio de ubicacion de jugadores, arriba el compañero
+        // TODO para 4 jugadores
+        lblJugadorEast.setForeground(ColorRGB.CYAN);
+
+        lblJugadorWest.setForeground(ColorRGB.RED);
+
         mostrarAtril(atril); // Muestra las fichas del atril
         // Ajusta los paneles de Pila de Muertos, Mazo y Pozo
         setLypPilaMuertos();
         setLypMazo();
         setLypPozo();
         // Ajusta el panel del oponente
-        setLypJugadorNorth();
+        setLypJugador(lypJugadorNorth, lblFichasAtrilNorth, 1);
+        setLypJugador(lypJugadorWest, lblFichasAtrilWest, 1);
+        setLypJugador(lypJugadorEast, lblFichasAtrilEast, 1);
         mostrarTurno(controlador.nombreJugadorTurno());
+        fichaRecogida = false;
     }
 
-    private void setLypJugadorNorth() {
-        lypJugadorNorth.setLayout(null);
+    private void setLypJugador(JLayeredPane lypJugador, JLabel lblFichasAtril, int desplazamiento) {
+        lypJugador.setLayout(null);
         RecortarMosaico cut = new RecortarMosaico();
 
         ImageIcon imagen = cut.getImagenRecortadaIcon(4, 1, 45, 60, 0);
@@ -531,11 +723,13 @@ public class VistaGrafica implements IVista, Serializable {
         JLabel lblImgV2 = new JLabel(imagen);
         lblImgV2.setBounds(8, 2, 60, 60);
 
-        lypJugadorNorth.add(lblImgV1, Integer.valueOf(0));
-        lypJugadorNorth.add(lblImgV2, Integer.valueOf(1));
+        lypJugador.add(lblImgV1, Integer.valueOf(0));
+        lypJugador.add(lblImgV2, Integer.valueOf(1));
 
-        lblFichasAtrilNorth.setText(String.valueOf(controlador.cantidadFichasAtril()));
-        setLabelCantidadFichas(lypJugadorNorth, lblFichasAtrilNorth);
+        lblFichasAtril.setText(String.valueOf(controlador.getCantidadFichasAtril(desplazamiento)));
+        lblFichasAtril.revalidate();
+        lblFichasAtril.repaint();
+        setLabelCantidadFichas(lypJugador, lblFichasAtril);
     }
 
     private void setLypPilaMuertos() {
@@ -588,6 +782,14 @@ public class VistaGrafica implements IVista, Serializable {
         lypMazo.add(lblImgV2, Integer.valueOf(1));
         lypMazo.add(lblImgV3, Integer.valueOf(2));
 
+        lblImgV3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                eventoTomarFichaMazo();
+            }
+        });
+
+        //TODO No redibujar las fichas de mazo de forma innecesaria
         lblMazoSize.setText(String.valueOf(controlador.cantidadFichasMazo()));
         setLabelCantidadFichas(lypMazo, lblMazoSize);
     }
@@ -596,7 +798,10 @@ public class VistaGrafica implements IVista, Serializable {
         labelCantidadFichas.setForeground(ColorRGB.YELLOW);
         Font font = labelCantidadFichas.getFont();
         labelCantidadFichas.setFont(new Font(font.getName(), font.getStyle(), 15)); // Tamaño de fuente deseado
+        String temp = labelCantidadFichas.getText();
+        labelCantidadFichas.setText("99");
         Dimension size = labelCantidadFichas.getPreferredSize(); // Obtener el tamaño preferido del JLabel lblPozoSize
+        labelCantidadFichas.setText(temp);
         labelCantidadFichas.setBounds(0, 41, size.width, size.height);
         contenedor.add(labelCantidadFichas, Integer.valueOf(3));
         contenedor.setPreferredSize(new Dimension(60, 60));
@@ -610,6 +815,7 @@ public class VistaGrafica implements IVista, Serializable {
         areaPozo.setOpaque(true);
         areaPozo.setBackground(new Color(33, 37, 43, 150));
         areaPozo.setBounds(0, 0, 43, 60);
+        lypPozo.remove(areaPozo);
         lypPozo.add(areaPozo, Integer.valueOf(0));
 
         areaPozo.revalidate();
@@ -631,53 +837,64 @@ public class VistaGrafica implements IVista, Serializable {
     }
 
     private void mostrarJuegosFichas(ArrayList<ArrayList<IFicha>> juegosMesa, JPanel panel) {
-        if (juegosMesa == null || juegosMesa.isEmpty()) {
+       /* if (juegosMesa == null || juegosMesa.isEmpty()) {
             mostrarTexto("No hay juegos en mesa\n", true);
-        } else {
-            panel.removeAll();
-            int cantidadFichas;
-            for (ArrayList<IFicha> juego : juegosMesa) {
-                JLayeredPane lypJuegoMesa = new JLayeredPane();
-                lypJuegoMesa.addMouseListener(new MouseAdapter() {
+        } else {*/
+        panel.removeAll();
+        int cantidadFichas;
+        for (ArrayList<IFicha> juego : juegosMesa) {
+            JLayeredPane lypJuegoMesa = new JLayeredPane();
+            panel.add(lypJuegoMesa);
+            cantidadFichas = juego.size();
+            int prioridad = 0;
+            RecortarMosaico cut = new RecortarMosaico();
+            int x = 0;
+            int y = 0;
+            for (IFicha ficha : juego) {
+                JLabel lblImg = new JLabel(fichaRecortada(ficha, cut));
+                lblImg.setName(ficha.getNumeroJugada().toString());
+                lblImg.setBounds(x, y, 45, 60);
+                x += 30;
+                lypJuegoMesa.add(lblImg, Integer.valueOf(prioridad));
+                // Agregar el MouseListener a cada componente interno (en este caso, a cada JLabel)
+                lblImg.addMouseListener(new MouseAdapter() {
                     @Override
-                    public void mouseClicked(MouseEvent e) {
-                        super.mouseClicked(e);
-                        // TODO Agregar aca para agregar ficha a jugada
+                    public void mousePressed(MouseEvent e) {
+                        super.mousePressed(e);
+                        if (controlador.isJugadorTurno()) {
+                            int[] fichasSeleccionadas = lstSouth.getSelectedIndices();
+                            String[] stringFichas = new String[fichasSeleccionadas.length];
+                            if (fichasSeleccionadas.length > 0) {
+                                for (int i = 0; i < fichasSeleccionadas.length; i++) {
+                                    stringFichas[i] = String.valueOf(fichasSeleccionadas[i] + 1);
+                                }
+                            }
+                            Integer ubicacion = Integer.valueOf(lblImg.getName());
+                            if (!controlador.agregarFichaJugadaExistente(ubicacion, stringFichas)) {
+                                mostrarPopUp("No se puede agregar la ficha a la jugada en mesa", ColorRGB.RED, pnlCardPartida);
+                            }
+                            verificarAtril(); // Toma el muerto si el atril esta vacio
+                            mostrarJuegosMesa(controlador.mostrarJuegosEnMesa());
+                            mostrarAtril(controlador.mostrarAtril());
+                        } else {
+                            mostrarPopUp("Aguarde su turno", ColorRGB.RED, pnlCardPartida);
+                        }
                     }
                 });
-                panel.add(lypJuegoMesa);
-                cantidadFichas = juego.size();
-                int prioridad = 0;
-                RecortarMosaico cut = new RecortarMosaico();
-                int x = 0;
-                int y = 0;
-                for (IFicha ficha : juego) {
-                    JLabel lblImg = new JLabel(fichaRecortada(ficha, cut));
-                    lblImg.setBounds(x, y, 45, 60);
-                    x += 30;
-                    lypJuegoMesa.add(lblImg, Integer.valueOf(prioridad));
-                    // Agregar el MouseListener a cada componente interno (en este caso, a cada JLabel)
-                    lblImg.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            // Coloca aquí la acción que deseas que se ejecute cuando se haga clic en cada componente interno
-                            JOptionPane.showMessageDialog(null, "Se hizo clic en un componente interno");
-                        }
-                    });
-                    prioridad++;
-                }
-                int ancho = 43 + (30 * (cantidadFichas - 1));
-                lypJuegoMesa.setPreferredSize(new Dimension(ancho, 60));
-                lypJuegoMesa.setOpaque(false);
-                lypJuegoMesa.revalidate();
-                lypJuegoMesa.repaint();
-                panel.revalidate();
-                panel.repaint();
-                pnlCenter.revalidate();
-                pnlCenter.repaint();
+                prioridad++;
             }
+            int ancho = 43 + (30 * (cantidadFichas - 1));
+            lypJuegoMesa.setPreferredSize(new Dimension(ancho, 60));
+            lypJuegoMesa.setOpaque(false);
+            lypJuegoMesa.revalidate();
+            lypJuegoMesa.repaint();
+            panel.revalidate();
+            panel.repaint();
+            pnlCenter.revalidate();
+            pnlCenter.repaint();
         }
     }
+    // }
 
     private ImageIcon fichaRecortada(IFicha ficha, RecortarMosaico cut) {
         int color;
@@ -710,19 +927,83 @@ public class VistaGrafica implements IVista, Serializable {
             lblImg.setBounds(x, y, 45, 60);
             x += 30;
             lypPozo.add(lblImg, Integer.valueOf(prioridad));
-            // Agregar el MouseListener a cada componente interno (en este caso, a cada JLabel)
-            lblImg.addMouseListener(new MouseAdapter() {
+            // Agregar el MouseListener a cada Ficha (lblImg)
+
+            /* lblImg.addMouseListener(new MouseAdapter() {
                 @Override
-                public void mouseClicked(MouseEvent e) {
-                    // Coloca aquí la acción que deseas que se ejecute cuando se haga clic en cada componente interno
-                    eventoFichaPozo();
+                public void mousePressed(MouseEvent e) {
+                    lblImg.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
+                    pnlCardPartida.add(lblImg);
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    lblImg.setCursor(Cursor.getDefaultCursor());
+                    // Verificar si el JLabel está dentro del JPanel
+                    Point lblLocation = lblImg.getLocationOnScreen();
+                    Point panelLocation = pnlSouth.getLocationOnScreen();
+                    Rectangle panelBounds = new Rectangle(panelLocation, pnlSouth.getSize());
+                    if (panelBounds.contains(lblLocation)) {
+                        pnlCardPartida.remove(lblImg);
+                        eventoTomarPozo();
+                    }
+                }
+            });
+
+            lblImg.addMouseMotionListener(new MouseAdapter() {
+                @Override
+                public void mouseDragged(MouseEvent e) {
+                    // Mover el JLabel mientras se arrastra
+                    Point point = SwingUtilities.convertPoint(lblImg, e.getPoint(), frame.getContentPane());
+                    lblImg.setLocation(point.x - lblImg.getWidth() / 2, point.y - lblImg.getHeight() / 2);
+                }
+            }); */
+
+            lblImg.addMouseListener(new MouseAdapter() {
+                private Timer longPressTimer;
+                private boolean longPressDetected = false;
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    super.mousePressed(e);
+                    int LONG_PRESS_TIME = 1000; // 1 segundo de pulsación prolongada
+
+                    // Reinicia el estado de la pulsación prolongada
+                    longPressDetected = false;
+
+                    // Inicia el temporizador cuando se presiona el botón
+                    longPressTimer = new Timer(LONG_PRESS_TIME, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            // Si el temporizador llega a 1 segundo, se considera una pulsación prolongada
+                            longPressDetected = true;
+                            eventoTomarPozo();
+                        }
+                    });
+                    longPressTimer.setRepeats(false); // Solo una vez, no repetido
+                    longPressTimer.start();
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    // Detener el temporizador si el ratón es liberado antes de que se complete la pulsación prolongada
+                    if (longPressTimer != null && longPressTimer.isRunning()) {
+                        longPressTimer.stop();
+                    }
+                    if (!longPressDetected) { // Si no fue una pulsación prolongada, realiza la acción de clic normal
+                        eventoFichaPozo();
+                    }
                 }
             });
             prioridad++;
         }
-        int ancho = 43 + (30 * (cantidadFichas - 1));
-        lypPozo.setPreferredSize(new Dimension(ancho, 60));
 
+        if (cantidadFichas > 1) {
+            int ancho = 43 + (30 * (cantidadFichas - 1));
+            lypPozo.setPreferredSize(new Dimension(ancho, 60));
+        } else {
+            lypPozo.setPreferredSize(new Dimension(43, 60));
+        }
         lypPozo.revalidate();
         lypPozo.repaint();
         pnlJugadas.revalidate();
@@ -738,28 +1019,34 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void mostrarAtril(ArrayList<IFicha> atril) {
-        RecortarMosaico cut = new RecortarMosaico();
-        listaModeloAbajo.removeAllElements();
-        for (IFicha ficha : atril) {
-            int color;
-            int numero;
-            if (ficha instanceof FichaComodin) {
-                color = 4;
-                numero = ficha.getNumeroFicha();
-            } else {
-                color = ficha.getColor().ordinal();
-                numero = ficha.getNumeroFicha() - 1;
+        SwingUtilities.invokeLater(() -> {
+            RecortarMosaico cut = new RecortarMosaico();
+            if (listaModeloAbajo != null) {
+                listaModeloAbajo.removeAllElements();
             }
-            ImageIcon imagen = cut.getImagenRecortadaIcon(color, numero, 60, 80, 0);
-            listaModeloAbajo.addElement(imagen);
-        }
-        scpSouth.setPreferredSize(new Dimension(lstSouth.getPreferredSize().width, lstSouth.getPreferredSize().height + 18));
-        scpSouth.revalidate();
-        scpSouth.repaint();
-        scpSouth.getViewport().revalidate();
-        scpSouth.getViewport().repaint();
-        frame.revalidate();
-        frame.repaint();
+            for (IFicha ficha : atril) {
+                int color;
+                int numero;
+                if (ficha instanceof FichaComodin) {
+                    color = 4;
+                    numero = ficha.getNumeroFicha();
+                } else {
+                    color = ficha.getColor().ordinal();
+                    numero = ficha.getNumeroFicha() - 1;
+                }
+                ImageIcon imagen = cut.getImagenRecortadaIcon(color, numero, 60, 80, 0);
+                listaModeloAbajo.addElement(imagen);
+            }
+            scpSouth.setPreferredSize(new Dimension(lstSouth.getPreferredSize().width, lstSouth.getPreferredSize().height + 18));
+            lstSouth.revalidate();
+            lstSouth.repaint();
+            scpSouth.getViewport().revalidate();
+            scpSouth.getViewport().repaint();
+            scpSouth.revalidate();
+            scpSouth.repaint();
+            frame.revalidate();
+            frame.repaint();
+        });
     }
 
     /**
@@ -776,7 +1063,7 @@ public class VistaGrafica implements IVista, Serializable {
      */
     @Override
     public void enableComponents(boolean cambioTurno) {
-
+        fichaRecogida = false;
     }
 
     /**
@@ -819,14 +1106,31 @@ public class VistaGrafica implements IVista, Serializable {
         if (opcion == -1) {
             mostrarTexto("No se ha seleccionado ninguna ficha para descartar\n", true);
         } else {
-            controlador.agregarFichaPozo(opcion);
-            if (controlador.atrilVacio() && !controlador.tomoMuerto()) {
-                controlador.tomarMuerto();
-                mostrarTexto(" Atril Vacío. Se ha tomado el muerto.\n", false);
+            if (fichaRecogida) {
+                controlador.agregarFichaPozo(opcion);
+                verificarAtril(); // Toma el muerto si el atril esta vacio
+                if (controlador.isCanasta() && controlador.isMuertoTomado() && controlador.atrilVacio()) {
+                    controlador.finalizarPartida();
+                    mostrarPopUp(controlador.getPuntos(), ColorRGB.RED, pnlCardPartida);
+                    // TODO partida terminada REVISAR
+                }
+            } else {
+                mostrarPopUp("Debes recoger una ficha del mazo o tomar el pozo antes de descartar una ficha en el pozo", ColorRGB.RED, pnlCardPartida);
             }
-            if (controlador.isCanasta() && controlador.tomoMuerto() && controlador.atrilVacio()) {
-                // TODO partida terminada
-            }
+        }
+    }
+
+    private void tomarFichaPozo() {
+        if (!controlador.isPozoVacio()) {
+            controlador.recogerPozo();
+        } else {
+            mostrarTexto(" ERROR: El pozo esta vacio.", true);
+        }
+    }
+
+    private void tomarFichaMazo() {
+        if (controlador.isJugadorTurno()) {
+            controlador.tomarFichaMazo();
         }
     }
 
@@ -842,10 +1146,23 @@ public class VistaGrafica implements IVista, Serializable {
         layeredPane.repaint();
     }
 
-    public void mostrarCantidadFichasAtril(int cantidadFichas) {
-        lblFichasAtrilNorth.setText(String.valueOf(cantidadFichas));
+    // TODO acomodar
+    public void mostrarCantidadFichasAtril() {
+        lblFichasAtrilNorth.setText(String.valueOf(controlador.getCantidadFichasAtril(1)));
+        lblFichasAtrilNorth.revalidate();
+        lblFichasAtrilNorth.repaint();
         pnlJugadorNorth.revalidate();
         pnlJugadorNorth.repaint();
+        if (pnlEast.isVisible()) {
+            lblFichasAtrilEast.setText(String.valueOf(controlador.getCantidadFichasAtril(2)));
+            pnlJugadorEast.revalidate();
+            pnlJugadorEast.repaint();
+        }
+        if (pnlWest.isVisible()) {
+            lblFichasAtrilWest.setText(String.valueOf(controlador.getCantidadFichasAtril(3)));
+            pnlJugadorWest.revalidate();
+            pnlJugadorWest.repaint();
+        }
     }
 
     /**
@@ -856,6 +1173,34 @@ public class VistaGrafica implements IVista, Serializable {
         lblMazoSize.setText(String.valueOf(cantidadFichas));
         lypMazo.revalidate();
         lypMazo.repaint();
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void tomarMuerto() {
+        if (!tomarMuerto) {
+            if (lypPilaMuertos.getComponentCount() >= 2) {
+                lypPilaMuertos.remove(0);
+                lypPilaMuertos.remove(0);
+            }
+            tomarMuerto = true;
+        } else {
+            if (lypPilaMuertos.getComponentCount() != 0) {
+                lypPilaMuertos.remove(0);
+                lypPilaMuertos.remove(0);
+            }
+        }
+        lypPilaMuertos.revalidate();
+        lypPilaMuertos.repaint();
+    }
+
+    public void verificarAtril() {
+        if (controlador.atrilVacio() && !controlador.isMuertoTomado()) {
+            controlador.tomarMuerto();
+            mostrarTexto(" Atril Vacío. Se ha tomado el muerto.\n", false);
+        }
     }
 
 }
