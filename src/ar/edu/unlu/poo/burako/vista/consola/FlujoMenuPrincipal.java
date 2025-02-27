@@ -74,7 +74,12 @@ public class FlujoMenuPrincipal extends Flujo {
     private void mostrarTop() {
         vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
         vista.appendColor(" Mejores Jugadores:\n", ColorRGB.CYAN);
-        vista.appendColor(controlador.deserializar(), ColorRGB.ORANGE);
+        String topJugadores = controlador.deserializar();
+        if (!topJugadores.isEmpty()) {
+            vista.appendColor(topJugadores, ColorRGB.ORANGE);
+        } else {
+            vista.appendColor(" El top de jugadores se encuentra vacio.", ColorRGB.RED);
+        }
     }
 
     @Override

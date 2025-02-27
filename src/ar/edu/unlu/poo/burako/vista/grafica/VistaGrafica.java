@@ -405,7 +405,12 @@ public class VistaGrafica implements IVista, Serializable {
                 lblDescripcionMenu.setForeground(ColorRGB.BLUE);
                 lblDescripcionMenu.setText("Top 5 Mejores Jugadores");
                 txtTopJugadores.setText("");
-                ColorRGB.appendColor(txtTopJugadores, controlador.deserializar(), ColorRGB.ORANGE);
+                String topJugadores = controlador.deserializar();
+                if (!topJugadores.isEmpty()) {
+                    ColorRGB.appendColor(txtTopJugadores, topJugadores, ColorRGB.ORANGE);
+                } else {
+                    ColorRGB.appendColor(txtTopJugadores, " El top de jugadores se encuentra vacio.", ColorRGB.RED);
+                }
                 colocarTituloFondo(pnlCardTopJugadores);
                 ajustarTamanioTitulo();
                 cambiarVista(pnlCardTopJugadores);
@@ -439,7 +444,7 @@ public class VistaGrafica implements IVista, Serializable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!controlador.cargarPartida()) {
-                    mostrarTexto("No hay partida guardada para cargar.", true);
+                    mostrarTexto("No hay partida guardada para cargar o jugadores suficientes conectados.", true);
                 }
             }
         });
