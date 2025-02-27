@@ -1,8 +1,9 @@
 package ar.edu.unlu.poo.burako.modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Pozo {
+public class Pozo implements Serializable {
 
     private ArrayList<Ficha> pozo;
 
@@ -53,4 +54,5 @@ public class Pozo {
     public boolean isEmpty() {
         return pozo.isEmpty();
     }
+
 }

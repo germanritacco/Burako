@@ -12,7 +12,7 @@ public class Jugador implements IJugador {
     private static int ID = 0;
     private int id;
 
-    private int companieroId;
+    private Integer companieroId;
 
     private boolean tomoMuerto;
 
@@ -63,6 +63,7 @@ public class Jugador implements IJugador {
         this.turno = false;
         this.id = Jugador.ID++;
         this.tomoMuerto = false;
+        this.companieroId = -1;
     }
 
     /**
@@ -93,6 +94,10 @@ public class Jugador implements IJugador {
         return puntos;
     }
 
+    /**
+     *  Guarda el puntaje.
+     * @param puntos Puntos obtenidos.
+     */
     @Override
     public void setPuntos(int puntos) {
         this.puntos = puntos;
@@ -139,21 +144,39 @@ public class Jugador implements IJugador {
         return this.atril.remove(posicion);
     }
 
+    /**
+     * Verifica si el atril esta vacio.
+     *
+     * @return <li>TRUE: Si el atril se encuentra vacío.</li><li>FALSE: Si hay fichas en el atril.</li>
+     */
     @Override
     public boolean atrilIsEmpty() {
         return this.atril.isEmpty();
     }
 
+    /**
+     * Verífica si el muerto fue tomado.
+     *
+     * @return <li>TRUE: Si el muerto fue tomado.</li><li>FALSE: Si el muerto no fue tomado.</li>
+     */
     @Override
     public boolean isTomoMuerto() {
         return tomoMuerto;
     }
 
+    /**
+     * Cambia el estado de 'tomoMuerto'.
+     *
+     * @param tomoMuerto
+     */
     @Override
     public void setTomoMuerto(boolean tomoMuerto) {
         this.tomoMuerto = tomoMuerto;
     }
 
+    /**
+     * Sumatoria del valor de todas las fichas del atril.
+     */
     @Override
     public void calcularPuntosAtril() {
         int suma = 0;
@@ -163,11 +186,21 @@ public class Jugador implements IJugador {
         this.puntos = suma;
     }
 
+    /**
+     * Retorna el número de ID del compañero.
+     *
+     * @return N° de ID del compañero.
+     */
     @Override
-    public int getCompanieroId() {
+    public Integer getCompanieroId() {
         return companieroId;
     }
 
+    /**
+     * Asigna el ID de número de compañero.
+     *
+     * @param companieroId N° de ID del compañero.
+     */
     @Override
     public void setCompanieroId(int companieroId) {
         this.companieroId = companieroId;

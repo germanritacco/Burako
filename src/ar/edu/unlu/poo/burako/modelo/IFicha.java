@@ -30,4 +30,12 @@ public interface IFicha {
     @Override
     public String toString();
 
+    /**
+     * Obtiene el número de jugada en mesa al que pertenece la ficha.
+     *
+     * @return Número de jugada en mesa.
+     */
+    Integer getNumeroJugada();
+
+
 }

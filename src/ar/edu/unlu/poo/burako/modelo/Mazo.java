@@ -1,10 +1,11 @@
 package ar.edu.unlu.poo.burako.modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static java.lang.Math.random;
 
-public class Mazo {
+public class Mazo implements Serializable {
 
     private final PilaEstandar mazo;
     private final ArrayList<PilaDeMuerto> muerto; // 2 pilas de 11 fichas c/u
@@ -116,10 +117,14 @@ public class Mazo {
         ArrayList<Ficha> fichasAtrilAux = new ArrayList<>();
         //TODO BORRAR
         fichasAtrilAux.add(new FichaComodin());
-        for (int j = 1; j <= 11; j++) {
+        fichasAtrilAux.add(new FichaEstandar(ColorFicha.NEGRO, 2));
+        fichasAtrilAux.add(new FichaEstandar(ColorFicha.NEGRO, 2));
+        fichasAtrilAux.add(new FichaEstandar(ColorFicha.NEGRO, 2));
+        fichasAtrilAux.add(new FichaEstandar(ColorFicha.NEGRO, 2));
+        /*for (int j = 1; j <= 11; j++) {
             Ficha fichaAux = fichasSinRepartir.remove((int) (random() * fichasSinRepartir.size()));
             fichasAtrilAux.add(fichaAux);
-        }
+        }*/
         return fichasAtrilAux;
     }
 
@@ -136,6 +141,11 @@ public class Mazo {
         }
     }
 
+    /**
+     * Retorna el tamaño del mazo.
+     *
+     * @return N° de fichas del mazo.
+     */
     public int size() {
         return mazo.size();
     }

@@ -7,6 +7,7 @@ public abstract class Ficha implements IFicha, Serializable {
     protected ColorFicha color;
     protected Integer numeroFicha;
     protected Integer valorFicha;
+    protected Integer numeroJugada;
 
     /**
      * Obtiene el color de la ficha.
@@ -36,6 +37,25 @@ public abstract class Ficha implements IFicha, Serializable {
     @Override
     public Integer getValorFicha() {
         return valorFicha;
+    }
+
+    /**
+     * Obtiene el número de jugada en mesa al que pertenece la ficha.
+     *
+     * @return Número de jugada en mesa.
+     */
+    @Override
+    public Integer getNumeroJugada() {
+        return numeroJugada;
+    }
+
+    /**
+     * Asigna el número de jugada en mesa al que pertenece la ficha.
+     *
+     * @param numeroJugada Número de jugada en mesa.
+     */
+    public void setNumeroJugada(Integer numeroJugada) {
+        this.numeroJugada = numeroJugada;
     }
 
 }

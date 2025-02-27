@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public interface IJugador extends Serializable {
+
     /**
      * Retorna si el jugador posee el turno.
      *
@@ -75,16 +76,43 @@ public interface IJugador extends Serializable {
      */
     Ficha removeFichaAtril(int posicion);
 
+    /**
+     * Verifica si el atril esta vacio.
+     *
+     * @return <li>TRUE: Si el atril se encuentra vacío.</li><li>FALSE: Si hay fichas en el atril.</li>
+     */
     boolean atrilIsEmpty();
 
+    /**
+     * Verífica si el muerto fue tomado.
+     *
+     * @return <li>TRUE: Si el muerto fue tomado.</li><li>FALSE: Si el muerto no fue tomado.</li>
+     */
     boolean isTomoMuerto();
 
-
+    /**
+     * Cambia el estado de 'tomoMuerto'.
+     *
+     * @param tomoMuerto
+     */
     void setTomoMuerto(boolean tomoMuerto);
 
+    /**
+     * Sumatoria del valor de todas las fichas del atril.
+     */
     void calcularPuntosAtril();
 
-    int getCompanieroId();
+    /**
+     * Retorna el número de ID del compañero.
+     *
+     * @return N° de ID del compañero.
+     */
+    Integer getCompanieroId();
 
+    /**
+     * Asigna el ID de número de compañero.
+     *
+     * @param companieroId N° de ID del compañero.
+     */
     void setCompanieroId(int companieroId);
 }

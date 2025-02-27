@@ -1,9 +1,9 @@
 package ar.edu.unlu.poo.burako.modelo;
 
+import ar.edu.unlu.poo.burako.serializacion.Serializador;
 import ar.edu.unlu.rmimvc.observer.IObservadorRemoto;
 import ar.edu.unlu.rmimvc.observer.ObservableRemoto;
 
-import java.io.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,13 +13,15 @@ public class Burako extends ObservableRemoto implements IBurako {
 
     private Mazo mazo;
     private Pozo pozo;
-    private final ArrayList<IJugador> jugadores;
+    private ArrayList<IJugador> jugadores;
+    private Tablero tableroEquipo1;
+    private Tablero tableroEquipo2;
+
     private String mensajeSistema;
     private boolean estadoMensajeSistema;
-    private final Tablero tableroEquipo1;
-    private final Tablero tableroEquipo2;
 
-    private ArrayList<Tablero> topPuntos;
+    private ArrayList<PuntosGuardados> topPuntos;
+    private PartidaGuardada partidaGuardada;
 
     /**
      * Constructor de clase.
@@ -29,7 +31,8 @@ public class Burako extends ObservableRemoto implements IBurako {
         jugadores = new ArrayList<>();
         tableroEquipo1 = new Tablero();
         tableroEquipo2 = new Tablero();
-        deserializarPuntos();
+        topPuntos = new ArrayList<>();
+        //deserializarPuntos();
     }
 
     /**
@@ -43,6 +46,12 @@ public class Burako extends ObservableRemoto implements IBurako {
         return mensajeSistema;
     }
 
+    /**
+     * * Recupera el estado del mensaje guardado en la clase modelo.
+     *
+     * @return <li>TRUE: Si el estado es crítico.</li><li>FALSE: Si el estado no es crítico.</li>
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
     @Override
     public boolean getEstadoMensajeSistema() throws RemoteException {
         return estadoMensajeSistema;
@@ -58,7 +67,14 @@ public class Burako extends ObservableRemoto implements IBurako {
     @Override
     public void cerrar(IObservadorRemoto controlador, int jugadorId) throws RemoteException {
         this.removerObservador(controlador);
-        this.desconectarUsuario(jugadores.get(jugadorId));
+
+        for (IJugador jugador : jugadores) {
+            if (jugador.getId() == jugadorId) {
+                this.desconectarUsuario(jugador);
+                // Retorna el jugador si se encuentra
+                break;
+            }
+        }
     }
 
     /**
@@ -70,6 +86,7 @@ public class Burako extends ObservableRemoto implements IBurako {
     private void desconectarUsuario(IJugador jugador) throws RemoteException {
         this.enviarMensajeDelSistema("El jugador " + jugador.getNombre() + " se ha retirado de la partida", true);
         jugadores.remove(jugador);
+
     }
 
     /**
@@ -87,8 +104,27 @@ public class Burako extends ObservableRemoto implements IBurako {
         return texto.toString();
     }
 
-    public String getJugadorOponente(int jugadorId) throws RemoteException {
-        int indice = (jugadorId + 1) % jugadores.size(); // Recorrido circular del ArrayList
+    /**
+     * Retorna la cantidad de jugadores conectados.
+     *
+     * @return Cantidad de jugadores.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
+    public Integer getCantidadJugadores() throws RemoteException {
+        return jugadores.size();
+    }
+
+    /**
+     * Retorna el nombre del jugador.
+     *
+     * @param jugadorId      N° de ID del jugador.
+     * @param desplazamiento Cantidad de veces que se desplazara hacia la derecha.
+     * @return N° de ID del jugador resultado del desplazamiento.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    public String getJugadorOponente(int jugadorId, int desplazamiento) throws RemoteException {
+        int indice = (jugadorId + 1 + desplazamiento) % jugadores.size(); // Recorrido circular del ArrayList
         return jugadores.get(indice).getNombre();
     }
 
@@ -121,6 +157,12 @@ public class Burako extends ObservableRemoto implements IBurako {
         switch (jugadores.size()) {
             case 1, 3 -> this.tableroEquipo1.agregarJugadores(nuegoJugador);
             case 2, 4 -> this.tableroEquipo2.agregarJugadores(nuegoJugador);
+        }
+        if (jugadores.size() == 4) {
+            for (IJugador jugador : jugadores) {
+                int idCompaniero = (jugador.getId() + 2) % jugadores.size();
+                jugador.setCompanieroId(idCompaniero);
+            }
         }
         this.enviarMensajeDelSistema("El jugador " + nombre + " se ha unido a la partida", false);
         return nuegoJugador;
@@ -164,6 +206,7 @@ public class Burako extends ObservableRemoto implements IBurako {
             jugador.setTomoMuerto(true);
         }
         this.notificarObservadores(Eventos.CANTIDAD_FICHAS_ATRIL);
+        this.notificarObservadores(Eventos.TOMAR_MUERTO);
     }
 
     /**
@@ -208,6 +251,7 @@ public class Burako extends ObservableRemoto implements IBurako {
         IJugador jugador = jugadores.get(jugadorId);
         jugador.addAtril(pozo.recogerPozo());
         this.notificarObservadores(Eventos.CAMBIO_FICHAS_ATRIL);
+        this.notificarObservadores(Eventos.CAMBIO_FICHAS_POZO);
         this.notificarObservadores(Eventos.CANTIDAD_FICHAS_ATRIL);
     }
 
@@ -229,13 +273,14 @@ public class Burako extends ObservableRemoto implements IBurako {
 
     /**
      * Retorna una lista que posee en cada posición, la lista de fichas que forman una jugada en mesa.
+     * Informa al controlador.
      *
      * @param jugadorId N° de ID del jugador.
      * @return Lista de listas de fichas que forma las jugadas.
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
-    public ArrayList<ArrayList<IFicha>> mostrarJuegosEnMesa(int jugadorId) throws RemoteException {
+    public ArrayList<ArrayList<IFicha>> mostrarJuegosEnMesa(int jugadorId, boolean informar) throws RemoteException {
         ArrayList<ArrayList<IFicha>> jugadas = new ArrayList<>();
         switch (jugadorId) {
             case 0, 2 -> {
@@ -248,7 +293,9 @@ public class Burako extends ObservableRemoto implements IBurako {
                 return null;
             }
         }
-        this.notificarObservadores(Eventos.CAMBIO_JUGADAS_OPONENTE);
+        if (informar) {
+            this.notificarObservadores(Eventos.CAMBIO_JUGADAS_OPONENTE);
+        }
         return jugadas;
     }
 
@@ -299,11 +346,18 @@ public class Burako extends ObservableRemoto implements IBurako {
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
-    public Integer cantidadFichasAtril(int jugadorId) throws RemoteException {
-        IJugador jugador = jugadores.get(jugadorId);
+    public Integer cantidadFichasAtril(int jugadorId, int desplazamiento) throws RemoteException {
+        int indice = (jugadorId + desplazamiento) % jugadores.size();
+        IJugador jugador = jugadores.get(indice);
         return jugador.getAtril().size();
     }
 
+    /**
+     * Retorna la cantidad de fichas que posee el Mazo.
+     *
+     * @return Cantidad de fichas del Mazo.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
     @Override
     public Integer cantidadFichasMazo() throws RemoteException {
         return mazo.size();
@@ -360,12 +414,16 @@ public class Burako extends ObservableRemoto implements IBurako {
                 estado = tableroEquipo1.verificarJugadaNueva(jugada);
                 if (estado) {
                     borrarJugadaAtril(jugadorId, seleccion);
+                } else {
+                    enviarMensajeDelSistema("Jugada no valida", true);
                 }
             }
             case 1, 3 -> {
                 estado = tableroEquipo2.verificarJugadaNueva(jugada);
                 if (estado) {
                     borrarJugadaAtril(jugadorId, seleccion);
+                } else {
+                    enviarMensajeDelSistema("Jugada no valida", true);
                 }
             }
         }
@@ -442,6 +500,10 @@ public class Burako extends ObservableRemoto implements IBurako {
                 }
             }
         }
+        if (estado) {
+            calcularPuntosParciales();
+            this.notificarObservadores(Eventos.PUNTAJE);
+        }
         return estado;
     }
 
@@ -475,6 +537,35 @@ public class Burako extends ObservableRemoto implements IBurako {
     public boolean isJugadorActual(int jugadorId) throws RemoteException {
         IJugador jugador = jugadores.get(jugadorId);
         return jugador.isTurno();
+    }
+
+    /**
+     * Retorna el N° de ID del jugador actual.
+     *
+     * @return N° de ID del jugador actual.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    @Override
+    public Integer idJugadorActual() throws RemoteException {
+        Integer idJugador = null;
+        for (IJugador jugador : jugadores) {
+            if (jugador.isTurno()) {
+                idJugador = jugador.getId();
+            }
+        }
+        return idJugador;
+    }
+
+    /**
+     * Retorna el ID del compañero del jugador.
+     *
+     * @param jugadorId N° de ID de jugador.
+     * @return N° ID de jugador compañero.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    public Integer getIdCompaniero(int jugadorId) throws RemoteException {
+        IJugador jugador = jugadores.get(jugadorId);
+        return jugador.getCompanieroId();
     }
 
     /**
@@ -512,9 +603,11 @@ public class Burako extends ObservableRemoto implements IBurako {
     }
 
     /**
-     * @param jugadorId
-     * @return
-     * @throws RemoteException
+     * Retorna si el atril del jugador está vacío.
+     *
+     * @param jugadorId N° de ID del jugador
+     * @return <li>TRUE: Si el atril se encuentra vacío.</li><li>FALSE: Si el atril no se encuentra vacío.</li>
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public boolean atrilVacio(int jugadorId) throws RemoteException {
@@ -523,19 +616,23 @@ public class Burako extends ObservableRemoto implements IBurako {
     }
 
     /**
-     * @param jugadorId
-     * @return
-     * @throws RemoteException
+     * Retorna si la pila de muerto fue tomada.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @return <li>TRUE: Si la pila de muerto fue tomada.</li><li>FALSE: Si la pila de muerto no fue tomada.</li>
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
-    public boolean tomoMuerto(int jugadorId) throws RemoteException {
+    public boolean isMuertoTomado(int jugadorId) throws RemoteException {
         IJugador jugador = jugadores.get(jugadorId);
         return jugador.isTomoMuerto();
     }
 
     /**
-     * @param jugadorId
-     * @throws RemoteException
+     * Retorna si jugador ha realizado una jugada Canasta.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public Boolean isCanasta(int jugadorId) throws RemoteException {
@@ -554,7 +651,10 @@ public class Burako extends ObservableRemoto implements IBurako {
     }
 
     /**
-     * @throws RemoteException
+     * Calcula los puntos totales de los jugadores/parejas.
+     *
+     * @param jugadorCierre N° de ID del jugador que ha cerrado la partida.
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public void calcularPuntos(int jugadorCierre) throws RemoteException {
@@ -586,7 +686,10 @@ public class Burako extends ObservableRemoto implements IBurako {
     }
 
     /**
-     * @return
+     * Convierte a texto los puntos de ambos jugadores/parejas.
+     *
+     * @return Texto con el nombre y puntaje total.
+     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     @Override
     public String mostrarPuntos() throws RemoteException {
@@ -597,6 +700,13 @@ public class Burako extends ObservableRemoto implements IBurako {
         return puntos;
     }
 
+    /**
+     * Retorna el puntaje parcial de los juegos formados en mesa de un jugador específico.
+     *
+     * @param jugadorId N° de ID del jugador.
+     * @return Puntaje parcial del jugador.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
     public int mostrarPuntosParciales(int jugadorId) throws RemoteException {
         int puntos = 0;
         switch (jugadorId) {
@@ -610,32 +720,17 @@ public class Burako extends ObservableRemoto implements IBurako {
         return puntos;
     }
 
-    public ArrayList<ArrayList<IFicha>> mostrarJuegosMesa(int jugadorId) throws RemoteException {
-        ArrayList<ArrayList<IFicha>> jugadas = new ArrayList<>();
-        switch (jugadorId) {
-            case 0, 2 -> {
-                jugadas = this.tableroEquipo1.getJugadaEnMesaIFicha();
-            }
-            case 1, 3 -> {
-                jugadas = this.tableroEquipo2.getJugadaEnMesaIFicha();
-            }
-        }
-        return jugadas;
-    }
-
     /**
-     * @return
+     * Calcula los puntos parciales los 2 jugadores/parejas.
      */
-    @Override
-    public int cantidadJugadores() throws RemoteException {
-        return jugadores.size();
-    }
-
     private void calcularPuntosParciales() {
         tableroEquipo1.puntosEnMesaParcial();
         tableroEquipo2.puntosEnMesaParcial();
     }
 
+    /**
+     * Calcula los puntos del Muerto.
+     */
     private void puntosMuerto() {
         switch (jugadores.size()) {
             case 4 -> {
@@ -665,61 +760,112 @@ public class Burako extends ObservableRemoto implements IBurako {
         }
     }
 
-    public void ganador() {
+    /**
+     * Verífica quien fue el jugador/pareja ganador/a en la partida
+     *
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    public void ganador()  {
         Tablero tableroGanador;
         if (tableroEquipo1.getPuntosEquipos() > tableroEquipo2.getPuntosEquipos()) {
             tableroGanador = tableroEquipo1;
         } else {
             tableroGanador = tableroEquipo2;
         }
-        actualizarTopPuntos(tableroGanador);
+        Integer puntos = tableroGanador.getPuntosEquipos();
+        String jugador = tableroGanador.toStringJugadores();
+        PuntosGuardados puntosGanador = new PuntosGuardados(puntos, jugador);
+        actualizarTopPuntos(puntosGanador);
     }
 
-    public void actualizarTopPuntos(Tablero tableroGanador) {
+    /**
+     * Actualiza el top de mejores jugadores.
+     *
+     * @param puntosGanador Nombre y puntaje del ganador de la partida.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    public void actualizarTopPuntos(PuntosGuardados puntosGanador) {
         if (topPuntos.size() < 5) {
-            topPuntos.add(tableroGanador);
+            topPuntos.add(puntosGanador);
         } else {
-            topPuntos.sort(Comparator.comparingInt(Tablero::getPuntosEquipos).reversed());
-            int ultimoTop = topPuntos.get(topPuntos.size() - 1).getPuntosEquipos();
-            if (tableroGanador.getPuntosEquipos() > ultimoTop) {
-                topPuntos.remove(topPuntos.size() - 1);
-                topPuntos.add(tableroGanador);
+            topPuntos.sort(Comparator.comparingInt(PuntosGuardados::getPuntaje).reversed());
+            int ultimoTop = topPuntos.getLast().getPuntaje();
+            if (puntosGanador.getPuntaje() > ultimoTop) {
+                topPuntos.removeLast();
+                topPuntos.add(puntosGanador);
             }
-            topPuntos.sort(Comparator.comparingInt(Tablero::getPuntosEquipos));
         }
+        topPuntos.sort(Comparator.comparingInt(PuntosGuardados::getPuntaje).reversed());
         serializarPuntos();
     }
 
+    /**
+     * Persiste el disco el top de jugadores.
+     *
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
     public void serializarPuntos() {
-        try {
-            FileOutputStream fosPuntos = new FileOutputStream("puntos.bin");
-            var oos = new ObjectOutputStream(fosPuntos);
-            oos.writeObject(topPuntos);
-            oos.close();
-            fosPuntos.close();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        Serializador serializador = new Serializador("puntos.bin");
+        if (!topPuntos.isEmpty()) {
+            serializador.writeOneObject(topPuntos.getFirst());
+            for (int x = 1; x < topPuntos.size(); x++) {
+                serializador.addOneObject(topPuntos.get(x));
+            }
         }
     }
 
-    public void deserializarPuntos() {
-        try {
-            File archivo = new File("puntos.bin");
-            if (archivo.exists()) {
-                FileInputStream fisPuntos = new FileInputStream(archivo);
-                var ois = new ObjectInputStream(fisPuntos);
-                topPuntos = (ArrayList<Tablero>) ois.readObject();
-                ois.close();
-                fisPuntos.close();
+    /**
+     * Carga en memoria el top de jugadores persistido en disco.
+     *
+     * @return String del top de jugadores.
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    public String deserializarPuntos() throws RemoteException {
+        Serializador serializador = new Serializador("puntos.bin");
+        Object[] recuperado = serializador.readObjects();
+        String top = "";
+        if (recuperado != null) {
+            topPuntos.clear();
+            for (int x = 0; x < recuperado.length; x++) {
+                topPuntos.add((PuntosGuardados) recuperado[x]);
+                top += topPuntos.get(x).toString() + "\n\n";
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        }
+        return top;
+    }
+
+    /**
+     * Persiste el disco la partida en curso.
+     *
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    public void serializarPartida() throws RemoteException {
+        partidaGuardada = new PartidaGuardada(mazo, pozo, jugadores, tableroEquipo1, tableroEquipo2);
+        Serializador serializador = new Serializador("partidas.bin");
+        serializador.writeOneObject(partidaGuardada);
+    }
+
+    /**
+     * Carga en memoria la partida persistido en disco.
+     *
+     * @return <li>TRUE: Si se recupero exitosamente en memoria la partida guardada.</li><li>FALSE: Si no se pudo recuperar en memoria la partida guardada.</li>
+     * @throws RemoteException Se lanza si ocurre un error de red.
+     */
+    public boolean deserializarPartida() throws RemoteException {
+        Serializador serializador = new Serializador("partidas.bin");
+        Object[] recuperado = serializador.readObjects();
+        if (recuperado != null) {
+            partidaGuardada = (PartidaGuardada) recuperado[0];
+            this.mazo = partidaGuardada.getMazo();
+            this.pozo = partidaGuardada.getPozo();
+            this.jugadores = partidaGuardada.getJugadores();
+            this.tableroEquipo1 = partidaGuardada.getTableroEquipo1();
+            this.tableroEquipo2 = partidaGuardada.getTableroEquipo2();
+            this.notificarObservadores(Eventos.PARTIDA);
+            this.notificarObservadores(Eventos.PUNTAJE);
+            return true;
+        } else {
+            return false;
         }
     }
 

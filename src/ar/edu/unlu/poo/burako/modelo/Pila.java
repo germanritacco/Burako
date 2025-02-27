@@ -1,8 +1,9 @@
 package ar.edu.unlu.poo.burako.modelo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Pila {
+public abstract class Pila implements Serializable {
 
     protected ArrayList<Ficha> pila;
 
@@ -24,6 +25,11 @@ public abstract class Pila {
         return pila.isEmpty();
     }
 
+    /**
+     * Retorna el tamaño del mazo.
+     *
+     * @return N° de fichas del mazo.
+     */
     public int size() {
         return pila.size();
     }

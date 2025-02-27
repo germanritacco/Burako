@@ -4,13 +4,6 @@ import java.util.ArrayList;
 
 public interface ITablero {
 
-    /**
-     * Retorna una lista de listas de Fichas, que posee los juegos en pesa.
-     *
-     * @return Lista de listas de Fichas.
-     */
-    ArrayList<ArrayList<IFicha>> getJugadaEnMesaIFicha();
-
     ArrayList<ArrayList<Ficha>> getJugadaEnMesa();
 
     /**
@@ -65,10 +58,25 @@ public interface ITablero {
      */
     ArrayList<ArrayList<IFicha>> mostrarJuegosEnMesa();
 
+    /**
+     * Resta puntos al puntaje del jugador/equipo
+     *
+     * @param puntos N° a restar al puntaje.
+     */
     void restarPuntos(int puntos);
 
+    /**
+     * Suma puntos al puntaje del jugador/equipo
+     *
+     * @param puntos N° a sumar al puntaje.
+     */
     void sumarPuntos(int puntos);
 
+    /**
+     * Convierte a texto el nombre y puntaje del tablero.
+     *
+     * @return Nombre y puntaje del tablero.
+     */
     String mostrarPuntajeJugadores();
 
 }
