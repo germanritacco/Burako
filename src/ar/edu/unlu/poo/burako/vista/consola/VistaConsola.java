@@ -384,7 +384,19 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void mostrarJuegosMesaOponente(ArrayList<ArrayList<IFicha>> juegosMesa) {
-
+        appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        if (juegosMesa == null || juegosMesa.isEmpty()) {
+            appendColor(" No hay juegos del oponente en mesa\n", ColorRGB.RED);
+        } else {
+            appendColor(" Juegos del oponente en mesa: \n", ColorRGB.GREEN);
+            int numeroJuego = 1;
+            for (ArrayList<IFicha> juego : juegosMesa) {
+                appendColor("N°" + numeroJuego + ": ", ColorRGB.GREEN);
+                mostrarFichas(juego, " | ");
+                appendColor("\n", ColorRGB.CYAN);
+                numeroJuego++;
+            }
+        }
     }
 
     /**
@@ -392,7 +404,18 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void mostrarCantidadFichasAtril() {
-
+        appendColor("\n ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        appendColor(" Cantidad de fichas en el atril: ", ColorRGB.GREEN);
+        Integer cantidadFichas = controlador.getCantidadFichasAtril(0);
+        appendColor(cantidadFichas.toString() + "\n", ColorRGB.RED);
+        Integer cantidadJugadores = controlador.getCantidadJugadores();
+        for (int i = 1; i < cantidadFichas - 1; i++) {
+            appendColor(" Cantidad de fichas en el atril de ", ColorRGB.GREEN);
+            String oponente = controlador.getOponente(i);
+            appendColor(oponente + ": ", ColorRGB.GREEN);
+            cantidadFichas = controlador.getCantidadFichasAtril(i);
+            appendColor(cantidadFichas.toString() + "\n", ColorRGB.RED);
+        }
     }
 
     /**
@@ -400,7 +423,9 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void mostrarCantidadFichasMazo(int cantidadFichas) {
-
+        appendColor("\n ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        appendColor(" Cantidad de fichas en el mazo: ", ColorRGB.GREEN);
+        appendColor(String.valueOf(cantidadFichas) + "\n", ColorRGB.RED);
     }
 
     /**
@@ -408,7 +433,7 @@ public class VistaConsola implements IVista {
      */
     @Override
     public void tomarMuerto() {
-
+        // No es necesario VistaConsola.
     }
 
 }
