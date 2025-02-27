@@ -765,7 +765,7 @@ public class Burako extends ObservableRemoto implements IBurako {
      *
      * @throws RemoteException Se lanza si ocurre un error de red.
      */
-    public void ganador()  {
+    public void ganador() {
         Tablero tableroGanador;
         if (tableroEquipo1.getPuntosEquipos() > tableroEquipo2.getPuntosEquipos()) {
             tableroGanador = tableroEquipo1;
@@ -856,14 +856,19 @@ public class Burako extends ObservableRemoto implements IBurako {
         Object[] recuperado = serializador.readObjects();
         if (recuperado != null) {
             partidaGuardada = (PartidaGuardada) recuperado[0];
-            this.mazo = partidaGuardada.getMazo();
-            this.pozo = partidaGuardada.getPozo();
-            this.jugadores = partidaGuardada.getJugadores();
-            this.tableroEquipo1 = partidaGuardada.getTableroEquipo1();
-            this.tableroEquipo2 = partidaGuardada.getTableroEquipo2();
-            this.notificarObservadores(Eventos.PARTIDA);
-            this.notificarObservadores(Eventos.PUNTAJE);
-            return true;
+            // Verifica que haya la misma cantidad de jugadores que cuando se guardo la partida
+            if (this.jugadores.size() == partidaGuardada.getJugadores().size()) {
+                this.mazo = partidaGuardada.getMazo();
+                this.pozo = partidaGuardada.getPozo();
+                this.jugadores = partidaGuardada.getJugadores();
+                this.tableroEquipo1 = partidaGuardada.getTableroEquipo1();
+                this.tableroEquipo2 = partidaGuardada.getTableroEquipo2();
+                this.notificarObservadores(Eventos.PARTIDA);
+                this.notificarObservadores(Eventos.PUNTAJE);
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
