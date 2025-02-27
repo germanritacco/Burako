@@ -48,7 +48,7 @@ public class FlujoSeleccionarFichas extends Flujo {
             vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
             if (controlador.agregarNuevaJugada(seleccion)) {
                 vista.appendColor(" Jugada bajada a la mesa correctamente.", ColorRGB.GREEN);
-                if (controlador.atrilVacio() && !controlador.tomoMuerto()) {
+                if (controlador.atrilVacio() && !controlador.isMuertoTomado()) {
                     controlador.tomarMuerto();
                     vista.appendColor(" Atril Vacío. Se ha tomado el muerto.", ColorRGB.GREEN);
                 }

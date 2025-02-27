@@ -20,11 +20,11 @@ public class FlujoPozo extends Flujo {
             int opcion = Integer.parseInt(string);
             if (opcion >= 1 && opcion <= controlador.cantidadFichasAtril()) {
                 controlador.agregarFichaPozo(opcion - 1);
-                if (controlador.atrilVacio() && !controlador.tomoMuerto()) {
+                if (controlador.atrilVacio() && !controlador.isMuertoTomado()) {
                     controlador.tomarMuerto();
                     vista.appendColor(" Atril Vacío. Se ha tomado el muerto.", ColorRGB.GREEN);
                 }
-                if (controlador.isCanasta() && controlador.tomoMuerto() && controlador.atrilVacio()) {
+                if (controlador.isCanasta() && controlador.isMuertoTomado() && controlador.atrilVacio()) {
                     return new FlujoPartidaTerminada(vista, controlador);
                 }
                 return new FlujoEsperarTurno(vista, controlador);

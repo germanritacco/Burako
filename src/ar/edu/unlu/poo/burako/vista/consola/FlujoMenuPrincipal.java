@@ -16,11 +16,53 @@ public class FlujoMenuPrincipal extends Flujo {
         switch (string) {
             case "0" -> controlador.cerrarApp();
             case "1" -> {
-                return iniciarPartida();
+                return iniciarPartidaDos();
             }
-            case "2" -> mostrarJugadores();
+            case "2" -> {
+                return iniciarPartidaCuatro();
+            }
+            case "3" -> cargarPartida();
+
+            case "4" -> mostrarJugadores();
+            case "5" -> mostrarTop();
+
         }
         return this;
+    }
+
+    private Flujo iniciarPartidaDos() {
+        if (controlador.getCantidadJugadores() >= 2) {
+            controlador.iniciarPartida();
+            if (controlador.isJugadorTurno()) {
+                return new FlujoTomarFicha(vista, controlador);
+            } else {
+                return new FlujoVacio(vista, controlador);
+            }
+        } else {
+            vista.appendColor("\nLa partida no puede comenzar, ya que faltan jugadores en la partida\n", ColorRGB.RED);
+            return new FlujoMenuPrincipal(vista, controlador);
+        }
+    }
+
+    private Flujo iniciarPartidaCuatro() {
+        if (controlador.getCantidadJugadores() >= 4) {
+            controlador.iniciarPartida();
+            if (controlador.isJugadorTurno()) {
+                return new FlujoTomarFicha(vista, controlador);
+            } else {
+                return new FlujoVacio(vista, controlador);
+            }
+        } else {
+            vista.appendColor("\nLa partida no puede comenzar, ya que faltan jugadores en la partida\n", ColorRGB.RED);
+            return new FlujoMenuPrincipal(vista, controlador);
+        }
+    }
+
+    private void cargarPartida() {
+        if (controlador.cargarPartida()) {
+            vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+            vista.appendColor("No hay partida guardada para cargar", ColorRGB.RED);
+        }
     }
 
     private void mostrarJugadores() {
@@ -29,13 +71,10 @@ public class FlujoMenuPrincipal extends Flujo {
         vista.appendColor(controlador.mostrarJugadores(), ColorRGB.RED);
     }
 
-    private Flujo iniciarPartida() {
-        controlador.iniciarPartida();
-        if (controlador.isJugadorTurno()) {
-            return new FlujoTomarFicha(vista, controlador);
-        } else {
-            return new FlujoVacio(vista, controlador);
-        }
+    private void mostrarTop() {
+        vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
+        vista.appendColor(" Mejores Jugadores:\n", ColorRGB.CYAN);
+        vista.appendColor(controlador.deserializar(), ColorRGB.ORANGE);
     }
 
     @Override
@@ -45,9 +84,11 @@ public class FlujoMenuPrincipal extends Flujo {
         vista.appendColor(" |                                   BURAKO                                   |\n", ColorRGB.CYAN);
         vista.appendColor("  ============================================================================\n", ColorRGB.CYAN);
         vista.appendColor("\n", ColorRGB.CYAN);
-        vista.appendColor("  1   Iniciar partida\n", ColorRGB.CYAN);
-        vista.appendColor("  2   Mostrar jugadores\n", ColorRGB.CYAN);
-        vista.appendColor("  3   Mostrar puntos\n", ColorRGB.CYAN);
+        vista.appendColor("  1   Iniciar partida 2 jugadores\n", ColorRGB.CYAN);
+        vista.appendColor("  2   Iniciar partida 4 jugadores\n", ColorRGB.CYAN);
+        vista.appendColor("  3   Cargar partida\n", ColorRGB.CYAN);
+        vista.appendColor("  4   Mostrar jugadores\n", ColorRGB.CYAN);
+        vista.appendColor("  5   Mostrar puntos\n", ColorRGB.CYAN);
         vista.appendColor("\n", ColorRGB.CYAN);
         vista.appendColor("  0   Salir\n", ColorRGB.CYAN);
         vista.appendColor("\n", ColorRGB.CYAN);

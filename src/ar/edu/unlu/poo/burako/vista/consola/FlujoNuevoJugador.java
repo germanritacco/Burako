@@ -13,7 +13,8 @@ public class FlujoNuevoJugador extends Flujo {
 
     @Override
     public Flujo procesarEntrada(String string) {
-        controlador.nuevoJugador(string);
+        controlador.nuevoJugador(string.toUpperCase());
+        controlador.deserializar();
         return new FlujoMenuPrincipal(vista, controlador);
     }
 

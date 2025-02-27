@@ -47,6 +47,7 @@ public class FlujoJugada extends Flujo {
 
     @Override
     public void mostrarSiguienteTexto() {
+
         vista.mostrarAtril(controlador.mostrarAtril());
         vista.mostrarJuegosMesa(controlador.mostrarJuegosEnMesa());
         vista.appendColor("\n ------------------------------------------------------------------------------\n", ColorRGB.CYAN);

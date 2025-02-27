@@ -22,7 +22,7 @@ public class FlujoEsperarTurno extends Flujo {
         vista.appendColor("\n", ColorRGB.CYAN);
         vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
         vista.mostrarTurno(controlador.nombreJugadorTurno());
-        vista.appendColor("\n                               ¡AGUARDE SU TURNO!", ColorRGB.RED);
+        vista.appendColor("\n                               ¡AGUARDE SU TURNO!\n", ColorRGB.RED);
     }
 
 }
