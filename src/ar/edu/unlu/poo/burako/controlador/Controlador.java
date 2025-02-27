@@ -61,47 +61,48 @@ public class Controlador implements IControladorRemoto {
                     ArrayList<IFicha> atril = this.modelo.getFichas(jugador.getId());
                     ArrayList<IFicha> pozo = this.modelo.mostrarPozo();
                     this.vista.iniciarPartida(atril, pozo);
+                    vista.mostrarJuegosMesa(this.modelo.mostrarJuegosEnMesa(jugador.getId(), false));
                 }
                 case CAMBIO_TURNO -> {
                     vista.mostrarPozo(this.modelo.mostrarPozo());
                     vista.mostrarAtril(mostrarAtril());
-                    String jugadorActual = this.modelo.mostrarTurno(jugador.getId());
+                    String jugadorActual = this.modelo.nombreJugadorTurno();
                     vista.mostrarTurno(jugadorActual);
                     if (!isJugadorTurno()) {
-                        //vista.mostrarAtril(mostrarAtril());
                         vista.disableComponents();
                     }
-                    //this.modelo.cambiarTurno(jugador.getId());
                     // Siguiente jugador
                     if (isJugadorTurno()) {
-                        // vista.mostrarPozo(this.modelo.mostrarPozo());
-                        //vista.mostrarAtril(mostrarAtril());
                         vista.enableComponents(true);
                     }
                 }
                 case PUNTAJE -> {
-                    //vista.mostrarPuntos(this.modelo.mostrarPuntos());
                     vista.mostrarPuntos(this.modelo.mostrarPuntosParciales(jugador.getId()));
-                    int cantidadJugadores = this.modelo.cantidadJugadores();
+                    int cantidadJugadores = this.modelo.getCantidadJugadores();
                     int oponente = (jugador.getId() + 1) % cantidadJugadores;
                     vista.mostrarPuntosOponente(this.modelo.mostrarPuntosParciales(oponente));
                 }
                 case CAMBIO_JUGADAS_OPONENTE -> {
                     if (!isJugadorTurno()) {
-                        int cantidadJugadores = this.modelo.cantidadJugadores();
+                        int cantidadJugadores = this.modelo.getCantidadJugadores();
                         int oponente = (jugador.getId() + 1) % cantidadJugadores;
-                        vista.mostrarJuegosMesaOponente(this.modelo.mostrarJuegosMesa(oponente));
+                        vista.mostrarJuegosMesaOponente(this.modelo.mostrarJuegosEnMesa(oponente, false));
+                        if (this.modelo.getIdCompaniero(jugador.getId()).equals(this.modelo.idJugadorActual())) {
+                            vista.mostrarJuegosMesa(this.modelo.mostrarJuegosEnMesa(jugador.getId(), false));
+                        }
                     }
                 }
                 case CANTIDAD_FICHAS_ATRIL -> {
-                    if (!isJugadorTurno()) {
-                        int cantidadJugadores = this.modelo.cantidadJugadores();
-                        int oponente = (jugador.getId() + 1) % cantidadJugadores;
-                        vista.mostrarCantidadFichasAtril(this.modelo.cantidadFichasAtril(oponente));
-                    }
+                    vista.mostrarCantidadFichasAtril();
                 }
                 case CANTIDAD_FICHAS_MAZO -> {
                     vista.mostrarCantidadFichasMazo(this.modelo.cantidadFichasMazo());
+                }
+                case CAMBIO_FICHAS_POZO -> {
+                    vista.mostrarPozo(this.modelo.mostrarPozo());
+                }
+                case TOMAR_MUERTO -> {
+                    vista.tomarMuerto();
                 }
             }
         }
@@ -112,7 +113,7 @@ public class Controlador implements IControladorRemoto {
             if (jugador != null) {
                 this.modelo.cerrar(this, jugador.getId());
             }
-            System.exit(0);
+            //  System.exit(0);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -144,7 +145,7 @@ public class Controlador implements IControladorRemoto {
 
     public Integer cantidadFichasAtril() {
         try {
-            return modelo.cantidadFichasAtril(jugador.getId());
+            return modelo.cantidadFichasAtril(jugador.getId(), 0);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -257,7 +258,7 @@ public class Controlador implements IControladorRemoto {
 
     public ArrayList<ArrayList<IFicha>> mostrarJuegosEnMesa() {
         try {
-            return modelo.mostrarJuegosEnMesa(jugador.getId());
+            return modelo.mostrarJuegosEnMesa(jugador.getId(), true);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -271,9 +272,9 @@ public class Controlador implements IControladorRemoto {
         }
     }
 
-    public boolean tomoMuerto() {
+    public boolean isMuertoTomado() {
         try {
-            return modelo.tomoMuerto(jugador.getId());
+            return modelo.isMuertoTomado(jugador.getId());
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -307,11 +308,61 @@ public class Controlador implements IControladorRemoto {
         return jugador.getNombre();
     }
 
-    public String getOponente() {
+    public String getOponente(int desplazamiento) {
         try {
-            return modelo.getJugadorOponente(jugador.getId());
+            return modelo.getJugadorOponente(jugador.getId(), desplazamiento);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public String deserializar() {
+        try {
+            return modelo.deserializarPuntos();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String getPuntos() {
+        try {
+            return modelo.mostrarPuntos();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Integer getCantidadJugadores() {
+        try {
+            return modelo.getCantidadJugadores();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Integer getCantidadFichasAtril(int desplazamiento) {
+        try {
+            int jugadorId = jugador.getId();
+            return modelo.cantidadFichasAtril(jugadorId, desplazamiento);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void guardarPartida() {
+        try {
+            modelo.serializarPartida();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean cargarPartida() {
+        try {
+            return modelo.deserializarPartida();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
