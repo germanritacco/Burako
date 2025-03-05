@@ -697,12 +697,8 @@ public class VistaGrafica implements IVista, Serializable {
         lblSouth.setText(" " + controlador.getJugador().toUpperCase() + " ");
         lblJugadorNorth.setForeground(ColorRGB.RED);
         lblJugadorNorth.setText(controlador.getOponente(0).toUpperCase());
-        // TODO Implementar cambio de ubicacion de jugadores, arriba el compañero
-        // TODO para 4 jugadores
         lblJugadorEast.setForeground(ColorRGB.CYAN);
-
         lblJugadorWest.setForeground(ColorRGB.RED);
-
         mostrarAtril(atril); // Muestra las fichas del atril
         // Ajusta los paneles de Pila de Muertos, Mazo y Pozo
         setLypPilaMuertos();
@@ -1117,7 +1113,6 @@ public class VistaGrafica implements IVista, Serializable {
                 if (controlador.isCanasta() && controlador.isMuertoTomado() && controlador.atrilVacio()) {
                     controlador.finalizarPartida();
                     mostrarPopUp(controlador.getPuntos(), ColorRGB.RED, pnlCardPartida);
-                    // TODO partida terminada REVISAR
                 }
             } else {
                 mostrarPopUp("Debes recoger una ficha del mazo o tomar el pozo antes de descartar una ficha en el pozo", ColorRGB.RED, pnlCardPartida);
@@ -1151,7 +1146,6 @@ public class VistaGrafica implements IVista, Serializable {
         layeredPane.repaint();
     }
 
-    // TODO acomodar
     public void mostrarCantidadFichasAtril() {
         lblFichasAtrilNorth.setText(String.valueOf(controlador.getCantidadFichasAtril(1)));
         lblFichasAtrilNorth.revalidate();

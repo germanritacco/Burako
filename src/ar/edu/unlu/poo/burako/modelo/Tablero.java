@@ -310,7 +310,6 @@ public class Tablero implements ITablero, Serializable {
             }
         }
         return estado;
-        // TODO si no es jugada valida informar por pantalla, si no parece que se trabo todo
     }
 
 
