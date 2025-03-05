@@ -59,7 +59,7 @@ public class FlujoMenuPrincipal extends Flujo {
     }
 
     private void cargarPartida() {
-        if (controlador.cargarPartida()) {
+        if (!controlador.cargarPartida()) {
             vista.appendColor(" ------------------------------------------------------------------------------\n", ColorRGB.CYAN);
             vista.appendColor("No hay partida guardada para cargar", ColorRGB.RED);
         }

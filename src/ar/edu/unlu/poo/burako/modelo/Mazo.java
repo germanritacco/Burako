@@ -115,16 +115,15 @@ public class Mazo implements Serializable {
      */
     public ArrayList<Ficha> repartirAtril(ArrayList<Ficha> fichasSinRepartir) {
         ArrayList<Ficha> fichasAtrilAux = new ArrayList<>();
-        //TODO BORRAR
-        fichasAtrilAux.add(new FichaComodin());
-        fichasAtrilAux.add(new FichaEstandar(ColorFicha.NEGRO, 2));
-        fichasAtrilAux.add(new FichaEstandar(ColorFicha.NEGRO, 2));
-        fichasAtrilAux.add(new FichaEstandar(ColorFicha.NEGRO, 2));
-        fichasAtrilAux.add(new FichaEstandar(ColorFicha.NEGRO, 2));
-        /*for (int j = 1; j <= 11; j++) {
+        // TODO BORRAR
+        /*fichasAtrilAux.add(new FichaComodin());
+        for (int j = 1; j <= 4; j++) {
+            fichasAtrilAux.add(new FichaEstandar(ColorFicha.NEGRO, 2));
+        }*/
+        for (int j = 1; j <= 11; j++) {
             Ficha fichaAux = fichasSinRepartir.remove((int) (random() * fichasSinRepartir.size()));
             fichasAtrilAux.add(fichaAux);
-        }*/
+        }
         return fichasAtrilAux;
     }
 

@@ -461,10 +461,8 @@ public class Burako extends ObservableRemoto implements IBurako {
         IJugador jugador = jugadores.get(jugadorId);
         int incremento = 0;
         Arrays.sort(seleccion);
-        System.out.println("incremento: " + incremento);
         for (String numero : seleccion) {
             int posicion = Integer.parseInt(numero) - incremento;
-            System.out.println("posicion :" + posicion);
             jugador.removeFichaAtril(posicion - 1);
             incremento++;
         }
@@ -762,8 +760,6 @@ public class Burako extends ObservableRemoto implements IBurako {
 
     /**
      * Verífica quien fue el jugador/pareja ganador/a en la partida
-     *
-     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     public void ganador() {
         Tablero tableroGanador;
@@ -782,7 +778,6 @@ public class Burako extends ObservableRemoto implements IBurako {
      * Actualiza el top de mejores jugadores.
      *
      * @param puntosGanador Nombre y puntaje del ganador de la partida.
-     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     public void actualizarTopPuntos(PuntosGuardados puntosGanador) {
         if (topPuntos.size() < 5) {
@@ -801,8 +796,6 @@ public class Burako extends ObservableRemoto implements IBurako {
 
     /**
      * Persiste el disco el top de jugadores.
-     *
-     * @throws RemoteException Se lanza si ocurre un error de red.
      */
     public void serializarPuntos() {
         Serializador serializador = new Serializador("puntos.bin");

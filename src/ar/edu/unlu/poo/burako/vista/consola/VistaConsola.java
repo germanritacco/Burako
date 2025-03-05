@@ -180,6 +180,7 @@ public class VistaConsola implements IVista {
     @Override
     public void abandonarPartida(String nombre) {
         if (!controlador.isJugadorTurno()) {
+            controlador.guardarPartida();
             flujoActual = new FlujoAbandonarPartida(this, controlador, nombre);
             flujoActual.mostrarSiguienteTexto();
         }
