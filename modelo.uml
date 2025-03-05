@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>ar.edu.unlu.poo.burako.modelo</OriginalElement>
+  <nodes>
+    <node x="428.5" y="1547.0">ar.edu.unlu.poo.burako.modelo.PartidaGuardada</node>
+    <node x="666.0" y="3736.0">ar.edu.unlu.poo.burako.modelo.Pila</node>
+    <node x="1118.5" y="-233.5">ar.edu.unlu.poo.burako.modelo.Burako</node>
+    <node x="474.0" y="3559.5">ar.edu.unlu.poo.burako.modelo.FichaEstandar</node>
+    <node x="424.5" y="3978.5">ar.edu.unlu.poo.burako.modelo.Ficha</node>
+    <node x="632.0" y="3271.0">ar.edu.unlu.poo.burako.modelo.PilaDeMuerto</node>
+    <node x="1398.5" y="1237.5">ar.edu.unlu.poo.burako.modelo.IBurako</node>
+    <node x="1472.0" y="3168.0">ar.edu.unlu.poo.burako.modelo.ITablero</node>
+    <node x="1623.0" y="261.0">ar.edu.unlu.poo.burako.modelo.Eventos</node>
+    <node x="377.5" y="4337.0">ar.edu.unlu.poo.burako.modelo.IFicha</node>
+    <node x="1026.0" y="3099.0">ar.edu.unlu.poo.burako.modelo.IJugador</node>
+    <node x="521.0" y="4513.0">ar.edu.unlu.poo.burako.modelo.ColorFicha</node>
+    <node x="436.5" y="2435.5">ar.edu.unlu.poo.burako.modelo.Mazo</node>
+    <node x="886.0" y="3571.0">ar.edu.unlu.poo.burako.modelo.PilaEstandar</node>
+    <node x="1472.0" y="2240.0">ar.edu.unlu.poo.burako.modelo.Tablero</node>
+    <node x="866.0" y="2274.5">ar.edu.unlu.poo.burako.modelo.Jugador</node>
+    <node x="957.5" y="1604.5">ar.edu.unlu.poo.burako.modelo.PuntosGuardados</node>
+    <node x="365.0" y="3271.0">ar.edu.unlu.poo.burako.modelo.FichaComodin</node>
+    <node x="1142.0" y="2504.5">ar.edu.unlu.poo.burako.modelo.Pozo</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ar.edu.unlu.poo.burako.modelo.PartidaGuardada" target="ar.edu.unlu.poo.burako.modelo.Tablero" relationship="TO_ONE">
+      <point x="0.0" y="143.0" />
+      <point x="647.0" y="1890.0" />
+      <point x="847.0" y="1890.0" />
+      <point x="847.0" y="2210.0" />
+      <point x="927.0" y="2210.0" />
+      <point x="927.0" y="2230.0" />
+      <point x="1447.0" y="2230.0" />
+      <point x="1447.0" y="2970.0" />
+      <point x="1569.5" y="2970.0" />
+      <point x="-97.5" y="350.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Ficha" target="ar.edu.unlu.poo.burako.modelo.IFicha" relationship="REALIZATION">
+      <point x="-61.25" y="131.5" />
+      <point x="485.75" y="4270.0" />
+      <point x="487.0" y="4270.0" />
+      <point x="0.0" y="-73.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.PartidaGuardada" relationship="TO_ONE">
+      <point x="-152.33333333333331" y="683.5" />
+      <point x="1194.6666666666667" y="1170.0" />
+      <point x="407.0" y="1170.0" />
+      <point x="407.0" y="1870.0" />
+      <point x="647.0" y="1870.0" />
+      <point x="0.0" y="143.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.PuntosGuardados" relationship="TO_MANY">
+      <point x="-152.33333333333331" y="683.5" />
+      <point x="1194.6666666666667" y="1170.0" />
+      <point x="407.0" y="1170.0" />
+      <point x="407.0" y="1490.0" />
+      <point x="1022.25" y="1490.0" />
+      <point x="-64.75" y="-85.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Tablero" target="ar.edu.unlu.poo.burako.modelo.ITablero" relationship="REALIZATION">
+      <point x="97.5" y="350.0" />
+      <point x="1764.5" y="2970.0" />
+      <point x="1667.0" y="2970.0" />
+      <point x="0.0" y="-142.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Jugador" target="ar.edu.unlu.poo.burako.modelo.Ficha" relationship="TO_MANY">
+      <point x="60.5" y="315.5" />
+      <point x="1047.5" y="3030.0" />
+      <point x="1287.0" y="3030.0" />
+      <point x="1287.0" y="4270.0" />
+      <point x="608.25" y="4270.0" />
+      <point x="61.25" y="131.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.PilaEstandar" target="ar.edu.unlu.poo.burako.modelo.Pila" relationship="GENERALIZATION">
+      <point x="0.0" y="39.0" />
+      <point x="967.0" y="3670.0" />
+      <point x="767.0" y="3670.0" />
+      <point x="0.0" y="-74.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.IBurako" relationship="REALIZATION">
+      <point x="152.33333333333331" y="683.5" />
+      <point x="1499.3333333333333" y="1170.0" />
+      <point x="1627.0" y="1170.0" />
+      <point x="0.0" y="-452.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.PartidaGuardada" target="ar.edu.unlu.poo.burako.modelo.Pozo" relationship="TO_ONE">
+      <point x="0.0" y="143.0" />
+      <point x="647.0" y="1890.0" />
+      <point x="847.0" y="1890.0" />
+      <point x="847.0" y="2230.0" />
+      <point x="887.0" y="2230.0" />
+      <point x="887.0" y="2250.0" />
+      <point x="1127.0" y="2250.0" />
+      <point x="1127.0" y="2710.0" />
+      <point x="1267.0" y="2710.0" />
+      <point x="0.0" y="85.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Mazo" target="ar.edu.unlu.poo.burako.modelo.FichaComodin" relationship="CREATE">
+      <point x="-85.25" y="154.5" />
+      <point x="521.75" y="2770.0" />
+      <point x="607.0" y="2770.0" />
+      <point x="607.0" y="3250.0" />
+      <point x="447.0" y="3250.0" />
+      <point x="0.0" y="-39.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.Pozo" relationship="CREATE">
+      <point x="0.0" y="683.5" />
+      <point x="1347.0" y="1510.0" />
+      <point x="1287.0" y="1510.0" />
+      <point x="1287.0" y="1710.0" />
+      <point x="1267.0" y="1710.0" />
+      <point x="0.0" y="-85.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Mazo" target="ar.edu.unlu.poo.burako.modelo.PilaDeMuerto" relationship="TO_MANY">
+      <point x="85.25" y="154.5" />
+      <point x="692.25" y="2770.0" />
+      <point x="767.0" y="2770.0" />
+      <point x="767.0" y="3070.0" />
+      <point x="834.5" y="3070.0" />
+      <point x="67.5" y="-39.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.PartidaGuardada" target="ar.edu.unlu.poo.burako.modelo.Mazo" relationship="TO_ONE">
+      <point x="0.0" y="143.0" />
+      <point x="647.0" y="1890.0" />
+      <point x="847.0" y="1890.0" />
+      <point x="847.0" y="2190.0" />
+      <point x="347.0" y="2190.0" />
+      <point x="347.0" y="2790.0" />
+      <point x="692.25" y="2790.0" />
+      <point x="85.25" y="154.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.Mazo" relationship="CREATE">
+      <point x="0.0" y="683.5" />
+      <point x="1347.0" y="1510.0" />
+      <point x="1327.0" y="1510.0" />
+      <point x="1327.0" y="2190.0" />
+      <point x="1407.0" y="2190.0" />
+      <point x="1407.0" y="2930.0" />
+      <point x="521.75" y="2930.0" />
+      <point x="-85.25" y="154.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.Tablero" relationship="CREATE">
+      <point x="0.0" y="683.5" />
+      <point x="1347.0" y="1510.0" />
+      <point x="1367.0" y="1510.0" />
+      <point x="1367.0" y="2170.0" />
+      <point x="1667.0" y="2170.0" />
+      <point x="0.0" y="-350.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.PuntosGuardados" relationship="CREATE">
+      <point x="0.0" y="683.5" />
+      <point x="1347.0" y="1510.0" />
+      <point x="1151.75" y="1510.0" />
+      <point x="64.75" y="-85.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.PartidaGuardada" target="ar.edu.unlu.poo.burako.modelo.IJugador" relationship="TO_MANY">
+      <point x="0.0" y="143.0" />
+      <point x="647.0" y="1890.0" />
+      <point x="847.0" y="1890.0" />
+      <point x="847.0" y="2990.0" />
+      <point x="1047.0" y="2990.0" />
+      <point x="1047.0" y="3070.0" />
+      <point x="1086.5" y="3070.0" />
+      <point x="-60.5" y="-211.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Jugador" target="ar.edu.unlu.poo.burako.modelo.IJugador" relationship="REALIZATION">
+      <point x="-60.5" y="315.5" />
+      <point x="926.5" y="3050.0" />
+      <point x="1207.5" y="3050.0" />
+      <point x="60.5" y="-211.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.FichaEstandar" target="ar.edu.unlu.poo.burako.modelo.Ficha" relationship="GENERALIZATION">
+      <point x="0.0" y="50.5" />
+      <point x="607.0" y="3830.0" />
+      <point x="547.0" y="3830.0" />
+      <point x="0.0" y="-131.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.FichaComodin" target="ar.edu.unlu.poo.burako.modelo.Ficha" relationship="GENERALIZATION">
+      <point x="0.0" y="39.0" />
+      <point x="447.0" y="3690.0" />
+      <point x="547.0" y="3690.0" />
+      <point x="0.0" y="-131.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.PilaDeMuerto" target="ar.edu.unlu.poo.burako.modelo.Pila" relationship="GENERALIZATION">
+      <point x="0.0" y="39.0" />
+      <point x="0.0" y="-74.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.Mazo" relationship="TO_ONE">
+      <point x="-152.33333333333331" y="683.5" />
+      <point x="1194.6666666666667" y="1170.0" />
+      <point x="407.0" y="1170.0" />
+      <point x="407.0" y="1490.0" />
+      <point x="327.0" y="1490.0" />
+      <point x="327.0" y="2570.0" />
+      <point x="347.0" y="2570.0" />
+      <point x="347.0" y="2790.0" />
+      <point x="692.25" y="2790.0" />
+      <point x="85.25" y="154.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Mazo" target="ar.edu.unlu.poo.burako.modelo.PilaEstandar" relationship="TO_ONE">
+      <point x="85.25" y="154.5" />
+      <point x="692.25" y="2770.0" />
+      <point x="767.0" y="2770.0" />
+      <point x="767.0" y="3070.0" />
+      <point x="1007.5" y="3070.0" />
+      <point x="40.5" y="-39.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.Tablero" relationship="TO_ONE">
+      <point x="-152.33333333333331" y="683.5" />
+      <point x="1194.6666666666667" y="1170.0" />
+      <point x="407.0" y="1170.0" />
+      <point x="407.0" y="1490.0" />
+      <point x="927.0" y="1490.0" />
+      <point x="927.0" y="2230.0" />
+      <point x="1447.0" y="2230.0" />
+      <point x="1447.0" y="2970.0" />
+      <point x="1569.5" y="2970.0" />
+      <point x="-97.5" y="350.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Pila" target="ar.edu.unlu.poo.burako.modelo.Ficha" relationship="TO_MANY">
+      <point x="0.0" y="74.0" />
+      <point x="767.0" y="3910.0" />
+      <point x="1287.0" y="3910.0" />
+      <point x="1287.0" y="4270.0" />
+      <point x="608.25" y="4270.0" />
+      <point x="61.25" y="131.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Tablero" target="ar.edu.unlu.poo.burako.modelo.IJugador" relationship="TO_MANY">
+      <point x="-97.5" y="350.0" />
+      <point x="1569.5" y="2990.0" />
+      <point x="1047.0" y="2990.0" />
+      <point x="1047.0" y="3070.0" />
+      <point x="1086.5" y="3070.0" />
+      <point x="-60.5" y="-211.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.IJugador" relationship="TO_MANY">
+      <point x="-152.33333333333331" y="683.5" />
+      <point x="1194.6666666666667" y="1170.0" />
+      <point x="407.0" y="1170.0" />
+      <point x="407.0" y="1490.0" />
+      <point x="367.0" y="1490.0" />
+      <point x="367.0" y="1910.0" />
+      <point x="807.0" y="1910.0" />
+      <point x="807.0" y="2990.0" />
+      <point x="1047.0" y="2990.0" />
+      <point x="1047.0" y="3070.0" />
+      <point x="1086.5" y="3070.0" />
+      <point x="-60.5" y="-211.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Mazo" target="ar.edu.unlu.poo.burako.modelo.PilaDeMuerto" relationship="CREATE">
+      <point x="-85.25" y="154.5" />
+      <point x="521.75" y="2770.0" />
+      <point x="607.0" y="2770.0" />
+      <point x="607.0" y="3250.0" />
+      <point x="699.5" y="3250.0" />
+      <point x="-67.5" y="-39.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.Pozo" relationship="TO_ONE">
+      <point x="-152.33333333333331" y="683.5" />
+      <point x="1194.6666666666667" y="1170.0" />
+      <point x="407.0" y="1170.0" />
+      <point x="407.0" y="1490.0" />
+      <point x="887.0" y="1490.0" />
+      <point x="887.0" y="2250.0" />
+      <point x="1127.0" y="2250.0" />
+      <point x="1127.0" y="2710.0" />
+      <point x="1267.0" y="2710.0" />
+      <point x="0.0" y="85.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Pozo" target="ar.edu.unlu.poo.burako.modelo.Ficha" relationship="TO_MANY">
+      <point x="0.0" y="85.5" />
+      <point x="1267.0" y="3010.0" />
+      <point x="1327.0" y="3010.0" />
+      <point x="1327.0" y="3910.0" />
+      <point x="1287.0" y="3910.0" />
+      <point x="1287.0" y="4270.0" />
+      <point x="608.25" y="4270.0" />
+      <point x="61.25" y="131.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Mazo" target="ar.edu.unlu.poo.burako.modelo.PilaEstandar" relationship="CREATE">
+      <point x="-85.25" y="154.5" />
+      <point x="521.75" y="2770.0" />
+      <point x="607.0" y="2770.0" />
+      <point x="607.0" y="3250.0" />
+      <point x="926.5" y="3250.0" />
+      <point x="-40.5" y="-39.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Ficha" target="ar.edu.unlu.poo.burako.modelo.ColorFicha" relationship="TO_ONE">
+      <point x="61.25" y="131.5" />
+      <point x="608.25" y="4290.0" />
+      <point x="627.0" y="4290.0" />
+      <point x="0.0" y="-97.0" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.Jugador" relationship="CREATE">
+      <point x="0.0" y="683.5" />
+      <point x="1347.0" y="1510.0" />
+      <point x="1247.0" y="1510.0" />
+      <point x="1247.0" y="1790.0" />
+      <point x="987.0" y="1790.0" />
+      <point x="0.0" y="-315.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Mazo" target="ar.edu.unlu.poo.burako.modelo.FichaEstandar" relationship="CREATE">
+      <point x="-85.25" y="154.5" />
+      <point x="521.75" y="2770.0" />
+      <point x="607.0" y="2770.0" />
+      <point x="0.0" y="-50.5" />
+    </edge>
+    <edge source="ar.edu.unlu.poo.burako.modelo.Burako" target="ar.edu.unlu.poo.burako.modelo.PartidaGuardada" relationship="CREATE">
+      <point x="0.0" y="683.5" />
+      <point x="1347.0" y="1510.0" />
+      <point x="647.0" y="1510.0" />
+      <point x="0.0" y="-143.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.1469461802056037" showDependencies="true" x="1109.0" y="2246.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
